@@ -9,18 +9,7 @@
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
 
-if not request.env.web2py_runtime_gae:
-    ## if NOT running on Google App Engine use SQLite or other DB
-    db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
-else:
-    ## connect to Google BigTable (optional 'google:datastore://namespace')
-    db = DAL('google:datastore')
-    ## store sessions and tickets there
-    session.connect(request, response, db=db)
-    ## or store session in Memcache, Redis, etc.
-    ## from gluon.contrib.memdb import MEMDB
-    ## from google.appengine.api.memcache import Client
-    ## session.connect(request, response, db = MEMDB(Client()))
+db = DAL('mysql://root:abc123@localhost/Plugz',pool_size=1,check_reserved=['all'])
 
 ## by default give a view/generic.extension to all actions from localhost
 ## none otherwise. a pattern can be 'controller/function.extension'
@@ -62,6 +51,8 @@ auth.settings.reset_password_requires_verification = True
 from gluon.contrib.login_methods.rpx_account import use_janrain
 use_janrain(auth, filename='private/janrain.key')
 
+## Test Message
+
 #########################################################################
 ## Define your tables below (or better in another model file) for example
 ##
@@ -71,6 +62,106 @@ use_janrain(auth, filename='private/janrain.key')
 ##       'date','time','datetime','blob','upload', 'reference TABLENAME'
 ## There is an implicit 'id integer autoincrement' field
 ## Consult manual for more options, validators, etc.
+
+db.define_table('Profile',
+    Field('MasterProfileId', 'reference Profile'),
+    Field('UserName', 'string'),
+    Field('FirstName', 'string'),
+    Field('MiddleName', 'string'),
+    Field('LastName', 'string'),
+    Field('DateOfBirth', 'date'),
+    Field('PrimaryAddressLine1', 'string'),
+    Field('PrimaryAddressLine2', 'string'),
+    Field('PrimaryCity', 'string'),                
+    Field('PrimaryState', 'string'),                
+    Field('PrimaryCountry', 'string'),
+    Field('PrimaryZip', 'string'),
+    Field('EmailAddress1', 'string'),
+    Field('SecondaryAddressLine1', 'string'),
+    Field('SecondaryAddressLine2', 'string'),
+    Field('SecondaryCity', 'string'),                
+    Field('SecondaryState', 'string'),                
+    Field('SecondaryCountry', 'string'),
+    Field('SecondaryZip', 'string'),
+    Field('EmailAddress2', 'string'),
+    Field('Phone1', 'string'),
+    Field('Phone2', 'string')
+    )
+
+db.define_table('UserSession',
+    Field('ProfileId', 'reference Profile'),
+    Field('ConnectTime', 'datetime'),
+    Field('DisconnectTime', 'datetime'),
+    Field('IP', 'string')                
+    )
+
+db.define_table('DeviceType',
+    Field('Name', 'string'),
+    Field('Description', 'string'),
+    Field('OutputValues', 'string'),
+    Field('DeviceVersion', 'integer')
+    )
+
+db.define_table('Device',
+    Field('DeviceType', 'reference DeviceType'),
+    Field('ProfileId', 'reference Profile'),
+    Field('GroupName','string'),
+    Field('HubId', 'reference Device'),
+    Field('SerialNo', 'string'),
+    Field('Name', 'string'),
+    Field('Icon', 'string'),
+    Field('RegisteredDate', 'datetime')
+    )
+
+db.define_table('HubSession',
+    Field('DeviceId', 'reference Device'),
+    Field('ConnectTime', 'datetime'),
+    Field('DisconnectTime', 'datetime'),
+    Field('IP', 'string')
+    )
+
+db.define_table('SensorData',
+    Field('DeviceId', 'reference Device'),
+    Field('HubSession', 'integer'),
+    Field('ActivityDate', 'datetime'),
+    Field('SensorValue', 'integer')
+    )
+
+#Values Temp, Time, Date, Day
+db.define_table('Conditions',
+    Field('ConditionName', 'string'),
+    Field('ConditionType', 'string')
+    )
+
+# ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
+db.define_table('RuleExpression',
+    Field('RuleExpression', 'reference RuleExpression'),
+    Field('ConditionId', 'reference Conditions'),
+    Field('Operatr', 'integer'),
+    Field('ConditionValue', 'string'),
+    Field('IsAndOperation', 'boolean')                
+    )
+
+# @DeviceId = @OutputValues(DeviceType)
+db.define_table('Actions',
+    Field('DeviceId', 'reference Device'),
+    Field('ActionResult', 'string'))
+
+#IF @CONDITION @OPERATOR @ConditionValue THEN @ACTION = @OutputValues(DeviceType)
+db.define_table('Rules',
+    Field('ProfileId', 'reference Profile'),
+    Field('ExpressionId', 'reference RuleExpression'),
+    Field('ActionId', 'reference Actions'),
+    Field('isFavorites', 'boolean'),
+    Field('isActive', 'boolean'))
+
+
+db.define_table('UserActivity',
+    Field('SessionId', 'reference UserSession'),
+    Field('RuleExecuted', 'reference Rules'),
+    Field('ActivityDate', 'datetime'))
+
+
 ##
 ## More API examples for controllers:
 ##
@@ -81,3 +172,4 @@ use_janrain(auth, filename='private/janrain.key')
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
+
