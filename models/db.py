@@ -98,7 +98,6 @@ db.define_table('UserSession',
 db.define_table('DeviceType',
     Field('Name', 'string'),
     Field('Description', 'string'),
-    Field('OutputValues', 'string'),
     Field('DeviceVersion', 'integer')
     )
 
@@ -120,9 +119,8 @@ db.define_table('HubSession',
     Field('IP', 'string')
     )
 
-db.define_table('SensorData',
+db.define_table('DeviceData',
     Field('DeviceId', 'reference Device'),
-    Field('HubSession', 'integer'),
     Field('ActivityDate', 'datetime'),
     Field('SensorValue', 'integer')
     )
