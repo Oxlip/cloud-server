@@ -63,8 +63,8 @@ use_janrain(auth, filename='private/janrain.key')
 ## There is an implicit 'id integer autoincrement' field
 ## Consult manual for more options, validators, etc.
 
+# User information - A single family can have multiple profiles. 
 db.define_table('Profile',
-    Field('MasterProfileId', 'reference Profile'),
     Field('UserName', 'string'),
     Field('FirstName', 'string'),
     Field('MiddleName', 'string'),
@@ -85,22 +85,28 @@ db.define_table('Profile',
     Field('SecondaryZip', 'string'),
     Field('EmailAddress2', 'string'),
     Field('Phone1', 'string'),
-    Field('Phone2', 'string')
+    Field('Phone2', 'string'),
+    Field('MasterProfileId', 'reference Profile'),   # Master user of the family.
     )
 
 db.define_table('UserSession',
     Field('ProfileId', 'reference Profile'),
     Field('ConnectTime', 'datetime'),
     Field('DisconnectTime', 'datetime'),
-    Field('IP', 'string')                
+    Field('Identification', 'string')               # From which device(mobile/web) the user connected to the plugz website 
     )
 
+# Master table for storing information about our products.
+# ** Contains special pre filled data. **
 db.define_table('DeviceType',
-    Field('Name', 'string'),
+    Field('Name', 'string'),                        # Such as plugz-hub, plugz-switch
     Field('Description', 'string'),
     Field('DeviceVersion', 'integer')
     )
 
+# Contains information about a single device.
+# ** Special Data **
+#   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
 db.define_table('Device',
     Field('DeviceType', 'reference DeviceType'),
     Field('ProfileId', 'reference Profile'),
@@ -110,45 +116,39 @@ db.define_table('Device',
     Field('Name', 'string'),
     Field('Icon', 'string'),
     Field('RegisteredDate', 'datetime'),
-    Field('DefaultValue1', 'integer'),
-    Field('DefaultValue2', 'integer'),
-    Field('DefaultValue3', 'integer')
+    Field('DefaultValue', 'string')
     )
 
+# Contains logging information about hub connections for debugging.
 db.define_table('HubSession',
     Field('DeviceId', 'reference Device'),
     Field('ConnectTime', 'datetime'),
     Field('DisconnectTime', 'datetime'),
-    Field('IP', 'string')
+    Field('Identification', 'string')
     )
 
+# Contains value send by the device to Hub. Such as Temp, Motion, light.
 db.define_table('DeviceData',
     Field('DeviceId', 'reference Device'),
     Field('ActivityDate', 'datetime'),
-    Field('SensorValue', 'integer')
-    )
-
-#Values Temp, Time, Date, Day
-db.define_table('Conditions',
-    Field('ConditionName', 'string'),
-    Field('ConditionType', 'string')
+    Field('OutputValue', 'string')
     )
 
 # ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
-db.define_table('RuleExpression',
-    Field('RuleExpression', 'reference RuleExpression'),
-    Field('ConditionId', 'reference Conditions'),
-    Field('Operatr', 'integer'),
-    Field('ConditionValue', 'string'),
-    Field('IsAndOperation', 'boolean')                
+db.define_table('Conditions',
+    Field('DeviceId', 'reference Device'),              # Device Value
+    Field('Operatr', 'integer'),                        # ==, !=, >,  <
+    Field('ConditionValue', 'string'),                  # User specified value
+    Field('IsAndOperation', 'boolean'),                 # True if AND otherwise OR
+    Field('RuleExpression', 'reference Conditions'),    # Self reference
     )
 
 # Actions
 db.define_table('Action',
-    Field('Name', 'string'),                            # Name given by the user for this action
-    Field('DeviceId', 'reference Device'),
-    Field('Output', 'integer'),
-    Field('MasterActionId', 'reference Action')        # Self reference for linking multiple actions
+    Field('Name', 'string'),                            # Name given by the user for this action.
+    Field('DeviceId', 'reference Device'),              # On which device the action will be taken.
+    Field('Output', 'integer'),                         # What value should be sent to the device.
+    Field('MasterActionId', 'reference Action')         # Self reference for linking multiple actions/
     )
 
 # User's preference for actions
@@ -158,18 +158,19 @@ db.define_table('ActionPreference',
     Field('Order', 'integer')                           # User specified UI index.
     )
 
-#IF @CONDITION @OPERATOR @ConditionValue THEN @ACTION = @OutputValues(DeviceType)
+# Actual main Rule table
 db.define_table('Rules',
-    Field('ProfileId', 'reference Profile'),
-    Field('ExpressionId', 'reference RuleExpression'),
-    Field('ActionId', 'reference Action'),
-    Field('isActive', 'boolean'))
+    Field('ProfileId', 'reference Profile'),            # User Id
+    Field('ConditionId', 'reference Conditions'),       # First condition
+    Field('ActionId', 'reference Action'),              # What action to take
+    Field('isActive', 'boolean'))                       # Whether this rule is active or temporarily disabled by user.
 
 
+# Logs all user activity
 db.define_table('UserActivity',
-    Field('SessionId', 'reference UserSession'),
-    Field('RuleExecuted', 'reference Rules'),
-    Field('ActivityDate', 'datetime'))
+    Field('UserSessionId',  'reference UserSession'),   # From where user executed this (mobile or web...)
+    Field('ActionExecuted', 'reference Action'),        # The action executed by the user
+    Field('ActivityDate', 'datetime'))                  # date time when it is executed.
 
 
 ##
