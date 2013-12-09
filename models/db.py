@@ -140,10 +140,15 @@ db.define_table('RuleExpression',
     Field('IsAndOperation', 'boolean')                
     )
 
-# @DeviceId = @OutputValues(DeviceType)
+# Actions
 db.define_table('Actions',
+    Field('Name', 'string'),                        # Name given by the user for this action
     Field('DeviceId', 'reference Device'),
-    Field('ActionResult', 'string'))
+    Field('Value1', 'integer'),
+    Field('Value2', 'integer')
+    Field('Value3', 'integer'),
+    Field('MasterActionId', 'reference Actions')     # self reference for linking multiple actions
+    )
 
 #IF @CONDITION @OPERATOR @ConditionValue THEN @ACTION = @OutputValues(DeviceType)
 db.define_table('Rules',
