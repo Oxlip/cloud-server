@@ -144,16 +144,16 @@ db.define_table('RuleExpression',
     )
 
 # Actions
-db.define_table('Actions',
+db.define_table('Action',
     Field('Name', 'string'),                            # Name given by the user for this action
     Field('DeviceId', 'reference Device'),
     Field('Output', 'integer'),
-    Field('MasterActionId', 'reference Actions')        # Self reference for linking multiple actions
+    Field('MasterActionId', 'reference Action')        # Self reference for linking multiple actions
     )
 
 # User's preference for actions
 db.define_table('ActionPreference',
-    Field('ActionId', 'reference Actions'),
+    Field('ActionId', 'reference Action'),
     Field('ProfileId', 'reference Profile'),
     Field('Order', 'integer')                           # User specified UI index.
     )
@@ -162,7 +162,7 @@ db.define_table('ActionPreference',
 db.define_table('Rules',
     Field('ProfileId', 'reference Profile'),
     Field('ExpressionId', 'reference RuleExpression'),
-    Field('ActionId', 'reference Actions'),
+    Field('ActionId', 'reference Action'),
     Field('isActive', 'boolean'))
 
 
