@@ -109,7 +109,10 @@ db.define_table('Device',
     Field('SerialNo', 'string'),
     Field('Name', 'string'),
     Field('Icon', 'string'),
-    Field('RegisteredDate', 'datetime')
+    Field('RegisteredDate', 'datetime'),
+    Field('DefaultValue1', 'integer'),
+    Field('DefaultValue2', 'integer'),
+    Field('DefaultValue3', 'integer')
     )
 
 db.define_table('HubSession',
@@ -142,12 +145,17 @@ db.define_table('RuleExpression',
 
 # Actions
 db.define_table('Actions',
-    Field('Name', 'string'),                        # Name given by the user for this action
+    Field('Name', 'string'),                            # Name given by the user for this action
     Field('DeviceId', 'reference Device'),
-    Field('Value1', 'integer'),
-    Field('Value2', 'integer')
-    Field('Value3', 'integer'),
-    Field('MasterActionId', 'reference Actions')     # self reference for linking multiple actions
+    Field('Output', 'integer'),
+    Field('MasterActionId', 'reference Actions')        # Self reference for linking multiple actions
+    )
+
+# User's preference for actions
+db.define_table('ActionPreference',
+    Field('ActionId', 'reference Actions'),
+    Field('ProfileId', 'reference Profile'),
+    Field('Order', 'integer')                           # User specified UI index.
     )
 
 #IF @CONDITION @OPERATOR @ConditionValue THEN @ACTION = @OutputValues(DeviceType)
@@ -155,7 +163,6 @@ db.define_table('Rules',
     Field('ProfileId', 'reference Profile'),
     Field('ExpressionId', 'reference RuleExpression'),
     Field('ActionId', 'reference Actions'),
-    Field('isFavorites', 'boolean'),
     Field('isActive', 'boolean'))
 
 
