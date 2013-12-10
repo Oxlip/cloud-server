@@ -114,7 +114,8 @@ db.define_table('Device',
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
     Field('Name', 'string'),                            # Name given by the user for this device - MyBulb, Hall light..
     Field('RegisteredDate', 'datetime'),                # When the user registered this device
-    Field('DefaultValue', 'string')                     # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
+    Field('DefaultValue', 'string'),                    # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
+    Field('isDeleted', 'boolean')                       # Mark true if device is removed for user
     )
 
 # Contains logging information about hub connections for debugging.
