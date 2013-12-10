@@ -125,6 +125,9 @@ db.define_table('Device',
     Field('ProfileId', 'reference Profile'),            # User who owns this device
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
     Field('Name', 'string'),                            # Name given by the user for this device - MyBulb, Hall light..
+    Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
+    Field('ApplianceModel', 'string'),                  # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
+    Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
     Field('RegisteredDate', 'datetime'),                # When the user registered this device
     Field('DefaultValue', 'string'),                    # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
     Field('isDeleted', 'boolean')                       # Mark true if device is removed for user
