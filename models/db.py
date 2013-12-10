@@ -104,13 +104,25 @@ db.define_table('DeviceType',
     Field('Icon', 'string')                             # Path to the picture which will be displayed in the mobile
     )
 
+
+
+# Master table for storing information about our products.
+# ** Contains special pre filled data. **
+db.define_table('DeviceMaster',
+    Field('DeviceTypeId', 'reference DeviceType'),      # Such as Timer, Switch, Hub, Sensor etc
+    Field('Identification', 'string'),                  # Unique identification no - may be a Serial No.
+    Field('DateOfManufacturing', 'datetime'),           # Date of Manufacture
+    primarykey = ['Identification']
+    )
+    
+    
 # Contains information about a single device registered to a user.
 # ** Special Data **
 #   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
 db.define_table('Device',
-    Field('DeviceType', 'reference DeviceType'),        # Timer, Switch, Hub, Sensor etc
+    Field('DeviceTypeId', 'reference DeviceType'),        # Timer, Switch, Hub, Sensor etc
+    Field('Identification', 'reference DeviceMaster'),  # Unique identification no
     Field('ProfileId', 'reference Profile'),            # User who owns this device
-    Field('Identification', 'string'),                  # Unique identification no - may be a Serial No.
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
     Field('Name', 'string'),                            # Name given by the user for this device - MyBulb, Hall light..
     Field('RegisteredDate', 'datetime'),                # When the user registered this device
