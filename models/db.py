@@ -67,28 +67,26 @@ use_janrain(auth, filename='private/janrain.key')
 db.define_table('Profile',
     Field('UserName', 'string'),
     Field('FirstName', 'string'),
-    Field('MiddleName', 'string'),
     Field('LastName', 'string'),
     Field('DateOfBirth', 'date'),
-    Field('PrimaryAddressLine1', 'string'),
-    Field('PrimaryAddressLine2', 'string'),
-    Field('PrimaryCity', 'string'),                
-    Field('PrimaryState', 'string'),                
-    Field('PrimaryCountry', 'string'),
-    Field('PrimaryZip', 'string'),
-    Field('EmailAddress1', 'string'),
-    Field('SecondaryAddressLine1', 'string'),
-    Field('SecondaryAddressLine2', 'string'),
-    Field('SecondaryCity', 'string'),                
-    Field('SecondaryState', 'string'),                
-    Field('SecondaryCountry', 'string'),
-    Field('SecondaryZip', 'string'),
-    Field('EmailAddress2', 'string'),
-    Field('Phone1', 'string'),
-    Field('Phone2', 'string'),
+    Field('Gender', 'integer'),
     Field('MasterProfileId', 'reference Profile'),   # Master user of the family.
     )
 
+# User contact information  
+db.define_table('UserContactInfo',
+    Field('ProfileId', 'reference Profile'),
+    Field('AddressLine1', 'string'),
+    Field('AddressLine2', 'string'),
+    Field('City', 'string'),                
+    Field('State', 'string'),                
+    Field('Country', 'string'),
+    Field('Zip', 'string'),
+    Field('Email', 'string'),
+    Field('Phone', 'string')
+    )
+
+# When user connects through web/mobile a record is created here. The same record will be updated when device discconnects.
 db.define_table('UserSession',
     Field('ProfileId', 'reference Profile'),
     Field('ConnectTime', 'datetime'),
