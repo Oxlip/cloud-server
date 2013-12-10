@@ -65,12 +65,12 @@ use_janrain(auth, filename='private/janrain.key')
 
 # User information - A single family can have multiple profiles. 
 db.define_table('Profile',
-    Field('UserName', 'string'),
-    Field('FirstName', 'string'),
-    Field('LastName', 'string'),
-    Field('DateOfBirth', 'date'),
-    Field('Gender', 'integer'),
-    Field('MasterProfileId', 'reference Profile'),   # Master user of the family.
+    Field('UserName', 'string'),                        # Unique username
+    Field('FirstName', 'string'),                       # First Name - Should match passport :)
+    Field('LastName', 'string'),                        # Last Name
+    Field('DateOfBirth', 'date'),                       # DOB and Gender are only for data collection.
+    Field('Gender', 'integer'),                         #
+    Field('MasterProfileId', 'reference Profile'),      # Master user of the family.
     )
 
 # User contact information  
@@ -89,47 +89,49 @@ db.define_table('UserContactInfo',
 # When user connects through web/mobile a record is created here. The same record will be updated when device discconnects.
 db.define_table('UserSession',
     Field('ProfileId', 'reference Profile'),
-    Field('ConnectTime', 'datetime'),
-    Field('DisconnectTime', 'datetime'),
-    Field('Identification', 'string')               # From which device(mobile/web) the user connected to the plugz website 
+    Field('ConnectTime', 'datetime'),                   # Time when the connection established
+    Field('DisconnectTime', 'datetime'),                # Time when the user signed out or time when session timed out.
+    Field('Identification', 'string')                   # From which device(mobile/web) the user connected to the plugz website 
     )
 
 # Master table for storing information about our products.
 # ** Contains special pre filled data. **
 db.define_table('DeviceType',
-    Field('Name', 'string'),                        # Such as plugz-hub, plugz-switch
+    Field('Name', 'string'),                            # Such as Timer, Switch, Hub, Sensor etc
     Field('Description', 'string'),
-    Field('DeviceVersion', 'integer')
+    Field('DeviceVersion', 'integer'),
+    Field('Image', 'string')                            # Path to the picture which will be displayed on the webpage
+    Field('Icon', 'string')                             # Path to the picture which will be displayed in the mobile
     )
 
-# Contains information about a single device.
+# Contains information about a single device registered to a user.
 # ** Special Data **
 #   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
 db.define_table('Device',
-    Field('DeviceType', 'reference DeviceType'),
-    Field('ProfileId', 'reference Profile'),
-    Field('GroupName','string'),
-    Field('HubId', 'reference Device'),
-    Field('SerialNo', 'string'),
-    Field('Name', 'string'),
-    Field('Icon', 'string'),
-    Field('RegisteredDate', 'datetime'),
-    Field('DefaultValue', 'string')
+    Field('DeviceType', 'reference DeviceType'),        # Timer, Switch, Hub, Sensor etc
+    Field('ProfileId', 'reference Profile'),            # User who owns this device
+    Field('Identification', 'string'),                  # Unique identification no - may be a Serial No.
+    Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
+    Field('Name', 'string'),                            # Name given by the user for this device - MyBulb, Hall light..
+    Field('RegisteredDate', 'datetime'),                # When the user registered this device
+    Field('DefaultValue', 'string')                     # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
     )
 
 # Contains logging information about hub connections for debugging.
 db.define_table('HubSession',
-    Field('DeviceId', 'reference Device'),
-    Field('ConnectTime', 'datetime'),
-    Field('DisconnectTime', 'datetime'),
-    Field('Identification', 'string')
+    Field('DeviceId', 'reference Device'),              # Hub ID
+    Field('ConnectTime', 'datetime'),                   # When the hub connected to the webserver
+    Field('DisconnectTime', 'datetime'),                # When the hub voluntarily disconnected or timed out.
+    Field('Identification', 'string')                   # Connection Identification - IP address ...
     )
 
 # Contains value send by the device to Hub. Such as Temp, Motion, light.
 db.define_table('DeviceData',
-    Field('DeviceId', 'reference Device'),
-    Field('ActivityDate', 'datetime'),
-    Field('OutputValue', 'string')
+    Field('DeviceId', 'reference Device'),              # Device Id which generated this activity.
+    Field('ActivityDate', 'datetime'),                  # Actual time when this activity happened and recorded in hub.
+    Field('RecordedDate', 'datetime'),                  # Time when this is updated in the webserver
+    Field('OutputValue', 'string'),                     # What was the value  such as motion detected, current consumption is below 1A
+    Field('TimeRange', 'integer')                       # Time range for averaged values - For example, current sensor measurement can be updated every 15 min..
     )
 
 # ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
