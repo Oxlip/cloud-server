@@ -120,18 +120,24 @@ db.define_table('DeviceMaster',
 # ** Special Data **
 #   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
 db.define_table('Device',
-    Field('DeviceTypeId', 'reference DeviceType'),        # Timer, Switch, Hub, Sensor etc
+    Field('DeviceTypeId', 'reference DeviceType'),      # Timer, Switch, Hub, Sensor etc
     Field('Identification', 'reference DeviceMaster'),  # Unique identification no
+    Field('ApplianceID', 'reference Appliance'),        # Appliance Refered
     Field('ProfileId', 'reference Profile'),            # User who owns this device
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
     Field('Name', 'string'),                            # Name given by the user for this device - MyBulb, Hall light..
-    Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
-    Field('ApplianceModel', 'string'),                  # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
-    Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
     Field('RegisteredDate', 'datetime'),                # When the user registered this device
     Field('DefaultValue', 'string'),                    # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
     Field('isDeleted', 'boolean')                       # Mark true if device is removed for user
     )
+    
+# Type, Model and make of the devices the user would connect to a Switch or Plug
+db.define_table('Appliance',
+    Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
+    Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
+    Field('ApplianceModel', 'string')                   # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
+    }
+    
 
 # Contains logging information about hub connections for debugging.
 db.define_table('HubSession',
