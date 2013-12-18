@@ -100,7 +100,7 @@ db.define_table('DeviceType',
     Field('Name', 'string'),                            # Such as Timer, Switch, Hub, Sensor etc
     Field('Description', 'string'),
     Field('DeviceVersion', 'integer'),
-    Field('Image', 'string')                            # Path to the picture which will be displayed on the webpage
+    Field('Image', 'string'),                            # Path to the picture which will be displayed on the webpage
     Field('Icon', 'string')                             # Path to the picture which will be displayed in the mobile
     )
 
@@ -136,7 +136,7 @@ db.define_table('Appliance',
     Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
     Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
     Field('ApplianceModel', 'string')                   # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
-    }
+    )
     
 
 # Contains logging information about hub connections for debugging.
