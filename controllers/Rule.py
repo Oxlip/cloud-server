@@ -7,4 +7,4 @@ class RuleBuilder:
     #Get ALl Saved 
     def GetPreferences(self, profileId):
         raise
-    
+      
