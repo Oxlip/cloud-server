@@ -73,16 +73,32 @@ db.define_table('Profile',
     Field('MasterProfileId', 'reference Profile'),      # Master user of the family.
     )
 
+# List of countries
+db.define_table('Country',
+    Field('Name', 'string')                             # Name of the country
+    )
+
+# List of states
+db.define_table('States',
+    Field('Name', 'string'),                            # Name of the state
+    Field('Country', 'reference Country')               # Country
+    )
+
+# List of cities
+db.define_table('City',
+    Field('Name', 'string'),                            # Name of the city
+    Field('StateId', 'reference States')                # State is a reserved word so using StateId
+    )
+
 # User contact information  
 db.define_table('UserContactInfo',
     Field('ProfileId', 'reference Profile'),
-    Field('AddressLine1', 'string'),
+    Field('AddressLine1', 'string'),                    # Address
     Field('AddressLine2', 'string'),
-    Field('City', 'string'),                
-    Field('State', 'string'),                
-    Field('Country', 'string'),
-    Field('Zip', 'string'),
-    Field('Email', 'string'),
+    Field('City', 'references City'),                   # Name of the city  
+    Field('StateId', 'references States'),              # Name of the state
+    Field('Zip', 'string'),                             # ZIP or postal code
+    Field('Email', 'string'),                           # email id of the user
     Field('Phone', 'string')
     )
 
@@ -100,19 +116,16 @@ db.define_table('DeviceType',
     Field('Name', 'string'),                            # Such as Timer, Switch, Hub, Sensor etc
     Field('Description', 'string'),
     Field('DeviceVersion', 'integer'),
-    Field('Image', 'string')                            # Path to the picture which will be displayed on the webpage
+    Field('Image', 'string'),                           # Path to the picture which will be displayed on the webpage
     Field('Icon', 'string')                             # Path to the picture which will be displayed in the mobile
     )
 
 
-
-# Master table for storing information about our products.
-# ** Contains special pre filled data. **
-db.define_table('DeviceMaster',
-    Field('DeviceTypeId', 'reference DeviceType'),      # Such as Timer, Switch, Hub, Sensor etc
-    Field('Identification', 'string'),                  # Unique identification no - may be a Serial No.
-    Field('DateOfManufacturing', 'datetime'),           # Date of Manufacture
-    primarykey = ['Identification']
+# Type, Model and make of the devices the user would connect to a Switch or Plug
+db.define_table('Appliance',
+    Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
+    Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
+    Field('ApplianceModel', 'string')                   # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
     )
     
     
@@ -121,7 +134,9 @@ db.define_table('DeviceMaster',
 #   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
 db.define_table('Device',
     Field('DeviceTypeId', 'reference DeviceType'),      # Timer, Switch, Hub, Sensor etc
-    Field('Identification', 'reference DeviceMaster'),  # Unique identification no
+    Field('DeviceTypeId', 'reference DeviceType'),      # Such as Timer, Switch, Hub, Sensor etc
+    Field('Identification', 'string', length=50),       # Unique identification no - may be a Serial No.
+    Field('DateOfManufacturing', 'datetime'),           # Date of Manufacture
     Field('ApplianceID', 'reference Appliance'),        # Appliance Refered
     Field('ProfileId', 'reference Profile'),            # User who owns this device
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
@@ -130,14 +145,7 @@ db.define_table('Device',
     Field('DefaultValue', 'string'),                    # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
     Field('isDeleted', 'boolean')                       # Mark true if device is removed for user
     )
-    
-# Type, Model and make of the devices the user would connect to a Switch or Plug
-db.define_table('Appliance',
-    Field('ApplianceType', 'string'),                   # Type of appliance connected - (Only appicable for Plugs and Swithces)
-    Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
-    Field('ApplianceModel', 'string')                   # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
-    }
-    
+   
 
 # Contains logging information about hub connections for debugging.
 db.define_table('HubSession',
@@ -166,33 +174,35 @@ db.define_table('Conditions',
     )
 
 # Actions
-db.define_table('Action',
+db.define_table('Actions',
     Field('Name', 'string'),                            # Name given by the user for this action.
     Field('DeviceId', 'reference Device'),              # On which device the action will be taken.
-    Field('Output', 'integer'),                         # What value should be sent to the device.
-    Field('MasterActionId', 'reference Action')         # Self reference for linking multiple actions/
+    Field('OutputValue', 'string'),                     # What value should be sent to the device.
+    Field('MasterActionId', 'reference Actions')        # Self reference for linking multiple actions/
     )
 
 # User's preference for actions
 db.define_table('ActionPreference',
-    Field('ActionId', 'reference Action'),
+    Field('ActionId', 'reference Actions'),
     Field('ProfileId', 'reference Profile'),
-    Field('Order', 'integer')                           # User specified UI index.
+    Field('UIOrder', 'integer')                         # User specified UI index.
     )
 
 # Actual main Rule table
 db.define_table('Rules',
     Field('ProfileId', 'reference Profile'),            # User Id
     Field('ConditionId', 'reference Conditions'),       # First condition
-    Field('ActionId', 'reference Action'),              # What action to take
-    Field('isActive', 'boolean'))                       # Whether this rule is active or temporarily disabled by user.
+    Field('ActionId', 'reference Actions'),             # What action to take
+    Field('isActive', 'boolean')                        # Whether this rule is active or temporarily disabled by user.
+    )
 
 
 # Logs all user activity
 db.define_table('UserActivity',
     Field('UserSessionId',  'reference UserSession'),   # From where user executed this (mobile or web...)
-    Field('ActionExecuted', 'reference Action'),        # The action executed by the user
-    Field('ActivityDate', 'datetime'))                  # date time when it is executed.
+    Field('ActionExecuted', 'reference Actions'),       # The action executed by the user
+    Field('ActivityDate', 'datetime')                   # date time when it is executed.
+    )
 
 
 ##
