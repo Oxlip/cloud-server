@@ -1,32 +1,44 @@
-class DeviceData:
-    def __init__(self, DeviceId, ActivityTime, OutputValue, TimeRange):
-        self.DeviceId = DeviceId
-        self.OutputValue = OutputValue
-        self.ActivityTime = ActivityTime
-        self.TimeRange = TimeRange
-
-
+""" Module to control device objects.
+"""
 class Device:
-    """ Registers a device
+    def __init__(self, DeviceType = None, Identification = None, Profile = None, Hub = None, Name = None, RegisteredDate = None, DefaultValue = None, Appliance = None):
+        self.DeviceType = DeviceType
+        self.Identification = Identification
+        self.Profile = Profile
+        self.Hub = Hub
+        self.Name = Name
+        self.RegisteredDate = RegisteredDate
+        self.DefaultValue = DefaultValue
+        self.Appliance = Appliance
+    
+    """ Loads device information from the database into current object.
     """
-    def RegisterDevice(DeviceType, Identification, Profile, Hub, Name, Appliance=None):
+    def Load(self, DeviceId):
         raise
     
-    """ Fetches a device from database
+    """ Saves the current device.
     """
-    def GetDevice(DeviceID):        
+    def Save(self):
         raise
-        
-    """ Fetches all devices associated with a user.
-        If DeviceType is provided then the result will be filtered to contain only that type of devices.
+    
+    """ Deletes current device.
     """
-    def GetAllDevice(Profile, DeviceType=None):
+    def Delete(self):
+        raise
+    
+    """ Adds a new DeviceData record based on the given data.
+        Returns the newly added DeviceData. 
+    """
+    def AddDeviceData(self, ActivityTime, OutputValue, TimeRange):
         raise
 
-
-    """ Append Data from Hubsession into DeviceData table
+    """ Returns list of DeviceData associated with this device
+        If MaxDays is specified then it returns only records created in the last few days(sepcified by MaxDays).
     """
-    def PushDeviceData(self, DeviceData):
+    def GetDeviceData(self, MaxDays=1):
         raise
     
-    
+    """ Returns list of actions associated with the current device. 
+    """
+    def GetActions(self):
+        raise
