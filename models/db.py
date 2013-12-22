@@ -63,7 +63,7 @@ use_janrain(auth, filename='private/janrain.key')
 ## There is an implicit 'id integer autoincrement' field
 ## Consult manual for more options, validators, etc.
 
-# User information - A single family can have multiple profiles. 
+# User information - A single family can have multiple profiles.
 db.define_table('Profile',
     Field('UserName', 'string'),                        # Unique username
     Field('FirstName', 'string'),                       # First Name - Should match passport :)
@@ -90,12 +90,12 @@ db.define_table('City',
     Field('StateId', 'reference States')                # State is a reserved word so using StateId
     )
 
-# User contact information  
+# User contact information
 db.define_table('UserContactInfo',
     Field('ProfileId', 'reference Profile'),
     Field('AddressLine1', 'string'),                    # Address
     Field('AddressLine2', 'string'),
-    Field('City', 'references City'),                   # Name of the city  
+    Field('City', 'references City'),                   # Name of the city
     Field('StateId', 'references States'),              # Name of the state
     Field('Zip', 'string'),                             # ZIP or postal code
     Field('Email', 'string'),                           # email id of the user
@@ -107,7 +107,7 @@ db.define_table('UserSession',
     Field('ProfileId', 'reference Profile'),
     Field('ConnectTime', 'datetime'),                   # Time when the connection established
     Field('DisconnectTime', 'datetime'),                # Time when the user signed out or time when session timed out.
-    Field('Identification', 'string')                   # From which device(mobile/web) the user connected to the plugz website 
+    Field('Identification', 'string')                   # From which device(mobile/web) the user connected to the plugz website
     )
 
 # Master table for storing information about our products.
@@ -127,8 +127,8 @@ db.define_table('Appliance',
     Field('ApplianceMake', 'string'),                   # Make of the device Like Philips, GE - (Only appicable for Plugs and Swithces)
     Field('ApplianceModel', 'string')                   # Model number of the appliance - Sony X400 - - (Only appicable for Plugs and Swithces)
     )
-    
-    
+
+
 # Contains information about a single device registered to a user.
 # ** Special Data **
 #   1. Timer - Specifies a virtual device which is used to generate time(date, day) based conditions.
@@ -145,7 +145,7 @@ db.define_table('Device',
     Field('DefaultValue', 'string'),                    # Default value which should be applied when the device starts. For example for a RGB LED it would be the RGB color, for a TV it would be the TV channel no etc.
     Field('isDeleted', 'boolean')                       # Mark true if device is removed for user
     )
-   
+
 
 # Contains logging information about hub connections for debugging.
 db.define_table('HubSession',
@@ -167,10 +167,10 @@ db.define_table('DeviceData',
 # ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
 db.define_table('Conditions',
     Field('DeviceId', 'reference Device'),              # Device Value
-    Field('Operatr', 'integer'),                        # ==, !=, >,  <
+    Field('Operator', 'integer'),                        # ==, !=, >,  <
     Field('ConditionValue', 'string'),                  # User specified value
     Field('IsAndOperation', 'boolean'),                 # True if AND otherwise OR
-    Field('RuleExpression', 'reference Conditions'),    # Self reference
+    Field('MasterConditionId', 'reference Conditions'),    # Self reference
     )
 
 # Actions
