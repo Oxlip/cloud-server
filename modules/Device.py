@@ -1,6 +1,6 @@
 from gluon import current
 
-""" Module to control device objects.
+""" Module to control device objectsss.
 """
 class Device:
     """ Initializes device fields with given information.
