@@ -1,7 +1,7 @@
 from gluon import current
 db = current.db
 
-""" Class to Manage and create Conditions
+""" Class to Manage and create Conditions 'test'
 """
 
 class Condition:
