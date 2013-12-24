@@ -74,6 +74,6 @@ class Condition:
 
 
 
-        raise
+        raise 'Exception'
 
     """
