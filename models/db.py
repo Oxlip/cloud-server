@@ -10,6 +10,8 @@
 # request.requires_https()
 
 db = DAL('mysql://root:abc123@localhost/Plugz',pool_size=1,check_reserved=['all'])
+from gluon import current
+current.db = db
 
 ## by default give a view/generic.extension to all actions from localhost
 ## none otherwise. a pattern can be 'controller/function.extension'
