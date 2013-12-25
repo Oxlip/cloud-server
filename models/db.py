@@ -169,7 +169,7 @@ db.define_table('DeviceData',
 # ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
 db.define_table('Conditions',
     Field('DeviceId', 'reference Device'),              # Device Value
-    Field('Operator', 'integer'),                        # ==, !=, >,  <
+    Field('Comparision', 'integer'),                    # ==, !=, >,  <
     Field('ConditionValue', 'string'),                  # User specified value
     Field('IsAndOperation', 'boolean'),                 # True if AND otherwise OR
     Field('MasterConditionId', 'reference Conditions'),    # Self reference
