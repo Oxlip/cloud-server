@@ -25,18 +25,16 @@ class Action:
             db.Actions(self.id).update(Name=self.name,
                                        DeviceId=self.device_id,
                                        OutputValue=self.output_value,
-                                       MasterActionId=self.master_action_id
-            )
+                                       MasterActionId=self.master_action_id)
         else:
-            self.id = db.Actions.insert(Name=self.Name,
+            self.id = db.Actions.insert(Name=self.name,
                                         DeviceId=self.device_id,
                                         output_value=self.output_value,
-                                        MasterActionId=self.master_action_id
-            )
-        return self.Id
+                                        MasterActionId=self.master_action_id)
+        return self.id
 
     @staticmethod
-    def getactionbydevice(device_id):
+    def get_action_by_device(device_id):
         """
         Return list of all the actions by device
         @param device_id:
@@ -52,7 +50,7 @@ class Action:
         return actions
 
     @staticmethod
-    def getactionbyuser(profileid):
+    def get_action_by_user(profileid):
         """
         Return list of all the actions by user
         @param profileid:
@@ -67,7 +65,6 @@ class Action:
 
         return actions
 
-
     def load(self, action_id):
         """
         Loads the Action information by using the action_id provided.
@@ -75,6 +72,7 @@ class Action:
         @param action_id:
         @raise:
         """
+        db = current.db
         action = current.db.Action(db.Actions.id == action_id)
         if action is None:
             # TODO - define exception.
@@ -101,7 +99,7 @@ class Action:
         db(db.Actions.id == action_id).delete()
 
     @staticmethod
-    def deletemasterandallactions(master_action_id):
+    def delete_master_and_associations(master_action_id):
         """
         Remove given Master Action and any associated action with it.
 
@@ -110,7 +108,8 @@ class Action:
         db = current.db
         db(db.Actions.MasterActionId == master_action_id).delete()
 
-    def getdeviceactions(self, device_id):
+    @staticmethod
+    def get_device_actions(device_id):
         """
         Returns list of actions associated with the current device.
 
@@ -121,7 +120,7 @@ class Action:
         actions = db(db.Actions.DeviceId == device_id)
         action_list = []
         for action in actions:
-            new_action = Action(Name=action.Name, device_id=action.DeviceId, output_value=action.OutputValue,
+            new_action = Action(name=action.Name, device_id=action.DeviceId, output_value=action.OutputValue,
                                 master_action_id=action.MasterActionId)
             new_action.id = device_id
             action_list.append(new_action)

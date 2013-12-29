@@ -1,107 +1,147 @@
-from gluon import current
-
 """ Class to handle USER Profiles
 """
+from gluon import current
+
+
 class Profile:
+    def __init__(self, profile_id):
+        """
+        Get user details based on the profile ID,  This method will return User object.
+        @param profile_id:
+        """
+        self.profile_id = profile_id
+        self.username = None
+        self.first_name = None
+        self.last_name = None
+        self.date_of_birth = None
+        self.gender = None
+        self.address_line_1 = None
+        self.address_line_2 = None
+        self.city = None
+        self.city_id = None
+        self.state = None
+        self.state_id = None
+        self.country = None
+        self.postal_code = None
+        self.email = None
+        self.phone = None
 
-    """ Get user details based on the profile ID,  This method will return User object.
-    """
-    def __init__(self, profileId):
-        self.ProfileId = profileId
-        self.UserName = None
-        self.FirstName = None
-        self.LastName = None
-        self.DateOfBirth = None
-        self.Gender = None
-        self.AddressLine1 = None
-        self.AddressLine2 = None
-        self.City = None
-        self.CityId = None
-        self.State = None
-        self.StateId = None
-        self.Country = None
-        self.Zip = None
-        self.Email = None
-        self.Phone = None
-
-
-    """ Register a new User in to the system.  This information would come from Google, Yahoo or Facebook  as part of New user registration
-    """
     @staticmethod
-    def RegisterProfile(self, EmailId, UserName, FirstName, LastName, DateOfBirth, IsMale, AddressLine1=None, AddressLine2=None, City=None, State=None, Country=None, Zip=None, phone=None ):
+    def register_profile(self, email, username, first_name, last_name, date_of_birth, is_male,
+                         address_line_1=None, address_line_2=None, city=None, state=None, postal_code=None, phone=None,
+                         master_profile_id=None):
 
+        """
+        Register a new User in to the system.
+        This information would come from Google, Yahoo or Facebook  as part of New user registration
+        @param self:
+        @param email:
+        @param username:
+        @param first_name:
+        @param last_name:
+        @param date_of_birth:
+        @param is_male:
+        @param address_line_1:
+        @param address_line_2:
+        @param city:
+        @param state:
+        @param country:
+        @param zip:
+        @param phone:
+        @return: @raise 'User Exists':
+        """
         db = current.db
 
-        if IsUserExist(EmailId):
-            raise 'User Exists'  #TODO: Define Exception
+        if self.is_user_exist(email):
+            raise 'User Exists'  #TODO:Define Exception
 
-        self.ProfileId =  db.Profile.insert(UserName = username,
-                                     FirstName = FirstName,
-                                     LastName = LastName,
-                                     DateOfBirth = DateOfBirth,
-                                     Gender = isMale,
-                                     MasterProfileId = self.id if self.id else MasterProfileId)
-        return GetUser()
+        profile_id = db.Profile.insert(UserName=username,
+                                       FirstName=first_name,
+                                       LastName=last_name,
+                                       DateOfBirth=date_of_birth,
+                                       Gender=is_male,
+                                       MasterProfileId=None)
 
+        db(db.Profile.id == id).update(
+            MasterProfileId=master_profile_id if master_profile_id is not None else profile_id)
 
-    """ Everytime a new user Login's to application this Method is called.
-    """
+        db.UserContactInfo.insert(ProfileId=profile_id,
+                                  AddressLine1=address_line_1,
+                                  AddressLine2=address_line_2,
+                                  StateId=state, #TODO: Need to handle State from FB, Google, Twitter
+                                  City=city, #TODO: Need to handle City from FB, Google, Twitter
+                                  Zip=postal_code,
+                                  Email=email,
+                                  Phone=phone)
+
+        return self.get_user()
+
     @staticmethod
-    def Login(self, emailId):
+    def login(self, email):
 
+        """
+        Every time a new user Login's to application this Method is called.
+        @param self:
+        @param email:
+        @return: @raise 'User does not Exists':
+        """
         db = current.db
 
-        if not IsUserExist(EmailId):
+        if not self.is_user_exist(email):
             raise 'User does not Exists' #TODO: Define Exception
 
-        self.ProfileId = db(db.UserContactInfo.Email == emailId).select(ProfileId).first();
-        return GetUser()
+        self.profile_id = db(db.UserContactInfo.Email == email).select(db.UserContactInfo.ProfileId).first();
+        return self.get_user()
 
-    """ Returns user for the given Profile ID
-    """
-    def GetUser(self):
-        user  = db(db.Profile.id==self.id &
-                    db.Profile.id == db.UserContactInfo.ProfileId &
-                    db.UserContactInfo.City == db.City.id &
-                    db.UserContactInfo.StateId == db.States.id &
-                    db.States.Country == db.Country.id).select()
-        #TODO: Move Contact Info to seperate Clas
-        self.UserName = user.UserName
-        self.FirstName = user.FirstName
-        self.LastName = user.LastName
-        self.DateOfBirth = user.DateOfBirth
-        self.Gender = "Male" if user.Gender == 1 else "Female"
-        self.AddressLine1 = user.AddressLine1
-        self.AddressLine2 = user.AddressLine2
-        self.City = user.City.Name
-        self.CityId = user.City.id
-        self.State = user.States.Name
-        self.StateId = user.States.id
-        self.Country = user.Country.Name
-        self.Zip = user.Zip
-        self.Phone = user.Phone
-
-    """ Check if use Exists.  This function will be called by Login and Register Profile function
-    """
-    @staticmethod
-    def IsUserExist(self, emailId):
+    def get_user(self):
+        """
+         Returns user for the given Profile ID
+        """
         db = current.db
-        return not db(db.UserContactInfo.Email == emailId).isempty()
 
-    """ Function to un-enroll user from the program.
-    REVISION NEED - Complete Rewrite
+        user = db(db.Profile.id == self.profile_id & db.Profile.id == db.UserContactInfo.ProfileId &
+                  db.UserContactInfo.City == db.City.id & db.UserContactInfo.StateId == db.States.id &
+                  db.States.Country == db.Country.id).select().first()
+
+        self.username = user.UserName
+        self.first_name = user.FirstName
+        self.last_name = user.LastName
+        self.date_of_birth = user.DateOfBirth
+        self.gender = "Male" if user.Gender == 1 else "Female"
+        self.address_line_1 = user.AddressLine1
+        self.address_line_2 = user.AddressLine2
+        self.city = user.City.Name
+        self.city_id = user.City.id
+        self.state = user.States.Name
+        self.state_id = user.States.id
+        self.country = user.Country.Name
+        self.postal_code = user.Zip
+        self.phone = user.Phone
 
     @staticmethod
-    def DeactivateProfile(self, EmailId):
+    def is_user_exist(email):
+        """
+        Check if use Exists.  This function will be called by Login and Register Profile function
+        @param email:
+        @return:
+        """
         db = current.db
-        if not IsUserExist(EmailId):
-            raise 'User does not Exists'
-        else:
-            try:
-                db(db.Profile.id == ProfileId).update(IsActive = False)
-                return True
-            except:
-                #Log Here [ERROR]  on Exception
-                return False
+        return not db(db.UserContactInfo.Email == email).isempty()
 
-    """
+    def deactivate_profile(self, profile_id):
+        """
+        Function to un-enroll user from the program.
+        @rtype : object
+        @param profile_id:
+        @raise 'User does not exists':
+        """
+        db = current.db
+        if not self.is_user_exist(db.UserContactInfo.on(profile_id == db.UserContactInfo.ProfileId).select(
+                db.UserContactInfo.Email).First()):
+            raise 'User does not exists' #TODO: Handle Exception
+
+        profile_set = db.Profile.on(MasterProfileId=profile_id)
+        if profile_set > 1 & profile_set.id == profile_id & profile_set == profile_set.MasterProfileId:
+            db.Profile.on(MasterProfileId=profile_id).update(MasterProfileId=profile_set[2].id)
+
+        db(db.Profile.id == profile_id).update(db.Profile.isActive == False)

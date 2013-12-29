@@ -1,7 +1,7 @@
-from gluon import current
-
 """ Class to Manage and create Conditions
 """
+
+from gluon import current
 
 
 class Condition:
@@ -14,7 +14,7 @@ class Condition:
         self.master_condition_id = None
 
     @staticmethod
-    def getconditions(master_condition_id):
+    def get_conditions(master_condition_id):
         """
         Get conditions based on condition_id
         @param master_condition_id:
@@ -36,17 +36,17 @@ class Condition:
         return conditionlist
 
     @staticmethod
-    def getconditionsbyuser(profileid):
+    def get_conditions_by_user(profile_id):
 
         """
         Get All conditions defined by user
-        @param profileid:
+        @param profile_id:
         @return:
         """
         db = current.db
 
         conditionlist = []
-        for condition in db(db.Rules.ProfileId == profileid & db.Condtions.MasterCondtionId == db.Rules.ConditionId):
+        for condition in db(db.Rules.ProfileId == profile_id & db.Condtions.MasterCondtionId == db.Rules.ConditionId):
             _condition = Condition()
             _condition.condition_id = condition.id
             _condition.device_id = condition.DeviceId
@@ -59,7 +59,7 @@ class Condition:
         return conditionlist
 
     @staticmethod
-    def savecondition(condition_id, device_id, operator, condition_value, is_and_operator, master_condition_id):
+    def save_condition(condition_id, device_id, operator, condition_value, is_and_operator, master_condition_id):
 
         """
         Insert/Update an existing condition
@@ -85,15 +85,15 @@ class Condition:
             raise
 
     @staticmethod
-    def removecondition(condition_id):
+    def remove_condition(condition_id):
         """
         Remove a condition from the Database
         @param condition_id:
         """
         db = current.db
-        conditionset = db.Conditions.on(MasterConditionid=condition_id)
-        if conditionset > 1 & conditionset.id == condition_id & condition_id == conditionset.MasterConditionId:
-            db.Conditions.on(db.Conditions.MasterCondtionId = condition_id).update(
-                MasterConditionid=conditionset[2].id)
+        condition_set = db.Conditions.on(MasterConditionid=condition_id)
+        if condition_set > 1 & condition_set.id == condition_id & condition_id == condition_set.MasterConditionId:
+            db.Conditions.on(db.Conditions.MasterCondtionId == condition_id).update(
+                MasterConditionid=condition_set[2].id)
 
         db(db.Conditions.id == condition_id).delete()
