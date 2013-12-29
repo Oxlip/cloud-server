@@ -69,6 +69,8 @@ db.define_table('DeviceType',
     Field('Name', 'string'),                            # Such as Timer, Switch, Hub, Sensor etc
     Field('Description', 'string'),
     Field('DeviceVersion', 'integer'),
+    Field('IsInputDevice', 'boolean'),                  # 1 - if the device is can be assumed to provide input like Motion sensor
+    Field('IsOutputDevice', 'boolean'),                 # 1 - if the device is can be assumed to provide output like IR Blaster
     Field('Image', 'string'),                           # Path to the picture which will be displayed on the webpage
     Field('Icon', 'string')                             # Path to the picture which will be displayed in the mobile
     )
@@ -92,6 +94,7 @@ db.define_table('ManufacturedDevices',
 db.define_table('Device',
     Field('DeviceTypeId', 'reference DeviceType'),      # Such as Timer, Switch, Hub, Sensor etc
     Field('Identification', 'string', length=50),       # Unique identification no - may be a Serial No.
+    Field('SubIdentification', 'integer'),               # Only for USwitch - To Identify each individual devices in a uSwitch
     Field('ApplianceID', 'reference Appliance'),        # Appliance Referred
     Field('ProfileId', 'reference Profile'),            # User who owns this device
     Field('HubId', 'reference Device'),                 # Through which Hub this device connects to the webserver
