@@ -1,82 +1,129 @@
-from gluon import current
-
 """ Simply put an action associates a value with an device.
     It also links multiple actions into one(through MasterAction).
 """
-class Action:
-    def __init__(self, Name=None, DeviceId=None, OutputValue=None, MasterActionId=None):
-        self.Id = None
-        self.Name = Name
-        self.DeviceId = DeviceId
-        self.OutputValue = OutputValue
-        self.MasterActionId = MasterActionId
 
-    """ Saves the current DeviceData.
-    
-        On success returns the newly created deviceId.
-    """
-    def Save(self):
+from gluon import current
+
+
+class Action:
+    def __init__(self, action_id=None, name=None, device_id=None, output_value=None, master_action_id=None):
+        self.id = action_id
+        self.name = name
+        self.device_id = device_id
+        self.output_value = output_value
+        self.master_action_id = master_action_id
+
+    def save(self):
+        """
+        Saves the current DeviceData.
+        On success returns the newly created device_id.
+
+        @return:
+        """
         db = current.db
-        if (self.Id):
-            db.Actions(self.Id).update(Name = self.Name,
-                                       DeviceId = self.DeviceId,
-                                       OutputValue = self.OutputValue,
-                                       MasterActionId = self.MasterActionId
-                                       )
+        if self.id:
+            db.Actions(self.id).update(Name=self.name,
+                                       DeviceId=self.device_id,
+                                       OutputValue=self.output_value,
+                                       MasterActionId=self.master_action_id
+            )
         else:
-            self.Id = db.Actions.insert(Name = self.Name,
-                                        DeviceId = self.DeviceId,
-                                        OutputValue = self.OutputValue,
-                                        MasterActionId = self.MasterActionId
-                                        )
+            self.id = db.Actions.insert(Name=self.Name,
+                                        DeviceId=self.device_id,
+                                        output_value=self.output_value,
+                                        MasterActionId=self.master_action_id
+            )
         return self.Id
 
-    """ Loads the Action information by using the ActionId provided.
-    """
-    def Load(self, ActionId):
-        action = current.db.Action(ActionId)
-        if action == None:
+    @staticmethod
+    def getactionbydevice(device_id):
+        """
+        Return list of all the actions by device
+        @param device_id:
+        @return:
+        """
+        db = current.db
+        action_set = db(db.Actions.DeviceId == device_id)
+
+        actions = []
+        for action in action_set.select():
+            actions.append(Action(action.id, action.name, action.DeviceId, action.outputvalue, action.masteractionid))
+
+        return actions
+
+    @staticmethod
+    def getactionbyuser(profileid):
+        """
+        Return list of all the actions by user
+        @param profileid:
+        @return:
+        """
+        db = current.db
+        action_set = db(db.Actions.DeviceId == db.Device.DeviceId & db.Device.ProfileId == profileid)
+
+        actions = []
+        for action in action_set.select()(db.Actions.All, groupby=db.Actions.id):
+            actions.append(Action(action.id, action.name, action.DeviceId, action.outputvalue, action.masteractionid))
+
+        return actions
+
+
+    def load(self, action_id):
+        """
+        Loads the Action information by using the action_id provided.
+
+        @param action_id:
+        @raise:
+        """
+        action = current.db.Action(db.Actions.id == action_id)
+        if action is None:
             # TODO - define exception.
             raise
-        
-        self.Id = action.id
-        self.Name = action.Name
-        self.DeviceId = action.DeviceId
-        self.OutputValue = action.OutputValue
-        self.MasterActionId = action.MasterActionId
-    
-    """ Remove given Action from the database.
-    """
-    def Delete(self):
-        db = current.db
-        # special case - deleting the master action. 
-        if db.Actions.id == db.MasterActionId:
-            actions = db(db.Actions.MasterActionId == ActionId)
-            # We need worry only if there atleast 1 slave.
-            if actions.count() > 1:
-                # Upgrade the 2nd action as master action.
-                newMasterActionId = actions[2].id
-                db(db.Actions.MasterActionId == ActionId).update(MasterActionId = newMasterActionId)
 
-        # delete the master action
-        db(db.Actions.id == ActionId).delete()
+        self.id = action.id
+        self.name = action.Name
+        self.device_id = action.DeviceId
+        self.output_value = action.OutputValue
+        self.master_action_id = action.MasterActionId
 
-    """ Remove given Master Action and any associated action with it.
-    """
     @staticmethod
-    def DeleteMasterAndAllActions(MasterActionId):
-        current.db(db.Actions.MasterActionId == MasterActionId).delete()
-    
-    """ Returns list of actions associated with the current device. 
-    """
-    def GetDeviceActions(self, DeviceId):
-        actions = current.db(db.Actions.DeviceId == DeviceId)
+    def delete(action_id):
+        """
+        Remove given Action from the database.
+
+        @param action_id:
+        """
+        db = current.db
+        action_set = db.Actions.on(MasterActionId=action_id)
+        if action_set > 1 & action_set.first().id == action_id & action_id == action_set.first().MasterActionId:
+            db.Actions.on(MasterActionId=action_id).update(MasterActionId=action_set[2].id)
+
+        db(db.Actions.id == action_id).delete()
+
+    @staticmethod
+    def deletemasterandallactions(master_action_id):
+        """
+        Remove given Master Action and any associated action with it.
+
+        @param master_action_id:
+        """
+        db = current.db
+        db(db.Actions.MasterActionId == master_action_id).delete()
+
+    def getdeviceactions(self, device_id):
+        """
+        Returns list of actions associated with the current device.
+
+        @param device_id:
+        @return:
+        """
+        db = current.db
+        actions = db(db.Actions.DeviceId == device_id)
         action_list = []
         for action in actions:
-            new_action = Action(Name=action.Name, DeviceId=action.DeviceId, OutputValue=action.OutputValue, MasterActionId=action.MasterActionId)
-            new_action.Id = DeviceId
+            new_action = Action(Name=action.Name, device_id=action.DeviceId, output_value=action.OutputValue,
+                                master_action_id=action.MasterActionId)
+            new_action.id = device_id
             action_list.append(new_action)
-            
+
         return action_list
-    
-    
