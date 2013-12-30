@@ -20,17 +20,15 @@ class DeviceData:
         """
         db = current.db
         if self.id:
-            db.DeviceData(self.id).update(DeviceId=self.device_id,
-                                          OutputValue=self.output_value,
-                                          ActivityDate=self.activity_date,
-                                          TimeRange=self.time_range
-            )
+            db.device_data(self.id).update(device_id=self.device_id,
+                                           output_value=self.output_value,
+                                           activity_date=self.activity_date,
+                                           time_range=self.time_range)
         else:
-            self.id = db.DeviceData.insert(DeviceId=self.device_id,
-                                           OutputValue=self.output_value,
-                                           ActivityDate=self.activity_date,
-                                           TimeRange=self.time_range
-            )
+            self.id = db.device_data.insert(device_id=self.device_id,
+                                           output_value=self.output_value,
+                                           activity_date=self.activity_date,
+                                           time_range=self.time_range)
 
         return self.id
 
@@ -45,10 +43,10 @@ class DeviceData:
         """
         db = current.db
         latest_date = date.today() - max_days
-        records = current.db(db.DeviceData.DeviceId == device_id and db.DeviceData.ActivityDate > latest_date)
+        records = current.db(db.device_data.device_id == device_id and db.device_data.activity_date > latest_date)
         result = []
-        for rec in records:
-            new_device_data = DeviceData(rec.DeviceId, rec.ActivityDate, rec.OutputValue, rec.TimeRange)
+        for record in records:
+            new_device_data = DeviceData(record.device_id, record.activity_date, record.output_value, record.time_range)
             new_device_data.id = device_id
             result.append(new_device_data)
 

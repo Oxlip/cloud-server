@@ -23,7 +23,8 @@ db.define_table('profile',
                 Field('last_name', 'string'),                       # Last name
                 Field('date_of_birth', 'date'),                     # DOB and gender are only for data collection.
                 Field('gender', 'integer'),
-                Field('master_profile_id', 'reference profile'))   # Master user of the family.
+                Field('is_active', 'boolean'),                      # If the user leaves the system
+                Field('master_profile_id', 'reference profile'))    # Master user of the family.
 
 
 # List of countries
@@ -46,7 +47,7 @@ db.define_table('user_contact_info',
                 Field('profile_id', 'reference profile'),
                 Field('address_line_1', 'string'),                  # Address
                 Field('address_line_2', 'string'),
-                Field('city', 'references city'),                   # name of the city
+                Field('city_id', 'references city'),                   # name of the city
                 Field('state_id', 'references states'),             # name of the state
                 Field('postalcode', 'string'),                      # ZIP or postal code
                 Field('email', 'string'),                           # email id of the user
@@ -133,7 +134,7 @@ db.define_table('device_data',
 # ( @CONDITION @OPERATOR @ConditionValue ) @IsAndOperation  ( @CONDITION @OPERATOR @ConditionValue )
 db.define_table('conditions',
                 Field('device_id', 'reference device'),             # Device Value
-                Field('comparison', 'integer'),                     # ==, !=, >,  <
+                Field('compares', 'integer'),                       # ==, !=, >,  <
                 Field('condition_value', 'string'),                 # User specified value
                 Field('is_and_operation', 'boolean'),               # True if AND otherwise OR
                 Field('master_condition_id', 'reference conditions'))  # Self reference

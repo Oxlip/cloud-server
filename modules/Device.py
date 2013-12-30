@@ -6,8 +6,8 @@ from modules.PlugZExceptions import *
 
 
 class Device:
-    def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None, registered_date=None,
-                 default_value=None, appliance_id=None):
+    def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
+                 registered_date=None, default_value=None, appliance_id=None):
         """
         Initializes device fields with given information.
         @param device_type:
@@ -48,7 +48,7 @@ class Device:
         @return: @raise:
         """
         db = current.db
-        device = db(db.Device.id == device_id).select()
+        device = db(db.device.id == device_id).select()
         if device is None:
             raise NotFoundError('Device not found - {id}'.format(id=device_id))
 
@@ -66,23 +66,23 @@ class Device:
         db = current.db
         #Check whether need to create a new record OR update existing record.
         if self.id:
-            db.Device(self.id).update(DeviceType=self.device_type,
-                                      Identification=self.identification,
-                                      Profile=self.profile,
-                                      Hub=self.hub,
-                                      Name=self.name,
-                                      RegisteredDate=self.registered_date,
-                                      DefaultValue=self.default_value,
-                                      Appliance=self.appliance)
+            db.device(self.id).update(device_type_id=self.device_type,
+                                      identification=self.identification,
+                                      profile_id=self.profile,
+                                      hub_id=self.hub,
+                                      name=self.name,
+                                      registered_date=self.registered_date,
+                                      default_value=self.default_value,
+                                      appliance_id=self.appliance)
         else:
-            self.id = db.Device.insert(DeviceType=self.device_type,
-                                       Identification=self.identification,
-                                       Profile=self.profile,
-                                       Hub=self.hub,
-                                       Name=self.name,
-                                       RegisteredDate=self.registered_date,
-                                       DefaultValue=self.default_value,
-                                       Appliance=self.appliance)
+            self.id = db.Device.insert(device_type_id=self.device_type,
+                                       identification=self.identification,
+                                       profile_id=self.profile,
+                                       hub_id=self.hub,
+                                       name=self.name,
+                                       registered_date=self.registered_date,
+                                       default_value=self.default_value,
+                                       appliance_id=self.appliance)
 
         return self.id
 
@@ -94,11 +94,10 @@ class Device:
 
         @param device_id:
         """
-
         # For now we mark only the device as deleted, later we may need to modify the DeviceData and Action tables.
 
         db = current.db
-        db(db.Device.id == device_id).update(isDeleted=True)
+        db(db.device.id == device_id).update(is_deleted=True)
 
     @staticmethod
     def get_devices_for_user(profile_id):
@@ -107,7 +106,7 @@ class Device:
         """
         db = current.db
         devices = []
-        for d in db(db.Device.ProfileId == profile_id).select():
+        for d in db(db.device.profile_id == profile_id).select():
             device = Device()
             device._load(d)
             devices.append(device)

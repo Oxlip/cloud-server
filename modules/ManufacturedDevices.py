@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-All devices should be inserted into the ManufacturedDevices table before shipping to the customer.
+All devices should be inserted into the manufactured_devices table before shipping to the customer.
 This class provides a insert method to accomplish that.
 
 TODO - May be we need an delete() method later.
@@ -11,7 +11,7 @@ from gluon import current
 from PlugZExceptions import AlreadyExistsError
 
 
-class ManufacturedDevices:
+class manufactured_devices:
     def __init__(self):
         pass
 
@@ -25,10 +25,10 @@ class ManufacturedDevices:
         db = current.db
 
         # If the device already exists raise an exception.
-        if db(db.ManufacturedDevices.Identification == identification).count() > 0:
+        if db(db.manufactured_devices.identification == identification).count() > 0:
             raise AlreadyExistsError('Another device is already has the same identification- {id}.'.format(id=identification))
 
-        db.ManufacturedDevices.insert(Identification=identification,
-                                      DeviceTypeId=device_type_id,
-                                      DateOfManufacturing=date_of_manufacturing
-                                      )
+        db.manufactured_devices.insert(identification=identification,
+                                       device_type_id=device_type_id,
+                                       date_of_manufacture=date_of_manufacturing
+        )
