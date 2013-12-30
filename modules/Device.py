@@ -2,11 +2,12 @@
 """
 
 from gluon import current
+from modules.PlugZExceptions import *
 
 
 class Device:
-    def __init__(self, device_type=None, identification=None, profile=None, hub=None, name=None, registered_date=None,
-                 default_value=None, appliance=None):
+    def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None, registered_date=None,
+                 default_value=None, appliance_id=None):
         """
         Initializes device fields with given information.
         @param device_type:
@@ -19,14 +20,25 @@ class Device:
         @param appliance:
         """
         self.id = None
-        self.device_type = device_type
+        self.device_type_id = device_type_id
         self.identification = identification
-        self.profile = profile
-        self.hub = hub
+        self.profile_id = profile_id
+        self.hub_id = hub_id
         self.name = name
         self.registered_date = registered_date
         self.default_value = default_value
-        self.appliance = appliance
+        self.appliance_id = appliance_id
+
+    def _load(self, device):
+        self.id = device.id
+        self.device_type_id = device.DeviceTypeId
+        self.identification = device.Identification
+        self.profile_id = device.ProfileId
+        self.hub_id = device.HubId
+        self.name = device.Name
+        self.registered_date = device.RegisteredDate
+        self.default_value = device.DefaultValue
+        self.appliance_id = device.ApplianceID
 
     def load(self, device_id):
         """
@@ -35,26 +47,15 @@ class Device:
         @param device_id:
         @return: @raise:
         """
-        device = current.db.Device(device_id)
+        db = current.db
+        device = db(db.Device.id == device_id).select()
         if device is None:
-            # TODO - define exception.
-            raise
+            raise NotFoundError('Device not found - {id}'.format(id=device_id))
 
         if device.isDeleted:
-            # TODO - define exception.
-            raise
+            raise MarkedAsDeleted('Device is already deleted - {id}'.format(id=device_id))
 
-        self.id = device.DeviceId
-        self.device_type = device.DeviceType
-        self.identification = device.Identification
-        self.profile = device.Profile
-        self.hub = device.Hub
-        self.name = device.Name
-        self.registered_date = device.RegisteredDate
-        self.default_value = device.DefaultValue
-        self.appliance = device.Appliance
-
-        return True
+        self._load(device)
 
     def save(self):
         """
@@ -98,3 +99,16 @@ class Device:
 
         db = current.db
         db(db.Device.id == device_id).update(isDeleted=True)
+
+    @staticmethod
+    def get_devices_for_user(profile_id):
+        """
+        Returns all the devices associated with a given user.
+        """
+        db = current.db
+        devices = []
+        for d in db(db.Device.ProfileId == profile_id).select():
+            device = Device()
+            device._load(d)
+            devices.append(device)
+        return devices

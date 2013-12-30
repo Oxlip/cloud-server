@@ -11,3 +11,6 @@ class AlreadyExistsError(Exception):
 class NotFoundError(Exception):
     pass
 
+class MarkedAsDeleted(Exception):
+    pass
+

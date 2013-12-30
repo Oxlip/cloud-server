@@ -23,5 +23,5 @@ INSERT INTO device(DeviceTypeId, Identification, SubIdentification, ProfileId, H
 INSERT INTO device(DeviceTypeId, Identification, SubIdentification, ProfileId, HubId, Name, RegisteredDate)
             VALUES(3,            'BBBBCCDDEEF1', 4,                 1,         1,     'Hall Fan', CURRENT_TIMESTAMP());
 INSERT INTO device(DeviceTypeId, Identification, SubIdentification, ProfileId, HubId, Name, RegisteredDate)
-            VALUES(4,            'CCCCCCDDEEF2', NULL,              1,         1,     'Hall Sensor', CURRENT_TIMESTAMP());
+            VALUES(5,            'CCCCCCDDEEF2', NULL,              1,         1,     'Hall Sensor', CURRENT_TIMESTAMP());
 
