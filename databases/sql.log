@@ -53,3 +53,424 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
+timestamp: 2013-12-26T19:55:47.213000
+CREATE TABLE auth_user(
+    id INT AUTO_INCREMENT NOT NULL,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(512),
+    password VARCHAR(512),
+    registration_key VARCHAR(512),
+    reset_password_key VARCHAR(512),
+    registration_id VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.226000
+CREATE TABLE auth_group(
+    id INT AUTO_INCREMENT NOT NULL,
+    role VARCHAR(512),
+    description LONGTEXT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.236000
+CREATE TABLE auth_membership(
+    id INT AUTO_INCREMENT NOT NULL,
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.251000
+CREATE TABLE auth_permission(
+    id INT AUTO_INCREMENT NOT NULL,
+    group_id INT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    name VARCHAR(512),
+    table_name VARCHAR(512),
+    record_id INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.265000
+CREATE TABLE auth_event(
+    id INT AUTO_INCREMENT NOT NULL,
+    time_stamp DATETIME,
+    client_ip VARCHAR(512),
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin VARCHAR(512),
+    description LONGTEXT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.277000
+CREATE TABLE auth_cas(
+    id INT AUTO_INCREMENT NOT NULL,
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on DATETIME,
+    service VARCHAR(512),
+    ticket VARCHAR(512),
+    renew CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.291000
+CREATE TABLE Profile(
+    id INT AUTO_INCREMENT NOT NULL,
+    UserName VARCHAR(512),
+    FirstName VARCHAR(512),
+    LastName VARCHAR(512),
+    DateOfBirth DATE,
+    Gender INT,
+    MasterProfileId INT, INDEX MasterProfileId__idx (MasterProfileId), FOREIGN KEY (MasterProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.304000
+CREATE TABLE Country(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.315000
+CREATE TABLE States(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    Country INT, INDEX Country__idx (Country), FOREIGN KEY (Country) REFERENCES Country (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.325000
+CREATE TABLE City(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    StateId INT, INDEX StateId__idx (StateId), FOREIGN KEY (StateId) REFERENCES States (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.338000
+CREATE TABLE UserContactInfo(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    AddressLine1 VARCHAR(512),
+    AddressLine2 VARCHAR(512),
+    City INT, INDEX City__idx (City), FOREIGN KEY (City) REFERENCES City (id) ON DELETE CASCADE,
+    StateId INT, INDEX StateId__idx (StateId), FOREIGN KEY (StateId) REFERENCES States (id) ON DELETE CASCADE,
+    Zip VARCHAR(512),
+    Email VARCHAR(512),
+    Phone VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.358000
+CREATE TABLE UserSession(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    ConnectTime DATETIME,
+    DisconnectTime DATETIME,
+    Identification VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.370000
+CREATE TABLE DeviceType(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    Description VARCHAR(512),
+    DeviceVersion INT,
+    Image VARCHAR(512),
+    Icon VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.379000
+CREATE TABLE Appliance(
+    id INT AUTO_INCREMENT NOT NULL,
+    ApplianceType VARCHAR(512),
+    ApplianceMake VARCHAR(512),
+    ApplianceModel VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.387000
+CREATE TABLE Device(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceTypeId INT, INDEX DeviceTypeId__idx (DeviceTypeId), FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType (id) ON DELETE CASCADE,
+    Identification VARCHAR(50),
+    DateOfManufacturing DATETIME,
+    ApplianceID INT, INDEX ApplianceID__idx (ApplianceID), FOREIGN KEY (ApplianceID) REFERENCES Appliance (id) ON DELETE CASCADE,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    HubId INT, INDEX HubId__idx (HubId), FOREIGN KEY (HubId) REFERENCES Device (id) ON DELETE CASCADE,
+    Name VARCHAR(512),
+    RegisteredDate DATETIME,
+    DefaultValue VARCHAR(512),
+    isDeleted CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.405000
+CREATE TABLE HubSession(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    ConnectTime DATETIME,
+    DisconnectTime DATETIME,
+    Identification VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.419000
+CREATE TABLE DeviceData(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    ActivityDate DATETIME,
+    RecordedDate DATETIME,
+    OutputValue VARCHAR(512),
+    TimeRange INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.431000
+CREATE TABLE Conditions(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    Comparison INT,
+    ConditionValue VARCHAR(512),
+    IsAndOperation CHAR(1),
+    MasterConditionId INT, INDEX MasterConditionId__idx (MasterConditionId), FOREIGN KEY (MasterConditionId) REFERENCES Conditions (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.444000
+CREATE TABLE Actions(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    OutputValue VARCHAR(512),
+    MasterActionId INT, INDEX MasterActionId__idx (MasterActionId), FOREIGN KEY (MasterActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.458000
+CREATE TABLE ActionPreference(
+    id INT AUTO_INCREMENT NOT NULL,
+    ActionId INT, INDEX ActionId__idx (ActionId), FOREIGN KEY (ActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    UIOrder INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.474000
+CREATE TABLE Rules(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    ConditionId INT, INDEX ConditionId__idx (ConditionId), FOREIGN KEY (ConditionId) REFERENCES Conditions (id) ON DELETE CASCADE,
+    ActionId INT, INDEX ActionId__idx (ActionId), FOREIGN KEY (ActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    isActive CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-26T19:55:47.491000
+CREATE TABLE UserActivity(
+    id INT AUTO_INCREMENT NOT NULL,
+    UserSessionId INT, INDEX UserSessionId__idx (UserSessionId), FOREIGN KEY (UserSessionId) REFERENCES UserSession (id) ON DELETE CASCADE,
+    ActionExecuted INT, INDEX ActionExecuted__idx (ActionExecuted), FOREIGN KEY (ActionExecuted) REFERENCES Actions (id) ON DELETE CASCADE,
+    ActivityDate DATETIME,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-28T11:41:50.250000
+CREATE TABLE ManufacturedDevices(
+    Identification VARCHAR(50) NOT NULL,
+    DeviceTypeId INT,
+    DateOfManufacturing DATETIME,
+    PRIMARY KEY(Identification))  ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-28T11:41:50.266000
+ALTER TABLE Device DROP COLUMN dateofmanufacturing;
+success!
+timestamp: 2013-12-29T15:43:18.359000
+ALTER TABLE DeviceType ADD isinputdevice CHAR(1);
+success!
+timestamp: 2013-12-29T15:43:18.392000
+ALTER TABLE DeviceType ADD isoutputdevice CHAR(1);
+success!
+success!
+timestamp: 2013-12-29T15:43:18.415000
+ALTER TABLE Device ADD subidentification INT;
+success!
+success!
+timestamp: 2013-12-29T16:01:49.359000
+CREATE TABLE Profile(
+    id INT AUTO_INCREMENT NOT NULL,
+    UserName VARCHAR(512),
+    FirstName VARCHAR(512),
+    LastName VARCHAR(512),
+    DateOfBirth DATE,
+    Gender INT,
+    MasterProfileId INT, INDEX MasterProfileId__idx (MasterProfileId), FOREIGN KEY (MasterProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.377000
+CREATE TABLE Country(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.387000
+CREATE TABLE States(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    Country INT, INDEX Country__idx (Country), FOREIGN KEY (Country) REFERENCES Country (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.403000
+CREATE TABLE City(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    StateId INT, INDEX StateId__idx (StateId), FOREIGN KEY (StateId) REFERENCES States (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.417000
+CREATE TABLE UserContactInfo(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    AddressLine1 VARCHAR(512),
+    AddressLine2 VARCHAR(512),
+    City INT, INDEX City__idx (City), FOREIGN KEY (City) REFERENCES City (id) ON DELETE CASCADE,
+    StateId INT, INDEX StateId__idx (StateId), FOREIGN KEY (StateId) REFERENCES States (id) ON DELETE CASCADE,
+    Zip VARCHAR(512),
+    Email VARCHAR(512),
+    Phone VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.436000
+CREATE TABLE UserSession(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    ConnectTime DATETIME,
+    DisconnectTime DATETIME,
+    Identification VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.449000
+CREATE TABLE DeviceType(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    Description VARCHAR(512),
+    DeviceVersion INT,
+    IsInputDevice CHAR(1),
+    IsOutputDevice CHAR(1),
+    Image VARCHAR(512),
+    Icon VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.460000
+CREATE TABLE Appliance(
+    id INT AUTO_INCREMENT NOT NULL,
+    ApplianceType VARCHAR(512),
+    ApplianceMake VARCHAR(512),
+    ApplianceModel VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.471000
+CREATE TABLE ManufacturedDevices(
+    Identification VARCHAR(50) NOT NULL,
+    DeviceTypeId INT,
+    DateOfManufacturing DATETIME,
+    PRIMARY KEY(Identification))  ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.485000
+CREATE TABLE Device(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceTypeId INT, INDEX DeviceTypeId__idx (DeviceTypeId), FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType (id) ON DELETE CASCADE,
+    Identification VARCHAR(50),
+    SubIdentification INT,
+    ApplianceID INT, INDEX ApplianceID__idx (ApplianceID), FOREIGN KEY (ApplianceID) REFERENCES Appliance (id) ON DELETE CASCADE,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    HubId INT, INDEX HubId__idx (HubId), FOREIGN KEY (HubId) REFERENCES Device (id) ON DELETE CASCADE,
+    Name VARCHAR(512),
+    RegisteredDate DATETIME,
+    DefaultValue VARCHAR(512),
+    isDeleted CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.517000
+CREATE TABLE HubSession(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    ConnectTime DATETIME,
+    DisconnectTime DATETIME,
+    Identification VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.538000
+CREATE TABLE DeviceData(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    ActivityDate DATETIME,
+    RecordedDate DATETIME,
+    OutputValue VARCHAR(512),
+    TimeRange INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.560000
+CREATE TABLE Conditions(
+    id INT AUTO_INCREMENT NOT NULL,
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    Comparison INT,
+    ConditionValue VARCHAR(512),
+    IsAndOperation CHAR(1),
+    MasterConditionId INT, INDEX MasterConditionId__idx (MasterConditionId), FOREIGN KEY (MasterConditionId) REFERENCES Conditions (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.578000
+CREATE TABLE Actions(
+    id INT AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(512),
+    DeviceId INT, INDEX DeviceId__idx (DeviceId), FOREIGN KEY (DeviceId) REFERENCES Device (id) ON DELETE CASCADE,
+    OutputValue VARCHAR(512),
+    MasterActionId INT, INDEX MasterActionId__idx (MasterActionId), FOREIGN KEY (MasterActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.594000
+CREATE TABLE ActionPreference(
+    id INT AUTO_INCREMENT NOT NULL,
+    ActionId INT, INDEX ActionId__idx (ActionId), FOREIGN KEY (ActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    UIOrder INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.619000
+CREATE TABLE Rules(
+    id INT AUTO_INCREMENT NOT NULL,
+    ProfileId INT, INDEX ProfileId__idx (ProfileId), FOREIGN KEY (ProfileId) REFERENCES Profile (id) ON DELETE CASCADE,
+    ConditionId INT, INDEX ConditionId__idx (ConditionId), FOREIGN KEY (ConditionId) REFERENCES Conditions (id) ON DELETE CASCADE,
+    ActionId INT, INDEX ActionId__idx (ActionId), FOREIGN KEY (ActionId) REFERENCES Actions (id) ON DELETE CASCADE,
+    isActive CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2013-12-29T16:01:49.640000
+CREATE TABLE UserActivity(
+    id INT AUTO_INCREMENT NOT NULL,
+    UserSessionId INT, INDEX UserSessionId__idx (UserSessionId), FOREIGN KEY (UserSessionId) REFERENCES UserSession (id) ON DELETE CASCADE,
+    ActionExecuted INT, INDEX ActionExecuted__idx (ActionExecuted), FOREIGN KEY (ActionExecuted) REFERENCES Actions (id) ON DELETE CASCADE,
+    ActivityDate DATETIME,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!

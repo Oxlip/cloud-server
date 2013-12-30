@@ -26,7 +26,7 @@ def manufactured():
         ManufacturedDevices.insert(identification=form.vars.Identification, device_type_id=form.vars.DeviceType,
                                    date_of_manufacturing=datetime.today())
     except AlreadyExistsError:
-        return 'The given serial number is already exists.'
+        return 'The given serial number already exists.'
     else:
-        return 'Successfully added the device'
+        return 'Successfully added the device.'
 
