@@ -41,7 +41,7 @@ def dashboard():
     Landing page for the user after he login.
     """
     response.view = 'dashboard.html'
-    devices = Device.get_devices_for_user(session.user)
+    devices = Device.get_devices_for_user(session.user_id)
     #TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
     return dict(devices=devices, device_types=device_types)

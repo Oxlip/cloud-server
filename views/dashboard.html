@@ -67,7 +67,7 @@
         <table width="80%" border="1">
         {{
         for device in devices:
-            dt = device_types[device.device_type_id]
+            dt = device_types[device.device_type_id - 1]
         }}
             <tr>
                 <td>{{=dt.icon}}</td>
