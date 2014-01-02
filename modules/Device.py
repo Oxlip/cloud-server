@@ -31,14 +31,14 @@ class Device:
 
     def _load(self, device):
         self.id = device.id
-        self.device_type_id = device.DeviceTypeId
-        self.identification = device.Identification
-        self.profile_id = device.ProfileId
-        self.hub_id = device.HubId
-        self.name = device.Name
-        self.registered_date = device.RegisteredDate
-        self.default_value = device.DefaultValue
-        self.appliance_id = device.ApplianceID
+        self.device_type_id = device.device_type_id
+        self.identification = device.identification
+        self.profile_id = device.profile_id
+        self.hub_id = device.hub_id
+        self.name = device.name
+        self.registered_date = device.registered_date
+        self.default_value = device.default_value
+        self.appliance_id = device.appliance_id
 
     def load(self, device_id):
         """
