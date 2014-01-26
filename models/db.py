@@ -108,7 +108,8 @@ db.define_table('device',
                                                                     # device starts. For example for a RGB LED
                                                                     # it would be the RGB color,
                                                                     # for a TV it would be the TV channel no etc.
-                Field('is_deleted', 'boolean'))                     # Mark true if device is removed for user
+                Field('last_known_value', 'string'),                # Mark true if device is removed for user
+                Field('is_deleted', 'boolean'))                     # last known value from the device
 
 
 # Contains logging information about hub connections for debugging.
