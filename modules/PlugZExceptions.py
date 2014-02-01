@@ -7,7 +7,6 @@ Defines custom exceptions and error codes.
 class AlreadyExistsError(Exception):
     pass
 
-
 class NotFoundError(Exception):
     pass
 
