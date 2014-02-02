@@ -27,7 +27,8 @@ db.define_table('profile',
                 Field('date_of_birth', 'date'),                     # DOB and gender are only for data collection.
                 Field('gender', 'integer'),
                 Field('is_active', 'boolean'),                      # If the user leaves the system
-                Field('preferred_contact', 'reference user_contact_info', #Primary Contact to communicate
+                Field('preferred_contact', 'reference user_contact_info'),
+                                                                    #Primary Contact to communicate
                 Field('account_id', 'references account'))          # Referenced Account.
 
 
@@ -167,7 +168,7 @@ db.define_table('action_preference',
 # Actual main Rule table - links a condition and a action.
 db.define_table('rules',
                 Field('profile_id', 'reference profile'),           # User Id
-                Field('name', 'string')                             # user defined RuleName
+                Field('name', 'string'),                            # user defined RuleName
                 Field('condition_id', 'reference conditions'),      # First condition
                 Field('action_id', 'reference actions'),            # What action to take
                 Field('is_active', 'boolean'))                      # is the Rule active or temporarily disabled by user
