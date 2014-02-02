@@ -91,6 +91,7 @@ db.define_table('appliance',
                                                                     # (Only appicable for Plugs and Swithces)
 
 
+
 # All devices coming out of factory is entered in this table.
 db.define_table('manufactured_devices',
                 Field('identification', 'string', length=50),       # Unique identification no - may be a Serial No.
