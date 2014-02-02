@@ -17,6 +17,9 @@ response.generic_patterns = ['*'] if request.is_local else []
 # response.optimize_js = 'concat,minify,inline'
 
 # User information - A single family can have multiple profiles.
+db.define_table('account',
+                Field('master_profile_id', 'reference profile'))    # Master user of the family.
+
 db.define_table('profile',
                 Field('username', 'string'),                        # Unique username
                 Field('first_name', 'string'),                      # First name - Should match passport :)
@@ -24,7 +27,8 @@ db.define_table('profile',
                 Field('date_of_birth', 'date'),                     # DOB and gender are only for data collection.
                 Field('gender', 'integer'),
                 Field('is_active', 'boolean'),                      # If the user leaves the system
-                Field('master_profile_id', 'reference profile'))    # Master user of the family.
+                Field('preferred_contact', 'reference user_contact_info', #Primary Contact to communicate
+                Field('account_id', 'references account'))          # Referenced Account.
 
 
 # List of countries
@@ -45,6 +49,7 @@ db.define_table('city',
 # User contact information
 db.define_table('user_contact_info',
                 Field('profile_id', 'reference profile'),
+                Field('contact_type', 'string'),                    # Type would hold values like (office, Home)
                 Field('address_line_1', 'string'),                  # Address
                 Field('address_line_2', 'string'),
                 Field('city_id', 'references city'),                   # name of the city
@@ -99,6 +104,7 @@ db.define_table('device',
                 Field('identification', 'string', length=50),       # Unique identification no - may be a Serial No.
                 Field('sub_identification', 'integer'),             # Only for USwitch-
                                                                     # To Identify each individual devices in a uSwitch
+                Field('device_group', 'string'),                    # Display field used to group Devices
                 Field('appliance_id', 'reference appliance'),       # Appliance Referred
                 Field('profile_id', 'reference profile'),           # User who owns this device
                 Field('hub_id', 'reference device'),                # The hub this device is connected to
@@ -143,10 +149,13 @@ db.define_table('conditions',
 
 # Actions
 db.define_table('actions',
-                Field('name', 'string'),                            # name given by the user for this action.
+                Field('name', 'string')),                            # name given by the user for this action.
+                
+                
+db.define_table('action_details',
                 Field('device_id', 'reference device'),             # On which device the action will be taken.
                 Field('output_value', 'string'),                    # What value should be sent to the device.
-                Field('master_action_id', 'reference actions'))      # Self reference for linking multiple actions/
+                Field('action_id', 'reference actions'))            # Self reference for linking multiple actions
 
 # User's preference for actions
 db.define_table('action_preference',
@@ -158,6 +167,7 @@ db.define_table('action_preference',
 # Actual main Rule table - links a condition and a action.
 db.define_table('rules',
                 Field('profile_id', 'reference profile'),           # User Id
+                Field('name', 'string')                             # user defined RuleName
                 Field('condition_id', 'reference conditions'),      # First condition
                 Field('action_id', 'reference actions'),            # What action to take
                 Field('is_active', 'boolean'))                      # is the Rule active or temporarily disabled by user
