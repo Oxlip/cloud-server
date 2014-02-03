@@ -1,0 +1,402 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "basePath": "http://162.243.204.9/api-docs/",
+    "resourcePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "apis": [
+        {
+            "path": "/user/{username}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Find user by username",
+                    "notes": "Returns an user information based on given username",
+                    "type": "User",
+                    "nickname": "getUser",
+                    "authorizations": {
+                        "oauth2": [
+                            {
+                                "scope": "test:anything",
+                                "description": "anything"
+                            }
+                        ]
+                    },
+                    "parameters": [
+                        {
+                            "name": "userName",
+                            "description": "Username of the user",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid username"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/user/{username}/devices",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get all user devices",
+                    "notes": "Returns all devices associated with an user",
+                    "nickname": "getUserDevices",
+                    "authorizations": {
+                        "oauth2": [
+                            {
+                                "scope": "test:anything",
+                                "description": "anything"
+                            }
+                        ]
+                    },
+                    "parameters": [
+                    ],
+                    "items":{
+                        "$ref":"Device"
+                    },
+                    "type": "array",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid username"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/device/{device_id}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Find device by Id",
+                    "notes": "Returns a device information for the given device id",
+                    "type": "Device",
+                    "nickname": "getDevice",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid device id"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/hub/{hub_id}/devices",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get all Hub devices",
+                    "notes": "Returns all devices associated with a hub",
+                    "nickname": "getHubDevices",
+                    "items":{
+                        "$ref":"Device"
+                    },
+                    "type": "array",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid hub id"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/hub/{hub_id}/register",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Registers a device",
+                    "notes": "Registers a device with a hub",
+                    "nickname": "registerDevices",
+                    "parameters": [
+                        {
+                            "name": "device_id",
+                            "description": "Device id to be registered",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path"
+                        }
+                     ],
+                    "type": "integer",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid device id"
+                        },
+                        {
+                            "code": 401,
+                            "message": "Device not authorized"
+                        }
+                     ]
+                }
+            ]
+        },
+        {
+            "path": "/device/{device_id}/activity",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Post a device activity",
+                    "notes": "Posts a new device activity such as motion detected, light turned on etc",
+                    "nickname": "postDeviceActivity",
+                    "parameters": [
+                        {
+                            "name": "device_id",
+                            "description": "Device id to be registered",
+                            "required": true,
+                            "type": "DeviceType",
+                            "paramType": "path"
+                        }
+                     ],
+                    "type": "integer",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid timestamp"
+                        },
+                        {
+                            "code": 401,
+                            "message": "Invalid value"
+                        }
+                     ]
+                },
+                {
+                    "method": "GET",
+                    "summary": "Get device activity histroy",
+                    "notes": "Returns device activity history",
+                    "nickname": "getDeviceActivity",
+                    "parameters": [
+                        {
+                            "name": "limit",
+                            "description": "Max number of records to return",
+                            "required": false,
+                            "type": "integer",
+                            "paramType": "path"
+                        }
+                     ],
+                    "items":{
+                        "$ref":"DeviceActivity"
+                    },
+                    "type": "array",
+                    "responseMessages": [
+                     ]
+                }
+             ]
+        },
+        {
+            "path": "/user/{user_id}/actions",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get user's device actions",
+                    "notes": "Returns actions associated with an user",
+                    "nickname": "getUserDeviceAction",
+                    "items":{
+                        "$ref":"Action"
+                    },
+                    "type": "array",
+                    "responseMessages": [
+                     ]
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create an action",
+                    "notes": "Creates an action",
+                    "nickname": "createDeviceAction",
+                    "parameters": [
+                        {
+                            "name": "Action",
+                            "description": "Action to be created",
+                            "required": true,
+                            "type": "Action",
+                            "paramType": "body"
+                        }
+                     ],
+                    "responseMessages": [
+                     ]
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an action",
+                    "notes": "Updates an action",
+                    "nickname": "updateDeviceAction",
+                    "parameters": [
+                        {
+                            "name": "Action",
+                            "description": "Action to be modified",
+                            "required": true,
+                            "type": "Action",
+                            "paramType": "body"
+                        }
+                     ],
+                    "responseMessages": [
+                     ]
+                }
+              ]
+        }
+     
+    ],
+    "models": {
+        "ContactInfo": {
+            "id": "ContactInfo",
+            "properties": {
+                "address_line1": {
+                    "type": "string"
+                },
+                "address_line2": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "postal_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "id": "User",
+            "required": [
+                "user_name",
+                "first_name",
+                "last_name",
+                "email"
+            ],
+            "properties": {
+                "user_name": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "contact_info": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "ContactInfo"
+                    }
+                }
+            }
+        },
+        "Device": {
+            "id": "Device",
+            "required": [
+                "id",
+                "name",
+                "type",
+                "email"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique Id of the device"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name given by the user to the device"
+                },
+                "group": {
+                    "type": "string",
+                    "description": "User can group multiple devices in to one or more groups(Eg Hall, Bedroom)"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of the device",
+                    "enum": [
+                        "uSwitch",
+                        "uSense",
+                        "uPlug",
+                        "uHub"
+                    ]
+                },
+                "images": {
+                    "type": "array"
+                }
+            }
+        },
+        "DeviceActivity": {
+            "id": "DeviceActivity",
+            "required": [
+                "timestamp",
+                "value"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "date",
+                    "description": "When the activity happened"
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "Device value"
+                }
+            }
+        },
+        "ActionCommand": {
+            "id": "ActionCommand",
+            "required": [
+                "device_id",
+                "value"
+             ],
+            "properties": {
+                "device_id" : {
+                    "type": "integer",
+                    "description": "Device id on which the value will be applied"
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "Device specific value"
+                }
+            }
+        },
+        "Action": {
+            "id": "Action",
+            "required": [
+                "name",
+                "commands"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unquie identifier"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "User assgined name for this action"
+                },
+                "commands": {
+                    "items":{
+                        "$ref":"ActionCommand"
+                    },
+
+                    "type": "array"
+                }
+            }
+        }
+    }
+}
