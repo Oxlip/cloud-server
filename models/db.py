@@ -45,9 +45,9 @@ db.define_table('city',
 db.define_table('user_contact_info',
                 Field('profile_id', 'reference profile'),
                 Field('contact_type', 'string'),                    # Type would hold values like (office, Home)
-                Field('address_line1', 'string'),                   # Address
-                Field('address_line2', 'string'),
-                Field('city_id', 'reference city'),                # name of the city
+                Field('address_line_1', 'string'),                  # Address
+                Field('address_line_2', 'string'),
+                Field('city_id', 'reference city'),                 # name of the city
                 Field('postal_code', 'string'),                     # ZIP or postal code
                 Field('phone', 'string'))
 

@@ -137,7 +137,7 @@ class UserContactInfo:
             raise NotFoundError('UserContactInfo not found {0}'.format(id))
         city = City(contact_info.city_id).__dict__
         self.__init__(id=id, profile_id=contact_info.profile_id, contact_type=contact_info.contact_type,
-                      address_line_1=contact_info.address_line1, address_line_2=contact_info.address_line2,
+                      address_line_1=contact_info.address_line_1, address_line_2=contact_info.address_line_2,
                       postal_code=contact_info.postal_code, phone=contact_info.phone, city=city)
 
 
