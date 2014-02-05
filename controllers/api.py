@@ -52,6 +52,5 @@ def get_user(args, vars):
             'args': args,
             'vars': vars}
 
-
 def get_device(args, vars):
     return {'args': args, 'vars' : vars}

@@ -16,31 +16,25 @@ response.generic_patterns = ['*'] if request.is_local else []
 # response.optimize_css = 'concat,minify,inline'
 # response.optimize_js = 'concat,minify,inline'
 
-# User information - A single family can have multiple profiles.
-db.define_table('account',
-                Field('master_profile_id', 'reference profile'))    # Master user of the family.
 
 db.define_table('profile',
                 Field('username', 'string'),                        # Unique username
                 Field('first_name', 'string'),                      # First name - Should match passport :)
                 Field('last_name', 'string'),                       # Last name
                 Field('date_of_birth', 'date'),                     # DOB and gender are only for data collection.
-                Field('gender', 'integer'),
-                Field('is_active', 'boolean'),                      # If the user leaves the system
-                Field('preferred_contact', 'reference user_contact_info'),
-                                                                    #Primary Contact to communicate
-                Field('account_id', 'references account'))          # Referenced Account.
+                Field('gender', 'integer'),                         # Male or female.
+                Field('email', 'string'),                           # email id of the user.
+                Field('phone', 'string'))                           # Primary phone to contact.
 
 
 # List of countries
 db.define_table('country',
                 Field('name', 'string'))                            # name of the country
 
-
 # List of states
 db.define_table('states',
                 Field('name', 'string'),                            # name of the state
-                Field('country', 'reference country'))              # country
+                Field('country_id', 'reference country'))           # country
 
 # List of cities
 db.define_table('city',
@@ -51,12 +45,10 @@ db.define_table('city',
 db.define_table('user_contact_info',
                 Field('profile_id', 'reference profile'),
                 Field('contact_type', 'string'),                    # Type would hold values like (office, Home)
-                Field('address_line_1', 'string'),                  # Address
-                Field('address_line_2', 'string'),
-                Field('city_id', 'references city'),                   # name of the city
-                Field('state_id', 'references states'),             # name of the state
-                Field('postalcode', 'string'),                      # ZIP or postal code
-                Field('email', 'string'),                           # email id of the user
+                Field('address_line1', 'string'),                   # Address
+                Field('address_line2', 'string'),
+                Field('city_id', 'reference city'),                # name of the city
+                Field('postal_code', 'string'),                     # ZIP or postal code
                 Field('phone', 'string'))
 
 
