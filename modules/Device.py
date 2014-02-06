@@ -40,7 +40,8 @@ class Device:
         self.default_value = device.default_value
         self.appliance_id = device.appliance_id
 
-    def load(self, device_id):
+    @staticmethod
+    def load(device_id):
         """
         Loads device information from the database into current object.
         If the device is not found then raises an exception.
@@ -48,14 +49,13 @@ class Device:
         @return: @raise:
         """
         db = current.db
-        device = db(db.device.id == device_id).select()
+        device = db(db.device.id == device_id).select().first()
         if device is None:
             raise NotFoundError('Device not found - {id}'.format(id=device_id))
 
-        if device.isDeleted:
-            raise MarkedAsDeleted('Device is already deleted - {id}'.format(id=device_id))
-
-        self._load(device)
+        d = Device()
+        d._load(device)
+        return d
 
     def save(self):
         """
