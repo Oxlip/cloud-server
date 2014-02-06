@@ -17,14 +17,14 @@ def v1():
         """
         request.extension = 'json'
         if args is None or len(args) == 0:
-            return failure_message('Wrong path', args, vars)
+            raise HTTP(406)
 
         if args[0] == 'user':
             return get_user(args[1:], vars)
         elif args[0] == 'device':
             return get_device(args[1:], vars)
 
-        return failure_message('Unsupported URL', args, vars)
+        raise HTTP(406)
 
     def POST(*args, **vars):
         request.extension = 'json'
@@ -39,16 +39,6 @@ def v1():
         return dict()
 
     return locals()
-
-def failure_message(msg, args, vars):
-    """
-    Prepares failure message.
-    """
-    return {
-        'failure_msg': msg,
-        'args': args,
-        'vars': vars
-    }
 
 def get_device_dict(device):
     """
@@ -90,10 +80,13 @@ def get_user(args, vars):
     Main handler for user all REST api starting /user URL
     """
     if args is None or len(args) == 0:
-        return failure_message('Invalid request', args, vars)
+        raise HTTP(406)
 
     user_name = args[0]
-    profile = Profile.get_user(user_name)
+    try:
+        profile = Profile.get_user(user_name)
+    except NotFoundError:
+        raise HTTP(400)
 
     if len(args) == 1:
         # /user/{username}
@@ -103,7 +96,7 @@ def get_user(args, vars):
         # /user/{username}/devices
         return get_user_devices_dict(profile)
 
-    return failure_message('Not supported', args, vars)
+    raise HTTP(404)
 
 
 def get_device(args, vars):
@@ -111,14 +104,18 @@ def get_device(args, vars):
     Main handler for user all REST api starting /device URL
     """
     if args is None or len(args) == 0:
-        return failure_message('Invalid request', args, vars)
+        raise HTTP(406)
 
     device_id = args[0]
-    device = Device.load(device_id)
+    try:
+        device = Device.load(device_id)
+    except NotFoundError:
+        raise HTTP(400)
+
     if len(args) == 1:
         # /device/{device_id}
         return get_device_dict(device)
 
-    return failure_message('Not supported', args, vars)
+    raise HTTP(404)
 
 
