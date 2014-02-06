@@ -79,6 +79,8 @@ class Profile:
         """
         db = current.db
         profile = db(db.profile.id == profile_id).select().first()
+        if profile is None:
+            raise NotFoundError('user not found {0}'.format(username))
         self._load(profile)
 
     @staticmethod
@@ -88,6 +90,8 @@ class Profile:
         """
         db = current.db
         profile = db(db.profile.username == username).select().first()
+        if profile is None:
+            raise NotFoundError('user not found {0}'.format(username))
         user = Profile()
         user._load(profile)
         return user
