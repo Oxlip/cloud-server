@@ -86,7 +86,7 @@ def get_user(args, vars):
     try:
         profile = Profile.get_user(user_name)
     except NotFoundError:
-        raise HTTP(400)
+        raise HTTP(404)
 
     if len(args) == 1:
         # /user/{username}
@@ -110,7 +110,7 @@ def get_device(args, vars):
     try:
         device = Device.load(device_id)
     except NotFoundError:
-        raise HTTP(400)
+        raise HTTP(404)
 
     if len(args) == 1:
         # /device/{device_id}
