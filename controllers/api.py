@@ -6,6 +6,7 @@ from modules.Device import Device
 from modules.DeviceType import DeviceType
 from modules.Profile import Profile
 from modules.DeviceData import DeviceData
+import PubNub
 
 @request.restful()
 def v1():
@@ -130,6 +131,18 @@ def post_user(args, vars):
 
     if args[1] == 'activity':
         # /user/{username}/activity
+        ## Initiate Class
+        pubnub = PubNub.Pubnub(publish_key='pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
+                               subscribe_key='sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe',
+                               ssl_on=False)
+        ## Publish Example
+        info = pubnub.publish({
+            'channel':  'my_channel',
+            'message': {
+                'device_id': vars['action_id'],
+                'value_changed': 100
+            }
+        })
         return {'result': 'ok for now'}
 
     raise HTTP(404)

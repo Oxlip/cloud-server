@@ -73,7 +73,7 @@
                 <td>{{=dt.icon}}</td>
                 <td>{{=device.name}}</td>
                 <td>{{=dt.name}}</td>
-                <td><input type="button" value="On" onclick="btnClick({{=device.id}});"></td>
+                <td><input id="device_{{=device.id}}" type="button" value="On" onclick="btnClick({{=device.id}});"></td>
             </tr>
             {{pass}}
         </table>
@@ -94,7 +94,7 @@
         $.ajax({
             url: server_url + rest_endpoint,
             type: "POST",
-            data: {action_id : 1}
+            data: {action_id : device_id}
         }).then(function(data) {
            //alert(data.result);
         });
@@ -102,6 +102,20 @@
   </script>
   <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
   <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
+  <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
+  <script>
+     var pubnub = PUBNUB.init({
+     publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
+     subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
+  });
+  pubnub.subscribe({
+    channel: 'my_channel',
+    message: function(m){
+        $("#device_" + m.device_id).prop('value', 'off');
+        console.log(m.device_id)
+    }
+  });
+  </script>
   <!--[if lt IE 7 ]>
       <script src="{{=URL('static','js/dd_belatedpng.js')}}"></script>
       <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
