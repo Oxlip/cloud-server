@@ -49,8 +49,8 @@
 
   {{include 'web2py_ajax.html'}}
 
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/base/jquery-ui.css" type="text/css" media="all" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/base/jquery-ui.css" type="text/css" media="all" />
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
 
   <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
   {{block head}}{{end}}
@@ -89,7 +89,8 @@
   <script>
       function btnClick(device_id) {
         var username = "samueldotj";
-        var server_url = "http://127.0.0.1:8000/backend/api/v1";
+        //var server = "http://127.0.0.1:8000";
+        var server_url = "/backend/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
         $.ajax({
             url: server_url + rest_endpoint,
@@ -102,7 +103,7 @@
   </script>
   <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
   <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
-  <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
+  <script src="//cdn.pubnub.com/pubnub.min.js"></script>
   <script>
      var pubnub = PUBNUB.init({
      publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
