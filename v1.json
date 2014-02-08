@@ -245,6 +245,48 @@
                      ]
                 }
               ]
+        },
+        {
+            "path": "/user/{user_id}/activity",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Returns user activity for given period of time.",
+                    "notes": "",
+                    "nickname": "getUserActivity",
+                    "items":{
+                        "$ref":"UserActivity"
+                    },
+                    "type": "array",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid user"
+                        }
+                     ]
+                },
+                {
+                    "method": "POST",
+                    "summary": "Post an user activity",
+                    "notes": "",
+                    "nickname": "postUserActivity",
+                    "parameters": [
+                        {
+                            "name": "UserActivity",
+                            "description": "User activity to be recorded",
+                            "required": true,
+                            "type": "UserActivity",
+                            "paramType": "body"
+                        }
+                     ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid action or session"
+                        }
+                     ]
+                }
+            ]
         }
      
     ],
@@ -354,6 +396,22 @@
                 "value": {
                     "type": "integer",
                     "description": "Device value"
+                }
+            }
+        },
+        "UserActivity": {
+            "id": "UserActivity",
+            "required": [
+                "action_id"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "date",
+                    "description": "When the action was executed"
+                },
+                "action_id": {
+                    "type": "integer",
+                    "description": "Which action was executed"
                 }
             }
         },
