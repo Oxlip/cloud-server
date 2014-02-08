@@ -73,7 +73,7 @@
                 <td>{{=dt.icon}}</td>
                 <td>{{=device.name}}</td>
                 <td>{{=dt.name}}</td>
-                <td><input type="button" value="On" onclick="alert('hello.')"></td>
+                <td><input type="button" value="On" onclick="btnClick({{=device.id}});"></td>
             </tr>
             {{pass}}
         </table>
@@ -86,6 +86,20 @@
 
   <!-- The javascript =============================================
        (Placed at the end of the document so the pages load faster) -->
+  <script>
+      function btnClick(device_id) {
+        var username = "samueldotj";
+        var server_url = "http://127.0.0.1:8000/backend/api/v1";
+        var rest_endpoint = "/user/" + username + "/activity";
+        $.ajax({
+            url: server_url + rest_endpoint,
+            type: "POST",
+            data: {action_id : 1}
+        }).then(function(data) {
+           //alert(data.result);
+        });
+   }
+  </script>
   <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
   <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
   <!--[if lt IE 7 ]>
