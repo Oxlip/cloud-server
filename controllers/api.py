@@ -36,7 +36,7 @@ def v1():
             raise HTTP(406)
 
         if args[0] == 'user':
-            return HTTP(406)
+            return post_user(args[1:], vars)
         elif args[0] == 'device':
             return post_device(args[1:], vars)
 
@@ -107,6 +107,30 @@ def get_user(args, vars):
     if args[1] == 'devices':
         # /user/{username}/devices
         return get_user_devices_dict(profile)
+
+    if args[1] == 'activity':
+        # /user/{username}/devices
+        return get_user_devices_dict(profile)
+
+    raise HTTP(404)
+
+
+def post_user(args, vars):
+    """
+    Main handler for POST REST api starting /user URL
+    """
+    if args is None or len(args) == 0:
+        raise HTTP(406)
+
+    user_name = args[0]
+    try:
+        profile = Profile.get_user(user_name)
+    except NotFoundError:
+        raise HTTP(404)
+
+    if args[1] == 'activity':
+        # /user/{username}/activity
+        return {'result': 'ok for now'}
 
     raise HTTP(404)
 
