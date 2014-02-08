@@ -4,8 +4,8 @@
 All device related work is controlled by this file.
 """
 
-from modules.ManufacturedDevices import ManufacturedDevices
-from modules.PlugZExceptions import *
+from applications.backend.modules.ManufacturedDevices import ManufacturedDevices
+import PlugZExceptions
 from datetime import datetime
 
 

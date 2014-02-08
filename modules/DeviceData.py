@@ -3,7 +3,7 @@
 
 from gluon import current
 from datetime import date
-from modules.PlugZExceptions import *
+import PlugZExceptions
 
 
 class DeviceData:

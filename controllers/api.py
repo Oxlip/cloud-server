@@ -1,11 +1,11 @@
 """
 REST API v1
 """
-from modules.PlugZExceptions import *
-from modules.Device import Device
-from modules.DeviceType import DeviceType
-from modules.Profile import Profile
-from modules.DeviceData import DeviceData
+from applications.backend.modules.Device import Device
+from applications.backend.modules.DeviceType import DeviceType
+from applications.backend.modules.Profile import Profile
+from applications.backend.modules.DeviceData import DeviceData
+import PlugZExceptions
 import PubNub
 
 @request.restful()
