@@ -8,7 +8,7 @@ INSERT INTO profile(username, first_name, last_name, date_of_birth, gender, emai
 
 INSERT INTO user_contact_info(profile_id, contact_type, address_line_1, address_line_2, city_id, postal_code, phone)
                        VALUES(1, 'Home', '10161 Beardon Dr', '4', 1, '95014', '408-744-2305');
-INSERT INTO user_contact_info(profile_id, contact_type, address_line1, address_line2, city_id, postal_code, phone)
+INSERT INTO user_contact_info(profile_id, contact_type, address_line_1, address_line_2, city_id, postal_code, phone)
                        VALUES(1, 'Home', 'Another one', '4', 1, '95014', '408-744-2305');
 
 INSERT INTO manufactured_devices(identification, device_type_id, date_of_manufacture) VALUES('AABBCCDDEEF1', 1, '2013-1-1');
