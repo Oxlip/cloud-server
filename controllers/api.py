@@ -5,6 +5,7 @@ from modules.PlugZExceptions import *
 from modules.Device import Device
 from modules.DeviceType import DeviceType
 from modules.Profile import Profile
+from modules.DeviceData import DeviceData
 
 @request.restful()
 def v1():
@@ -27,8 +28,19 @@ def v1():
         raise HTTP(406)
 
     def POST(*args, **vars):
+        """
+        Handler for POST calls
+        """
         request.extension = 'json'
-        return dict()
+        if args is None or len(args) == 0:
+            raise HTTP(406)
+
+        if args[0] == 'user':
+            return HTTP(406)
+        elif args[0] == 'device':
+            return post_device(args[1:], vars)
+
+        raise HTTP(406)
 
     def PUT(*args, **vars):
         request.extension = 'json'
@@ -77,7 +89,7 @@ def get_user_devices_dict(profile):
 
 def get_user(args, vars):
     """
-    Main handler for user all REST api starting /user URL
+    Main handler for GET REST api starting /user URL
     """
     if args is None or len(args) == 0:
         raise HTTP(406)
@@ -101,7 +113,7 @@ def get_user(args, vars):
 
 def get_device(args, vars):
     """
-    Main handler for user all REST api starting /device URL
+    Main handler for GET REST api starting /device URL
     """
     if args is None or len(args) == 0:
         raise HTTP(406)
@@ -119,3 +131,32 @@ def get_device(args, vars):
     raise HTTP(404)
 
 
+def post_device(args, vars):
+    """
+    Main handler for POST REST api starting /device URL
+    """
+    if args is None or len(args) == 0:
+        raise HTTP(406)
+
+    device_id = args[0]
+    try:
+        device = Device.load(device_id)
+    except NotFoundError:
+        raise HTTP(404)
+
+    if len(args) == 1:
+        # /device/{device_id} create new device
+        pass
+
+    action = args[1]
+    if action == 'activity':
+        if 'timestamp' not in vars or 'value' not in vars or 'time_range' not in vars:
+            raise HTTP(406)
+        timestamp = vars['timestamp']
+        value = vars['value']
+        time_range = vars['time_range']
+        d = DeviceData(device_id, timestamp, value, time_range)
+        d.save()
+        return {}
+
+    raise HTTP(404)

@@ -3,6 +3,7 @@
 
 from gluon import current
 from datetime import date
+from modules.PlugZExceptions import *
 
 
 class DeviceData:
@@ -14,21 +15,14 @@ class DeviceData:
         self.time_range = time_range
 
     def save(self):
-        """
-        Saves the current device information
-        :return:
-        """
+        if self.id is not None:
+            raise AlreadyExistsError('Device data is already inserted')
+
         db = current.db
-        if self.id:
-            db.device_data(self.id).update(device_id=self.device_id,
-                                           output_value=self.output_value,
-                                           activity_date=self.activity_date,
-                                           time_range=self.time_range)
-        else:
-            self.id = db.device_data.insert(device_id=self.device_id,
-                                           output_value=self.output_value,
-                                           activity_date=self.activity_date,
-                                           time_range=self.time_range)
+        self.id = db.device_data.insert(device_id=self.device_id,
+                                        output_value=self.output_value,
+                                        activity_date=self.activity_date,
+                                        time_range=self.time_range)
 
         return self.id
 
