@@ -2,7 +2,7 @@
 """
 
 from gluon import current
-from modules.PlugZExceptions import *
+import PlugZExceptions
 
 
 class Device:

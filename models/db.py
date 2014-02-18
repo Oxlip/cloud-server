@@ -4,7 +4,7 @@
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
 
-db = DAL('mysql://root:abc123@localhost/Plugz', pool_size=1, check_reserved=['all'], migrate=True)
+db = DAL('mysql://root:abc123@localhost/plugz', pool_size=1, check_reserved=['all'], migrate=True)
 from gluon import current
 
 current.db = db

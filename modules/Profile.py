@@ -1,7 +1,7 @@
 """ Class to handle USER Profiles
 """
 from gluon import current
-from modules.PlugZExceptions import *
+import PlugZExceptions
 
 
 class Profile:

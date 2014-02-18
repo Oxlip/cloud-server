@@ -1,9 +1,9 @@
 """
 All user/profile related functions.
 """
-from modules.PlugZExceptions import *
-from modules.Device import Device
-from modules.DeviceType import DeviceType
+import PlugZExceptions
+from applications.backend.modules.Device import Device
+from applications.backend.modules.DeviceType import DeviceType
 
 def login():
     """

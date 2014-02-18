@@ -1,11 +1,11 @@
 """
 REST API v1
 """
-from modules.PlugZExceptions import *
-from modules.Device import Device
-from modules.DeviceType import DeviceType
-from modules.Profile import Profile
-from modules.DeviceData import DeviceData
+from applications.backend.modules.Device import Device
+from applications.backend.modules.DeviceType import DeviceType
+from applications.backend.modules.Profile import Profile
+from applications.backend.modules.DeviceData import DeviceData
+import PlugZExceptions
 import PubNub
 
 @request.restful()
@@ -18,6 +18,7 @@ def v1():
         Handler for GET calls
         """
         request.extension = 'json'
+        response.generic_patterns = ['*.json']
         if args is None or len(args) == 0:
             raise HTTP(406)
 
@@ -33,6 +34,7 @@ def v1():
         Handler for POST calls
         """
         request.extension = 'json'
+        response.generic_patterns = ['*.json']
         if args is None or len(args) == 0:
             raise HTTP(406)
 
@@ -45,10 +47,12 @@ def v1():
 
     def PUT(*args, **vars):
         request.extension = 'json'
+        response.generic_patterns = ['*.json']
         return dict()
 
     def DELETE(*args, **vars):
         request.extension = 'json'
+        response.generic_patterns = ['*.json']
         return dict()
 
     return locals()

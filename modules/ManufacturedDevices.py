@@ -8,7 +8,7 @@ TODO - May be we need an delete() method later.
 """
 
 from gluon import current
-from PlugZExceptions import AlreadyExistsError
+import PlugZExceptions
 
 
 class manufactured_devices:
