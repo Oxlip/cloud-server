@@ -491,6 +491,45 @@
         </section>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-6">
+        <section class="panel">
+            <header class="panel-heading no-border">
+                Devices
+                <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                    <a href="javascript:;" class="fa fa-cog"></a>
+                    <a href="javascript:;" class="fa fa-times"></a>
+                 </span>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Device</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{
+                        for device in devices:
+                            dt = device_types[device.device_type_id - 1]
+                        }}
+                        <tr>
+                            <td>{{=dt.icon}}</td>
+                            <td>{{=dt.name}}</td>
+                            <td>{{=device.name}}</td>
+                            <td><input id="device_{{=device.id}}" type="button" value="On" onclick="btnClick({{=device.id}});"></td>
+                        </tr>
+                        {{pass}}
+                    </tbody>>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
 <!--mini statistics end-->
 <div class="row">
     <div class="col-md-8">
@@ -1363,5 +1402,35 @@
 <script src="{{=URL('static','js/accordion-menu/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{=URL('static','js/scripts.js')}}"></script>
 <!--script for this page-->
+<script>
+    function btnClick(device_id) {
+        var username = "samueldotj";
+        var server_url = "http://127.0.0.1:8000/backend/api/v1";
+        var rest_endpoint = "/user/" + username + "/activity";
+        $.ajax({
+            url: server_url + rest_endpoint,
+            type: "POST",
+            data: {action_id: device_id}
+        }).then(function (data) {
+                    //alert(data.result);
+                });
+    }
+</script>
+<script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+<script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
+<script src=http://cdn.pubnub.com/pubnub.min.js ></script>
+<script>
+    var pubnub = PUBNUB.init({
+        publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
+        subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
+    });
+    pubnub.subscribe({
+        channel: 'user_',
+        message: function (m) {
+            $("#device_" + m.device_id).prop('value', 'off');
+            console.log(m.device_id)
+        }
+    });
+  </script>
 </body>
 </html>
