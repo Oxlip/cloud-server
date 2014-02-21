@@ -141,7 +141,7 @@ def post_user(args, vars):
                                ssl_on=False)
         ## Publish Example
         info = pubnub.publish({
-            'channel':  'my_channel',
+            'channel':  'user_samueldotj',
             'message': {
                 'device_id': vars['action_id'],
                 'value_changed': 100

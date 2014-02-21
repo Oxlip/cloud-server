@@ -10,9 +10,6 @@ $(function() {
         autoExpand: true,
         classExpand: 'dcjq-current-parent'
     });
-
-
-
 });
 
 
@@ -29,53 +26,8 @@ var Script = function () {
             $(".leftside-navigation").scrollTo("+="+Math.abs(diff),500);
     });
 
-    // toggle bar
-//
-//    $(function() {
-//        var wd;
-//        wd = $(window).width();
-//        function responsiveView() {
-//            var newd = $(window).width();
-//            if(newd==wd){
-//                return true;
-//            }else{
-//                wd = newd;
-//            }
-//            var wSize = $(window).width();
-//            if (wSize < 768) {
-//                $('#sidebar').addClass('hide-left-bar');
-//
-//            }
-//            else{
-//                $('#sidebar').removeClass('hide-left-bar');
-//
-//            }
-//
-//        }
-//
-//
-//
-//        $(window).on('resize', responsiveView);
-//
-//
-//    });
 
     $('.sidebar-toggle-box .fa-bars').click(function (e) {
-//        $('.sidebar-menu').slimscroll({
-//            height: '100%',
-//            wheelStep: 1,
-//            railVisible: true,
-////      alwaysVisible: true,
-//            color: '#1FB5AD',
-//            size: '3px',
-//            railColor: '#333',
-//            railOpacity: 0.5,
-//            opacity : .8,
-//            borderRadius: '0px',
-//            railBorderRadius: '0px',
-//            allowPageScroll: false
-//        });
-
         $(".leftside-navigation").niceScroll({
             cursorcolor:"#1FB5AD",
             cursorborder:"0px solid #fff",
@@ -122,11 +74,7 @@ var Script = function () {
         if( $('.header').hasClass('merge-header')){
             $('.header').removeClass('merge-header')
         }
-
-
     });
-
-
 
     /*Slim Scroll*/
     $(function () {
@@ -154,20 +102,6 @@ var Script = function () {
             $(".leftside-navigation").getNiceScroll().hide();
         }
         $(".leftside-navigation").getNiceScroll().show();
-//        $('.sidebar-menu').slimscroll({
-//            height: '100%',
-//            wheelStep: 1,
-//            railVisible: true,
-////      alwaysVisible: true,
-//            color: '#1FB5AD',
-//            size: '3px',
-//            railColor: '#333',
-//            railOpacity: 0.5,
-//            opacity : .8,
-//            borderRadius: '0px',
-//            railBorderRadius: '0px',
-//            allowPageScroll: false
-//        });
 
         $(".right-stat-bar").niceScroll({
             cursorcolor:"#1FB5AD",
@@ -175,33 +109,10 @@ var Script = function () {
             cursorborderradius:"0px",
             cursorwidth:"3px"
         });
-//        $('.right-side-accordion').slimscroll({
-//            height: '94%',
-//            wheelStep: 1,
-//            railVisible: true,
-////      alwaysVisible: true,
-//            color: '#1FB5AD',
-//            size: '3px',
-//            railColor: '#333',
-//            railOpacity: 0.5,
-//            opacity : .8,
-//            borderRadius: '0px',
-//            railBorderRadius: '0px'
-//        });
-
-
-
     });
 
 
-
-    // custom scroll bar
-//    $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#1FB5AD", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
-//    $(".right-sidebar").niceScroll({styler:"fb",cursorcolor:"#1FB5AD", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
-
-
    // widget tools
-
     jQuery('.panel .tools .fa-chevron-down').click(function () {
         var el = jQuery(this).parents(".panel").children(".panel-body");
         if (jQuery(this).hasClass("fa-chevron-down")) {
@@ -221,10 +132,6 @@ var Script = function () {
 
     $('.tooltips').tooltip();
 
-    // popovers
-
-    $('.popovers').popover();
-
     // notification pie chart
     $(function() {
         $('.notification-pie-chart').easyPieChart({
@@ -239,106 +146,6 @@ var Script = function () {
 
         });
 
-    });
-
-
-    $(function() {
-
-        var datatPie = [30,50];
-// DONUT
-        $.plot($(".target-sell"), datatPie,
-            {
-                series: {
-                    pie: {
-                        innerRadius: 0.6,
-                        show: true,
-                        label: {
-                            show: false
-
-                        },
-                        stroke: {
-                            width:.01,
-                            color: '#fff'
-
-                        }
-                    }
-
-
-
-
-                },
-
-                legend: {
-                    show: true
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true
-                },
-
-                colors: ["#ff6d60", "#cbcdd9"]
-            });
-    });
-
-    $(function() {
-        $('.pc-epie-chart').easyPieChart({
-            onStep: function(from, to, percent) {
-                $(this.el).find('.percent').text(Math.round(percent));
-            },
-            barColor: "#5bc6f0",
-            lineWidth: 3,
-            size:50,
-            trackColor: "#32323a",
-            scaleColor:"#cccccc"
-
-        });
-
-    });
-
-
-
-    $(function() {
-        $(".d-pending").sparkline([3,1], {
-            type: 'pie',
-            width: '40',
-            height: '40',
-            sliceColors: ['#e1e1e1','#8175c9']
-        });
-    });
-
-
-
-// SPARKLINE
-    $(function () {
-        var sparkLine = function () {
-            $(".sparkline").each(function(){
-                var $data = $(this).data();
-                ($data.type == 'pie') && $data.sliceColors && ($data.sliceColors = eval($data.sliceColors));
-                ($data.type == 'bar') && $data.stackedBarColor && ($data.stackedBarColor = eval($data.stackedBarColor));
-
-                $data.valueSpots = {'0:': $data.spotColor};
-                $(this).sparkline( $data.data || "html", $data);
-
-
-                if($(this).data("compositeData")){
-                    $spdata = $(this).data("compositeConfig");
-                    $spdata.composite = true;
-                    $spdata.minSpotColor = false;
-                    $spdata.maxSpotColor = false;
-                    $spdata.valueSpots = {'0:': $spdata.spotColor};
-                    $(this).sparkline($(this).data("compositeData"), $spdata);
-                };
-            });
-        };
-
-        var sparkResize;
-        $(window).resize(function (e) {
-            clearTimeout(sparkResize);
-            sparkResize = setTimeout(function () {
-                sparkLine(true)
-            }, 500);
-        });
-        sparkLine(false);
     });
 
     /*==Collapsible==*/

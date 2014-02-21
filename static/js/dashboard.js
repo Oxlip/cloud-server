@@ -5,11 +5,11 @@ $(function() {
         [2, 33],
         [3, 24],
         [4, 45],
-        [5, 96],
+        [5, 36],
         [6, 47],
-        [7, 18],
-        [8, 11],
-        [9, 13],
+        [7, 38],
+        [8, 21],
+        [9, 33],
         [10, 21]
 
     ];
@@ -103,9 +103,11 @@ $(function() {
 $(function() {
 
     var dataPie = [
-        { label: "Samsung",  data: 50},
-        { label: "Nokia",  data: 50},
-        { label: "Syphony",  data: 100}
+        { label: "TV",  data: 50},
+        { label: "Washing machine",  data: 50},
+        { label: "Fridge",  data: 100},
+        { label: "Fan",  data: 10},
+        { label: "AC",  data: 100},
     ];
 // DONUT
     $.plot($(".sm-pie"), dataPie,
@@ -119,7 +121,6 @@ $(function() {
                         color: '#ffffff'
                     }
                 }
-
             },
 
             legend: {
@@ -133,166 +134,6 @@ $(function() {
             colors: ["#ffdf7c", "#b2def7", "#efb3e6"]
         });
 });
-
-
-
-
-
-
-
-$(function() {
-    $('.epie-chart').easyPieChart({
-        onStep: function(from, to, percent) {
-            $(this.el).find('.percent').text(Math.round(percent));
-        },
-        barColor: "#f8a20f",
-        lineWidth: 5,
-        size:80,
-        trackColor: "#efefef",
-        scaleColor:"#cccccc"
-
-    });
-
-});
-
-
-
-
-/*Slim Scroll*/
-$(function () {
-    $('.event-list').slimscroll({
-        height: '305px',
-        wheelStep: 20
-    });
-    $('.conversation-list').slimscroll({
-        height: '360px',
-        wheelStep: 35
-    });
-    $('.to-do-list').slimscroll({
-        height: '300px',
-        wheelStep: 35
-    });
-    
-
-
-
-});
-
-
-/*Calendar*/
-$(function () {
-    $('.evnt-input').keypress(function (e) {
-        var p = e.which;
-        var inText = $('.evnt-input').val();
-        if (p == 13) {
-            if (inText == "") {
-                alert('Empty Field');
-            } else {
-                $('<li>' + inText + '<a href="#" class="event-close"> <i class="ico-close2"></i> </a> </li>').appendTo('.event-list');
-            }
-            $(this).val('');
-            $('.event-list').scrollTo('100%', '100%', {
-                easing: 'swing'
-            });
-            return false;
-            e.epreventDefault();
-            e.stopPropagation();
-        }
-    });
-});
-
-
-/*Chat*/
-$(function () {
-    $('.chat-input').keypress(function (ev) {
-        var p = ev.which;
-        var chatTime = moment().format("h:mm");
-        var chatText = $('.chat-input').val();
-        if (p == 13) {
-            if (chatText == "") {
-                alert('Empty Field');
-            } else {
-                $('<li class="clearfix"><div class="chat-avatar"><img src="images/chat-user-thumb.png" alt="male"><i>' + chatTime + '</i></div><div class="conversation-text"><div class="ctext-wrap"><i>John Carry</i><p>' + chatText + '</p></div></div></li>').appendTo('.conversation-list');
-            }
-            $(this).val('');
-            $('.conversation-list').scrollTo('100%', '100%', {
-                easing: 'swing'
-            });
-            return false;
-            ev.epreventDefault();
-            ev.stopPropagation();
-        }
-    });
-    $('.chat-send .btn').click(function(){
-        var chatTime = moment().format("h:mm");
-        var chatText = $('.chat-input').val();
-        if (chatText == "") {
-            alert('Empty Field');
-            $(".chat-input").focus();
-        }
-        else
-        {
-            $('<li class="clearfix"><div class="chat-avatar"><img src="images/chat-user-thumb.png" alt="male"><i>' + chatTime + '</i></div><div class="conversation-text"><div class="ctext-wrap"><i>John Carry</i><p>' + chatText + '</p></div></div></li>').appendTo('.conversation-list');
-            $('.chat-input').val('');
-            $(".chat-input").focus();
-            $('.conversation-list').scrollTo('100%', '100%', {
-                easing: 'swing'
-            });
-        }
-    });
-});
-$(function () {
-    $(document).on('click', '.event-close', function () {
-        $(this).closest("li").remove();
-        return false;
-    });
-});
-
-/*===Vertical Bar===*/
-$(function () {
-    "use strict";
-    jQuery('.progress-stat-bar li').each(function () {
-        jQuery(this).find('.progress-stat-percent').animate({
-            height: jQuery(this).attr('data-percent')
-        }, 1000);
-    });
-});
-
-$(function () {
-    $('.todo-check label').click(function(){
-        $(this).parents('li').children('.todo-title').toggleClass('line-through');
-    });
-
-    $(function () {
-        $(document).on('click', '.todo-remove', function () {
-            $(this).closest("li").remove();
-            return false;
-        });
-    });
-});
-
-//custom select box
-
-$(function(){
-    $('select.styled').customSelect();
-});
-
-$(function()
-{
-
-    $('.stat-tab .stat-btn').click(function(){
-
-            $(this).addClass('active');
-            $(this).siblings('.btn').removeClass('active');
-
-    });
-});
-
-$(function(){
-$("#sortable-todo").sortable();
-});
-
-
 
 $(function () {
 // Use Morris.Area instead of Morris.Line
@@ -328,20 +169,6 @@ $(function () {
 
     });
 });
-
-
-/*==Weather==*/
-var skycons = new Skycons({"color": "#aec785"});
-// on Android, a nasty hack is needed: {"resizeClear": true}
-// you can add a canvas by it's ID...
-skycons.add("icon1", Skycons.RAIN);
-// start animation!
-skycons.play();
-// you can also halt animation with skycons.pause()
-// want to change the icon? no problem:
-skycons.set("icon1", Skycons.RAIN);
-
-
 
 /*Knob*/
 var opts = {
