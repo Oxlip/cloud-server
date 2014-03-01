@@ -12,9 +12,13 @@ class NotFoundError(Exception):
     pass
 
 
-class MarkedAsDeleted(Exception):
+class MarkedAsDeletedError(Exception):
     pass
 
 
-class InvalidDevice(Exception):
+class InvalidDeviceError(Exception):
+    pass
+
+
+class NotConnectedError(Exception):
     pass
