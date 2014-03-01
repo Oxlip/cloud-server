@@ -6,7 +6,7 @@ from applications.backend.modules.DeviceType import DeviceType
 from applications.backend.modules.Profile import Profile
 from applications.backend.modules.DeviceData import DeviceData
 import PlugZExceptions
-import PubNub
+import PushNotification
 
 @request.restful()
 def v1():
@@ -161,19 +161,16 @@ def post_user(args, vars):
 
     if args[1] == 'activity':
         # /user/{username}/activity
-        ## Initiate Class
-        pubnub = PubNub.Pubnub(publish_key='pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
-                               subscribe_key='sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe',
-                               ssl_on=False)
-        ## Publish Example
-        info = pubnub.publish({
-            'channel':  'user_samueldotj',
-            'message': {
-                'device_id': vars['action_id'],
-                'value_changed': 100
-            }
-        })
-        return {'result': 'ok for now'}
+        if 'device_id' in vars and 'value' in vars:
+            device_id = long(vars['device_id'])
+            value = vars['value']
+            result = PushNotification.publish_device_value_change(device_id,  value)
+        elif 'action_id' in vars:
+            result = PushNotification.publish_action_execute(vars['action_id'])
+        else:
+            raise HTTP(400)
+
+        return {'result': result}
 
     raise HTTP(404)
 
