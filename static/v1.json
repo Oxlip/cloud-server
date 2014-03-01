@@ -440,18 +440,23 @@
         },
         "UserActivity": {
             "id": "UserActivity",
-            "required": [
-                "action_id"
-            ],
             "properties": {
                 "timestamp": {
                     "type": "date",
-                    "description": "When the action was executed"
+                    "description": "When the action was executed."
+                },
+                "device_id": {
+                    "type": "integer",
+                    "description": "Which device's value was changed."
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "New value assigned to the device."
                 },
                 "action_id": {
                     "type": "integer",
-                    "description": "Which action was executed"
-                }
+                    "description": "Which action was executed."
+                },
             }
         },
         "ActionCommand": {
