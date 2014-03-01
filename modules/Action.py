@@ -16,9 +16,7 @@ class Action:
     def save(self):
         """
         Saves the current DeviceData.
-        On success returns the newly created device_id.
-
-        @return:
+        On success returns the newly created action id.
         """
         db = current.db
         if self.id:
@@ -37,8 +35,6 @@ class Action:
     def get_action_by_device(device_id):
         """
         Return list of all the actions by device
-        @param device_id:
-        @return:
         """
         db = current.db
         action_set = db(db.actions.device_id == device_id)
@@ -53,8 +49,6 @@ class Action:
     def get_action_by_user(profile_id):
         """
         Return list of all the actions by user
-        @param profile_id:
-        @return:
         """
         db = current.db
         action_set = db(db.actions.device_id == db.device.device_id & db.device.profile_id == profile_id)
@@ -68,9 +62,6 @@ class Action:
     def load(self, action_id):
         """
         Loads the Action information by using the action_id provided.
-
-        @param action_id:
-        @raise:
         """
         db = current.db
         action = current.db.Action(db.actions.id == action_id)
@@ -88,8 +79,6 @@ class Action:
     def delete(action_id):
         """
         Remove given Action from the database.
-
-        @param action_id:
         """
         db = current.db
         action_set = db.actions.on(master_action_id=action_id)
@@ -102,8 +91,6 @@ class Action:
     def delete_master_and_associations(master_action_id):
         """
         Remove given Master Action and any associated action with it.
-
-        @param master_action_id:
         """
         db = current.db
         db(db.actions.master_action_id == master_action_id).delete()
@@ -112,9 +99,6 @@ class Action:
     def get_device_actions(device_id):
         """
         Returns list of actions associated with the current device.
-
-        @param device_id:
-        @return:
         """
         db = current.db
         actions = db(db.actions.device_id == device_id)
