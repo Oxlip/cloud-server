@@ -26,6 +26,8 @@ def v1():
             return get_user(args[1:], vars)
         elif args[0] == 'device':
             return get_device(args[1:], vars)
+        elif args[0] == 'hub':
+            return get_hub(args[1:], vars)
 
         raise HTTP(406)
 
@@ -57,9 +59,10 @@ def v1():
 
     return locals()
 
+
 def get_device_dict(device):
     """
-    Returns an device information as a dictionary.
+    Returns a device information as a dictionary.
     """
     return {
         'id': device.id,
@@ -68,6 +71,29 @@ def get_device_dict(device):
         'type': device.device_type_id,
         'images': []
     }
+
+
+def get_hub_dict(device):
+    """
+    Returns a hub information as a dictionary.
+    """
+    return {
+        'id': device.id,
+        'name': device.name,
+        'channel_id': device.identification
+    }
+
+
+def get_hub_devices_dict(hub_id):
+    """
+    Returns all devices associated with an hub as a dict
+    """
+    devices = []
+    for device in Device.get_devices_for_hub(hub_id):
+        devices.append(get_device_dict(device))
+
+    return {'devices': devices}
+
 
 
 def get_user_dict(profile):
@@ -102,7 +128,7 @@ def get_user(args, vars):
     user_name = args[0]
     try:
         profile = Profile.get_user(user_name)
-    except NotFoundError:
+    except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
     if len(args) == 1:
@@ -130,7 +156,7 @@ def post_user(args, vars):
     user_name = args[0]
     try:
         profile = Profile.get_user(user_name)
-    except NotFoundError:
+    except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
     if args[1] == 'activity':
@@ -162,7 +188,7 @@ def get_device(args, vars):
     device_id = args[0]
     try:
         device = Device.load(device_id)
-    except NotFoundError:
+    except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
     if len(args) == 1:
@@ -182,7 +208,7 @@ def post_device(args, vars):
     device_id = args[0]
     try:
         device = Device.load(device_id)
-    except NotFoundError:
+    except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
     if len(args) == 1:
@@ -199,5 +225,28 @@ def post_device(args, vars):
         d = DeviceData(device_id, timestamp, value, time_range)
         d.save()
         return {}
+
+    raise HTTP(404)
+
+
+def get_hub(args, vars):
+    """
+    Main handler for GET REST api starting /hub URL
+    """
+    if args is None or len(args) == 0:
+        raise HTTP(406)
+
+    hub_identification = args[0]
+    try:
+        hub = Device.load_by_identification(hub_identification)
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    if len(args) == 1:
+        # /hub/{identification}
+        return get_hub_dict(hub)
+    elif args[1] == 'devices':
+        # /hub/{identification}/devices
+        return get_hub_devices_dict(hub.id)
 
     raise HTTP(404)

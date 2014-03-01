@@ -92,11 +92,29 @@
             ]
         },
         {
-            "path": "/hub/{hub_id}/devices",
+            "path": "/hub/{identification}",
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "Get all Hub devices",
+                    "summary": "Connect to server",
+                    "notes": "Hubs should connect to server to receive notifications.",
+                    "type": "Hub",
+                    "nickname": "connectHub",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Invalid identification"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/hub/{identification}/devices",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get all devices of a hub",
                     "notes": "Returns all devices associated with a hub",
                     "nickname": "getHubDevices",
                     "items":{
@@ -174,7 +192,7 @@
                 },
                 {
                     "method": "GET",
-                    "summary": "Get device activity histroy",
+                    "summary": "Get device activity history",
                     "notes": "Returns device activity history",
                     "nickname": "getDeviceActivity",
                     "parameters": [
@@ -379,6 +397,27 @@
                 },
                 "images": {
                     "type": "array"
+                }
+            }
+        },
+        "Hub": {
+            "id": "Hub",
+            "required": [
+                "id",
+                "channel_id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique Id of the device"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name given by the user to the device"
+                },
+                "channel_id": {
+                    "type": "string",
+                    "description": "Channel Id on which the hub should listen on to receive notifications from server"
                 }
             }
         },
