@@ -767,19 +767,25 @@
     });
     $(".switch-mini").bootstrapSwitch();
     $(".switch-mini").on('switch-change', function (e, data) {
-        var $el = $(data.el), value = data.value;
+        var $el = $(data.el), state_is_off = data.value;
         var device_id = $el[0].id.split("_")[1];
+        var value = 0;
 
         var username = "samueldotj";
         var server_url = "/backend/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
 
-        if (value)
-            return;
+        if (state_is_off) {
+            value = 100
+        }
+
         $.ajax({
             url: server_url + rest_endpoint,
             type: "POST",
-            data: {action_id: device_id}
+            data: {
+                device_id: device_id,
+                value: value
+            }
         }).then(function (data) {
             //alert(data.result);
         });
