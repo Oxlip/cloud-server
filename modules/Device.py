@@ -57,7 +57,7 @@ class Device:
         device = db(db.device.identification == identification).select().first()
         # TODO - remove the hardcoded value for checking
         if device.device_type_id != 2:
-            return PlugZExceptions.InvalidDevice('Invalid identification - {id}'.format(id=identification))
+            return PlugZExceptions.InvalidDeviceError('Invalid identification - {id}'.format(id=identification))
         if device is None:
             raise PlugZExceptions.NotFoundError('Device identification not found - {id}'.format(id=identification))
 
@@ -129,3 +129,14 @@ class Device:
             device._load(d)
             devices.append(device)
         return devices
+
+    @staticmethod
+    def get_hub_publish_channel(hub_id):
+        """
+        Returns channel id to publish to a hub
+        """
+        hub = Device.load(hub_id)
+        if hub is None:
+            return None
+        #TODO - Security alert - For now hub identification is channel name but we should change this to a random string every time the hub connects.
+        return hub.identification
