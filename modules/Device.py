@@ -47,24 +47,6 @@ class Device:
         d._load(device)
         return d
 
-    @staticmethod
-    def load_by_identification(identification):
-        """
-        Loads device information from the database into current object.
-        If the device is not found then raises an exception.
-        """
-        db = current.db
-        device = db(db.device.identification == identification).select().first()
-        # TODO - remove the hardcoded value for checking
-        if device.device_type_id != 2:
-            return PlugZExceptions.InvalidDeviceError('Invalid identification - {id}'.format(id=identification))
-        if device is None:
-            raise PlugZExceptions.NotFoundError('Device identification not found - {id}'.format(id=identification))
-
-        d = Device()
-        d._load(device)
-        return d
-
     def save(self):
         """
         Saves the current device.
@@ -82,7 +64,7 @@ class Device:
                                       default_value=self.default_value,
                                       appliance_id=self.appliance)
         else:
-            self.id = db.Device.insert(device_type_id=self.device_type,
+            self.id = db.device.insert(device_type_id=self.device_type,
                                        identification=self.identification,
                                        profile_id=self.profile,
                                        hub_id=self.hub,
@@ -117,18 +99,6 @@ class Device:
             devices.append(device)
         return devices
 
-    @staticmethod
-    def get_devices_for_hub(hub_id):
-        """
-        Returns all the devices associated with a given hub.
-        """
-        db = current.db
-        devices = []
-        for d in db(db.device.hub_id == hub_id).select():
-            device = Device()
-            device._load(d)
-            devices.append(device)
-        return devices
 
     @staticmethod
     def get_hub_publish_channel(hub_id):
