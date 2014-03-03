@@ -6,6 +6,7 @@ import PubNub
 from Action import Action
 from Device import Device
 from Hub import Hub
+from ServerCommands import ServerCommands
 import PlugZExceptions
 
 #todo - Remove hardcoded keys
@@ -14,7 +15,7 @@ pubnub = PubNub.Pubnub(publish_key='pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
                        ssl_on=False)
 
 
-def _push_to_device(device_id, message):
+def _push_to_device(device_id, command, args):
     """
     Publishes given messages to the device.
     Since we don't have direct communication to any device, find the associated hub and send to it.
@@ -29,7 +30,10 @@ def _push_to_device(device_id, message):
 
     info = pubnub.publish({
         'channel': channel,
-        'message': message
+        'message': {
+            'command': command,
+            'args': args
+        }
     })
 
 
@@ -37,11 +41,11 @@ def publish_value_change(device_id, new_value):
     """
     Notify hub that an user wanted to change value of a device
     """
-    message = {
+    args = {
         'device_id': device_id,
         'value': new_value
     }
-    _push_to_device(device_id, message)
+    _push_to_device(device_id, ServerCommands.SET_DEVICE_STATUS, args)
 
 
 def publish_action_execute(action_id):
@@ -49,7 +53,7 @@ def publish_action_execute(action_id):
     Notify hub that user wanted to execute an action
     """
 
-    message = {
+    args = {
         'action_id': action_id
     }
 
@@ -58,4 +62,4 @@ def publish_action_execute(action_id):
     if action is None:
         raise PlugZExceptions.NotFoundError('Action not found.')
 
-    _push_to_device(action.device_id, message)
+    _push_to_device(action.device_id, ServerCommands.EXECUTE_ACTION, args)
