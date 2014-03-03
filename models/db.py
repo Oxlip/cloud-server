@@ -114,9 +114,9 @@ db.define_table('device',
 # Contains logging information about hub connections for debugging.
 db.define_table('hub_session',
                 Field('device_id', 'reference device'),             # Hub ID
-                Field('Connect_time', 'datetime'),                  # When the hub connected to the web server
+                Field('connect_time', 'datetime'),                  # When the hub connected to the web server
                 Field('disconnect_time', 'datetime'),               # When the hub voluntarily disconnected or timed out
-                Field('identification', 'string'))                  # Connection Identification - IP address ...
+                Field('channel', 'string'))                         # Channel on which the hub should listen for commands
 
 
 # Contains value send by the device to Hub. Such as Temp, Motion, light.
