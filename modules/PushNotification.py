@@ -3,7 +3,9 @@ This module takes care of pushing messages to the client
 """
 
 import PubNub
+from Action import Action
 from Device import Device
+from Hub import Hub
 import PlugZExceptions
 
 #todo - Remove hardcoded keys
@@ -12,25 +14,34 @@ pubnub = PubNub.Pubnub(publish_key='pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
                        ssl_on=False)
 
 
-def publish_device_value_change(device_id, new_value):
+def _push_to_device(device_id, message):
     """
-    Notify hub that user wanted to change value of a device
+    Publishes given messages to the device.
+    Since we don't have direct communication to any device, find the associated hub and send to it.
     """
     device = Device.load(device_id)
     if device is None or device.hub_id is None:
         raise PlugZExceptions.NotFoundError('Device not found.')
 
-    channel = Device.get_hub_publish_channel(device.hub_id)
+    channel = Hub.get_channel(device.hub_id)
     if channel is None:
         raise PlugZExceptions.NotConnectedError('Hub not connected.')
 
     info = pubnub.publish({
         'channel': channel,
-        'message': {
-            'device_id': device_id,
-            'value': new_value
-        }
+        'message': message
     })
+
+
+def publish_value_change(device_id, new_value):
+    """
+    Notify hub that an user wanted to change value of a device
+    """
+    message = {
+        'device_id': device_id,
+        'value': new_value
+    }
+    _push_to_device(device_id, message)
 
 
 def publish_action_execute(action_id):
@@ -38,22 +49,13 @@ def publish_action_execute(action_id):
     Notify hub that user wanted to execute an action
     """
 
+    message = {
+        'action_id': action_id
+    }
+
     # We need to find the hub - for that find the device associated with the action
     action = Action.load(action_id)
     if action is None:
         raise PlugZExceptions.NotFoundError('Action not found.')
 
-    device = Device.load(action.device_id)
-    if device is None:
-        raise PlugZExceptions.NotFoundError('Device not found.')
-
-    channel = Device.get_hub_publish_channel(device.hub_id)
-    if channel is None:
-        raise PlugZExceptions.NotConnectedError('Hub not connected.')
-
-    info = pubnub.publish({
-        'channel': channel,
-        'message': {
-            'action_id': action_id
-        }
-    })
+    _push_to_device(action.device_id, message)
