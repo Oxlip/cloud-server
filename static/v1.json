@@ -92,10 +92,10 @@
             ]
         },
         {
-            "path": "/hub/{identification}",
+            "path": "/hub/{identification}/connect",
             "operations": [
                 {
-                    "method": "GET",
+                    "method": "POST",
                     "summary": "Connect to server",
                     "notes": "Hubs should connect to server to receive notifications.",
                     "type": "Hub",
