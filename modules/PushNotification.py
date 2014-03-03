@@ -37,7 +37,7 @@ def _push_to_device(device_id, command, args):
     })
 
 
-def publish_value_change(device_id, new_value):
+def set_device_status(device_id, new_value):
     """
     Notify hub that an user wanted to change value of a device
     """
@@ -48,7 +48,7 @@ def publish_value_change(device_id, new_value):
     _push_to_device(device_id, ServerCommands.SET_DEVICE_STATUS, args)
 
 
-def publish_action_execute(action_id):
+def execute_action(action_id):
     """
     Notify hub that user wanted to execute an action
     """

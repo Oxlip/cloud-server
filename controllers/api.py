@@ -166,9 +166,9 @@ def post_user(args, vars):
         if 'device_id' in vars and 'value' in vars:
             device_id = long(vars['device_id'])
             value = vars['value']
-            result = PushNotification.publish_value_change(device_id,  value)
+            result = PushNotification.set_device_status(device_id,  value)
         elif 'action_id' in vars:
-            result = PushNotification.publish_action_execute(vars['action_id'])
+            result = PushNotification.execute_action(vars['action_id'])
         else:
             raise HTTP(400)
 
