@@ -2,6 +2,7 @@
 """
 from gluon import current
 import PlugZExceptions
+import PushNotification
 
 
 class Profile:
@@ -121,6 +122,25 @@ class Profile:
         """
         db = current.db
         return not db(db.user_contact_info.email == email).isempty()
+
+
+    def record_device_value_changed(self, device_id, value):
+        """
+        Records an activity done by the user - a device's value changed.
+        """
+        #TODO - Record the activity in UserActivity table first
+
+        PushNotification.set_device_status(device_id,  value)
+        return
+
+    def record_action_executed(self, action_id):
+        """
+        Records an activity done by the user - action executed.
+        """
+        #TODO - Record the activity in UserActivity table first
+
+        PushNotification.execute_action(action_id)
+        return
 
 class UserContactInfo:
     def __init__(self, id=None, profile_id=None, contact_type=None,

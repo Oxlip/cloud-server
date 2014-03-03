@@ -164,11 +164,9 @@ def post_user(args, vars):
     if args[1] == 'activity':
         # /user/{username}/activity
         if 'device_id' in vars and 'value' in vars:
-            device_id = long(vars['device_id'])
-            value = vars['value']
-            result = PushNotification.set_device_status(device_id,  value)
+            profile.record_device_value_changed(long(vars['device_id']), value = vars['value'])
         elif 'action_id' in vars:
-            result = PushNotification.execute_action(vars['action_id'])
+            profile.record_action_executed(vars['action_id'])
         else:
             raise HTTP(400)
 
@@ -212,7 +210,7 @@ def post_device(args, vars):
 
     if len(args) == 1:
         # /device/{device_id} create new device
-        pass
+        return HTTP(406)
 
     action = args[1]
     if action == 'activity':

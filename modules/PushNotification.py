@@ -45,7 +45,7 @@ def set_device_status(device_id, new_value):
         'device_id': device_id,
         'value': new_value
     }
-    _push_to_device(device_id, ServerCommands.SET_DEVICE_STATUS, args)
+    return _push_to_device(device_id, ServerCommands.SET_DEVICE_STATUS, args)
 
 
 def execute_action(action_id):
@@ -62,4 +62,4 @@ def execute_action(action_id):
     if action is None:
         raise PlugZExceptions.NotFoundError('Action not found.')
 
-    _push_to_device(action.device_id, ServerCommands.EXECUTE_ACTION, args)
+    return _push_to_device(action.device_id, ServerCommands.EXECUTE_ACTION, args)
