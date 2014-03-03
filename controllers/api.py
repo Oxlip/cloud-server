@@ -2,6 +2,7 @@
 REST API v1
 """
 from applications.backend.modules.Device import Device
+from applications.backend.modules.Hub import Hub
 from applications.backend.modules.DeviceType import DeviceType
 from applications.backend.modules.Profile import Profile
 from applications.backend.modules.DeviceData import DeviceData
@@ -44,6 +45,8 @@ def v1():
             return post_user(args[1:], vars)
         elif args[0] == 'device':
             return post_device(args[1:], vars)
+        elif args[0] == 'hub':
+            return post_hub(args[1:], vars)
 
         raise HTTP(406)
 
@@ -73,27 +76,15 @@ def get_device_dict(device):
     }
 
 
-def get_hub_dict(device):
-    """
-    Returns a hub information as a dictionary.
-    """
-    return {
-        'id': device.id,
-        'name': device.name,
-        'channel_id': device.identification
-    }
-
-
 def get_hub_devices_dict(hub_id):
     """
     Returns all devices associated with an hub as a dict
     """
     devices = []
-    for device in Device.get_devices_for_hub(hub_id):
+    for device in Hub.get_devices(hub_id):
         devices.append(get_device_dict(device))
 
     return {'devices': devices}
-
 
 
 def get_user_dict(profile):
@@ -116,6 +107,17 @@ def get_user_devices_dict(profile):
         devices.append(get_device_dict(device))
 
     return {'devices': devices}
+
+
+def hub_connect_result_as_dict(hub_identification, authentication_key):
+    """
+    Establishes a hub session and returns channel
+    """
+    hub_id, channel = Hub.connect(hub_identification, authentication_key)
+    return {
+        'id': hub_id,
+        'channel': channel
+    }
 
 
 def get_user(args, vars):
@@ -164,7 +166,7 @@ def post_user(args, vars):
         if 'device_id' in vars and 'value' in vars:
             device_id = long(vars['device_id'])
             value = vars['value']
-            result = PushNotification.publish_device_value_change(device_id,  value)
+            result = PushNotification.publish_value_change(device_id,  value)
         elif 'action_id' in vars:
             result = PushNotification.publish_action_execute(vars['action_id'])
         else:
@@ -235,15 +237,34 @@ def get_hub(args, vars):
 
     hub_identification = args[0]
     try:
-        hub = Device.load_by_identification(hub_identification)
+        hub = Hub.load_by_identification(hub_identification)
     except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
     if len(args) == 1:
-        # /hub/{identification}
-        return get_hub_dict(hub)
-    elif args[1] == 'devices':
+        # /hub/{identification} is not supported
+        return HTTP(406)
+
+    if args[1] == 'devices':
         # /hub/{identification}/devices
         return get_hub_devices_dict(hub.id)
 
     raise HTTP(404)
+
+
+def post_hub(args, vars):
+    """
+    Main handler for POST REST api starting /hub URL
+    """
+    if args is None or len(args) == 0:
+        raise HTTP(406)
+
+    hub_identification = args[0]
+
+    if len(args) == 1:
+        # /hub/{identification} is not acceptable
+        return HTTP(406)
+
+    if args[1] == 'connect':
+        # /hub/{identification}/connect - create new connection
+        return hub_connect_result_as_dict(hub_identification, request.env['http_auth_key'])
