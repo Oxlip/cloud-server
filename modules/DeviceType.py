@@ -5,6 +5,12 @@ from gluon import current
 
 
 class DeviceType:
+    TIMER = 1
+    HUB = 2
+    SWITCH = 3
+    PLUG = 4
+    SENSE = 5
+
     def __init__(self, type_id, name, description, device_version, is_input_device, is_output_device, image, icon):
         self.id = type_id
         self.name = name
