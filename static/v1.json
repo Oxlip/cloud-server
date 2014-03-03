@@ -172,9 +172,16 @@
                     "parameters": [
                         {
                             "name": "device_id",
-                            "description": "Device id to be registered",
+                            "description": "Id of the device whose status is changed.",
                             "required": true,
-                            "type": "DeviceType",
+                            "type": "integer",
+                            "paramType": "path"
+                        },
+                        {
+                            "name": "value",
+                            "description": "Current value.",
+                            "required": true,
+                            "type": "integer",
                             "paramType": "path"
                         }
                      ],
