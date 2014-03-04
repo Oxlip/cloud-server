@@ -2,17 +2,18 @@
 All user/profile related functions.
 """
 import PlugZExceptions
-from applications.backend.modules.Device import Device
-from applications.backend.modules.DeviceType import DeviceType
 
 def login():
     """
     Let the user login to his account
     """
-    #For debugging only - user 1 is always in.
-    session.user_id = 1
-    session.user_name = 'Samuel'
-    if session.user_id:
+    from Profile import Profile
+
+    if session.user_name is None:
+        #TODO - Remove this hardcoded value
+        session.user_name, session.user_session_id = Profile.login('samueldotj@gmail.com')
+
+    if session.user_name:
         # User is already logged in, lets redirect him to the dashboard.
         return dashboard()
 
@@ -24,7 +25,7 @@ def logout():
     """
     Let the user logout of his account
     """
-    session.user_id = None
+    session.user_name = None
     session.forget()
 
 
@@ -40,6 +41,9 @@ def dashboard():
     """
     Landing page for the user after he login.
     """
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+
     response.view = 'dashboard.html'
     devices = Device.get_devices_for_user(session.user_id)
     #TODO - devicetypes wont change so make them available as global
