@@ -78,7 +78,7 @@ class Profile:
         # Insert an entry to User sessions
         user_session = db.user_session.insert(profile_id=profile.profile_id, connect_time=datetime.utcnow(), channel=profile.get_channel())
 
-        return profile.username, user_session.id
+        return profile.username, user_session.id, profile.profile_id
 
     @staticmethod
     def logout(user_session_id):
@@ -88,7 +88,7 @@ class Profile:
         db = current.db
         sessions = db(db.user_session.id == user_session_id).select()
         for session in sessions:
-            session.disconnect_time = datetime.datetime.utcnow()
+            session.disconnect_time = datetime.utcnow()
             session.update_record()
 
     def _load(self, profile):
