@@ -56,11 +56,12 @@ db.define_table('user_contact_info',
 # The same record will be updated when device disconnects.
 db.define_table('user_session',
                 Field('profile_id', 'reference profile'),
-                Field('connect_time', 'datetime'),                  # Time when the connection established
-                Field('disconnect_time', 'datetime'),               # Time when the user signed out
+                Field('connect_time', 'datetime'),                  # Time when the connection established.
+                Field('disconnect_time', 'datetime'),               # Time when the user signed out.
                                                                     # or time when session timed out.
-                Field('identification', 'string'))                  # From which device(mobile/web)
-                                                                    # the user connected to the plugz website
+                Field('IP', 'string'),                              # IP address of the connection.
+                Field('channel', 'string'))                         # Channel id to publish information(mobile/web)
+
 
 # Master table for storing information about our products.
 # ** Contains special pre filled data. **
@@ -168,6 +169,8 @@ db.define_table('rules',
 
 # Logs all user activity
 db.define_table('user_activity',
-                Field('user_session_id', 'reference user_session'),  # From where user executed this (mobile or web...)
-                Field('action_executed', 'reference actions'),      # The action executed by the user
+                Field('profile_id', 'reference profile'),            # Which user responsible for this.
+                Field('action_id', 'reference actions'),             # The action executed by the user
+                Field('device_id', 'reference device'),              # or The device status was changed by the user
+                Field('output_value', 'string'),                     # to this value.
                 Field('activity_date', 'datetime'))                  # date time when it is executed.
