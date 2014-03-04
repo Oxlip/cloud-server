@@ -1,6 +1,7 @@
 """ Class to handle USER Profiles
 """
 from gluon import current
+from datetime import datetime
 import PlugZExceptions
 import PushNotification
 
@@ -29,10 +30,10 @@ class Profile:
         db = current.db
 
         if Profile.get_user(username):
-            raise AlreadyExistsError('Username already in use.')
+            raise PlugZExceptions.AlreadyExistsError('Username already in use.')
 
         if Profile.is_email_registered(email):
-            raise AlreadyExistsError('Email is already registered')
+            raise PlugZExceptions.AlreadyExistsError('Email is already registered')
 
         profile_id = db.profile.insert(username=username,
                                        first_name=first_name,
@@ -46,10 +47,16 @@ class Profile:
                                   address_line_2=contact_info.address_line_2,
                                   city_id=contact_info.city.id,
                                   postal_code=contact_info.postal_code,
-                                  email=contact_info.email,
                                   phone=contact_info.phone)
 
         return Profile.get_user(username)
+
+    def get_channel(self):
+        """
+        Returns channel id to communicate with the mobile/browser(for status updates).
+        """
+        #TODO - Change the channel name to random one for security reasons
+        return self.username
 
     @staticmethod
     def login(email):
@@ -59,12 +66,30 @@ class Profile:
         db = current.db
 
         if not Profile.is_email_registered(email):
-            raise NotFoundError('User does not Exists {0}'.format(email))
+            raise PlugZExceptions.NotFoundError('User does not Exists {0}'.format(email))
 
-        profile_id = db(db.user_contact_info.email == email).select(db.user_contact_info.profile_id).first()
+        # Load the profile
         profile = Profile()
-        profile.load(profile_id)
-        return profile
+        profile.load(db(db.profile.email == email).select().first())
+
+        #Logout previous session
+        Profile.logout(profile.profile_id)
+
+        # Insert an entry to User sessions
+        user_session = db.user_session.insert(profile_id=profile.profile_id, connect_time=datetime.utcnow(), channel=profile.get_channel())
+
+        return profile.username, user_session.id
+
+    @staticmethod
+    def logout(user_session_id):
+        """
+        Disconnects a user session
+        """
+        db = current.db
+        sessions = db(db.user_session.id == user_session_id).select()
+        for session in sessions:
+            session.disconnect_time = datetime.datetime.utcnow()
+            session.update_record()
 
     def _load(self, profile):
         """
@@ -81,7 +106,7 @@ class Profile:
         db = current.db
         profile = db(db.profile.id == profile_id).select().first()
         if profile is None:
-            raise NotFoundError('user not found {0}'.format(username))
+            raise PlugZExceptions.NotFoundError('user not found {0}'.format(username))
         self._load(profile)
 
     @staticmethod
@@ -92,7 +117,7 @@ class Profile:
         db = current.db
         profile = db(db.profile.username == username).select().first()
         if profile is None:
-            raise NotFoundError('user not found {0}'.format(username))
+            raise PlugZExceptions.NotFoundError('user not found {0}'.format(username))
         user = Profile()
         user._load(profile)
         return user
@@ -121,26 +146,35 @@ class Profile:
         Check if the email is already registered.  This function will be called by Login and Register Profile function
         """
         db = current.db
-        return not db(db.user_contact_info.email == email).isempty()
+        return not db(db.profile.email == email).isempty()
 
 
     def record_device_value_changed(self, device_id, value):
         """
         Records an activity done by the user - a device's value changed.
         """
-        #TODO - Record the activity in UserActivity table first
+        db = current.db
+        db.user_activity.insert(profile_id=self.profile_id, activity_date=datetime.utcnow(),
+                                device_id=device_id, output_value=value)
 
-        PushNotification.set_device_status(device_id,  value)
-        return
+        # Command Hub to do this work
+        PushNotification.set_device_status(device_id, value)
+
+        # TODO - Send status update to the clients
+
 
     def record_action_executed(self, action_id):
         """
         Records an activity done by the user - action executed.
         """
-        #TODO - Record the activity in UserActivity table first
+        db = current.db
+        db.user_activity.insert(profile_id=self.profile_id, activity_date=datetime.utcnow(), action_id=device_id)
 
+        # Command Hub to do this work
         PushNotification.execute_action(action_id)
-        return
+
+        # TODO - Send status update to the clients
+
 
 class UserContactInfo:
     def __init__(self, id=None, profile_id=None, contact_type=None,
@@ -158,7 +192,7 @@ class UserContactInfo:
         db = current.db
         contact_info = db(db.user_contact_info.id == id).select().first()
         if contact_info is None:
-            raise NotFoundError('UserContactInfo not found {0}'.format(id))
+            raise PlugZExceptions.NotFoundError('UserContactInfo not found {0}'.format(id))
         city = City(contact_info.city_id).__dict__
         self.__init__(id=id, profile_id=contact_info.profile_id, contact_type=contact_info.contact_type,
                       address_line_1=contact_info.address_line_1, address_line_2=contact_info.address_line_2,
@@ -170,7 +204,7 @@ class City:
         db = current.db
         record = db((db.city.id == id) & (db.states.id == db.city.state_id) & (db.country.id == db.states.country_id)).select().first()
         if record is None:
-            raise NotFoundError('City not found {0}'.format(id))
+            raise PlugZExceptions.NotFoundError('City not found {0}'.format(id))
         self.id = id
         self.city = record.city.name
         self.state = record.states.name
