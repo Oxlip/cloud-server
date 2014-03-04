@@ -4,7 +4,6 @@
 from gluon import current
 import PlugZExceptions
 
-
 class Device:
     def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
                  registered_date=None, default_value=None, appliance_id=None):
@@ -74,6 +73,23 @@ class Device:
                                        appliance_id=self.appliance)
 
         return self.id
+
+    def get_status_channel(self):
+        """
+        Returns status channel associated with this device.
+        """
+        #TODO - Add code for this
+        return 'user_samueldotj'
+
+    def record_value_change(self, timestamp, value, time_range):
+        """
+        Record a device value change(light on, current reading etc) in the database.
+        """
+        #Save the data in the database
+        db.device_data.insert(device_id=self.id, output_value=value, activity_date=timestamp, time_range=time_range)
+        #push notifications to interested clients(which are connected on the device's update channel)
+        PushNotification.device_update(self, value)
+
 
     @staticmethod
     def delete(device_id):

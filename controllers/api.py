@@ -3,9 +3,8 @@ REST API v1
 """
 from applications.backend.modules.Device import Device
 from applications.backend.modules.Hub import Hub
-from applications.backend.modules.DeviceType import DeviceType
 from applications.backend.modules.Profile import Profile
-from applications.backend.modules.DeviceData import DeviceData
+
 import PlugZExceptions
 import PushNotification
 
@@ -164,13 +163,13 @@ def post_user(args, vars):
     if args[1] == 'activity':
         # /user/{username}/activity
         if 'device_id' in vars and 'value' in vars:
-            profile.record_device_value_changed(long(vars['device_id']), value = vars['value'])
+            profile.record_device_value_changed(long(vars['device_id']), vars['value'])
         elif 'action_id' in vars:
             profile.record_action_executed(vars['action_id'])
         else:
             raise HTTP(400)
 
-        return {'result': result}
+        return {'result': 'ok'}
 
     raise HTTP(404)
 
@@ -216,12 +215,8 @@ def post_device(args, vars):
     if action == 'activity':
         if 'timestamp' not in vars or 'value' not in vars or 'time_range' not in vars:
             raise HTTP(406)
-        timestamp = vars['timestamp']
-        value = vars['value']
-        time_range = vars['time_range']
-        d = DeviceData(device_id, timestamp, value, time_range)
-        d.save()
-        return {}
+        device.record_value_change(vars['timestamp'], vars['value'], vars['time_range'])
+        return {'result': 'ok'}
 
     raise HTTP(404)
 
