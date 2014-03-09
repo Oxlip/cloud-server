@@ -19,13 +19,11 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 db.define_table('profile',
                 Field('username', 'string'),                        # Unique username
-                Field('first_name', 'string'),                      # First name - Should match passport :)
+                Field('first_name', 'string'),                      # First name
                 Field('last_name', 'string'),                       # Last name
-                Field('date_of_birth', 'date'),                     # DOB and gender are only for data collection.
-                Field('gender', 'integer'),                         # Male or female.
-                Field('email', 'string'),                           # email id of the user.
-                Field('phone', 'string'))                           # Primary phone to contact.
-
+                Field('email', 'string'),                           # email id of the user
+                Field('photo', 'string'),                           # Profile picture of the user
+                Field('identifier', 'string'))                      # unqiue identifier for the provider
 
 # List of countries
 db.define_table('country',
