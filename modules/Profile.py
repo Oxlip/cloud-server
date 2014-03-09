@@ -99,7 +99,8 @@ class Profile:
         Internal method to fill self with DAL profile object
         """
         self.__init__(profile_id=profile.id, username=profile.username, first_name=profile.first_name,
-                      last_name=profile.last_name, email=profile.email)
+                      last_name=profile.last_name, email=profile.email, photo=profile.photo,
+                      identifier=profile.identifier)
 
     def load(self, profile_id):
         """
