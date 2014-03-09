@@ -46,11 +46,6 @@
     response.files.insert(0,URL('static','css/style-responsive.css'))
     response.files.insert(0,URL('static','css/web2py.css'))
     }}
-    <!-- Not needed
-    response.files.insert(1,URL('static','css/bootstrap.min.css'))
-    response.files.insert(2,URL('static','css/bootstrap-responsive.min.css'))
-    response.files.insert(3,URL('static','css/web2py_bootstrap.css'))
-    --->
     {{include 'web2py_ajax.html'}}
 
     <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
@@ -729,7 +724,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.resize.js')}}"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.pie.resize.js')}}"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.tooltip.min.j')}}"></script>
+<script src="{{=URL('static','assets/flot-chart/jquery.flot.tooltip.min.js')}}"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.animator.js')}}"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.js')}}"></script>
 
