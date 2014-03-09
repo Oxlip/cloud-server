@@ -397,25 +397,16 @@
             </header>
             <div class="panel-body">
                 <table class="table  table-hover general-table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Device</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         {{
                         for device in devices:
                             dt = device_types[device.device_type_id - 1]
                         }}
                         <tr>
-                            <td>{{=dt.icon}}</td>
-                            <td>{{=dt.name}}</td>
+                            <td>{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</td>
                             <td>{{=device.name}}</td>
                             <td>
-                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="warning" data-off="default" class="switch-mini">
+                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="danger" data-off="warning" class="switch-mini">
                             </td>
                         </tr>
                         {{pass}}

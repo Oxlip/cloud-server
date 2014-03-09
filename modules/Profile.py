@@ -7,8 +7,8 @@ import PushNotification
 
 
 class Profile:
-    def __init__(self, profile_id=None, username=None, first_name=None, last_name=None, date_of_birth=None, gender=None,
-                 email=None, contact_info_list=[]):
+    def __init__(self, profile_id=None, username=None, first_name=None, last_name=None, email=None, photo=None,
+                 identifier=None, contact_info_list=[]):
         """
         Get user details based on the profile ID,  This method will return User object.
         """
@@ -16,21 +16,24 @@ class Profile:
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
-        self.date_of_birth = date_of_birth
-        self.gender = gender
         self.email = email
+        self.photo = photo
+        self.identifier = identifier
         self.contact_info_list = contact_info_list
 
     @staticmethod
-    def register_profile(username, first_name, last_name, date_of_birth, gender, email, contact_info):
+    def register_profile(username, first_name, last_name, email, photo, identifier, contact_info=None):
         """
-        Register a new User in to the system.
-        This information would come from Google, Yahoo or Facebook  as part of New user registration
+        Register a new user in to the system.
+        This information would come from janrain(Google, Yahoo or Facebook) as part of new user registration
         """
         db = current.db
 
-        if Profile.get_user(username):
-            raise PlugZExceptions.AlreadyExistsError('Username already in use.')
+        try:
+            if Profile.get_user(username):
+                raise PlugZExceptions.AlreadyExistsError('Username already in use.')
+        except PlugZExceptions.NotFoundError:
+            pass
 
         if Profile.is_email_registered(email):
             raise PlugZExceptions.AlreadyExistsError('Email is already registered')
@@ -38,16 +41,16 @@ class Profile:
         profile_id = db.profile.insert(username=username,
                                        first_name=first_name,
                                        last_name=last_name,
-                                       date_of_birth=date_of_birth,
-                                       gender=gender,
-                                       email=email)
-
-        db.UserContactInfo.insert(profile_id=profile_id,
-                                  address_line_1=contact_info.address_line_1,
-                                  address_line_2=contact_info.address_line_2,
-                                  city_id=contact_info.city.id,
-                                  postal_code=contact_info.postal_code,
-                                  phone=contact_info.phone)
+                                       email=email,
+                                       photo=photo,
+                                       identifier=identifier)
+        if contact_info:
+            db.UserContactInfo.insert(profile_id=profile_id,
+                                      address_line_1=contact_info.address_line_1,
+                                      address_line_2=contact_info.address_line_2,
+                                      city_id=contact_info.city.id,
+                                      postal_code=contact_info.postal_code,
+                                      phone=contact_info.phone)
 
         return Profile.get_user(username)
 
@@ -96,8 +99,7 @@ class Profile:
         Internal method to fill self with DAL profile object
         """
         self.__init__(profile_id=profile.id, username=profile.username, first_name=profile.first_name,
-                      last_name=profile.last_name, date_of_birth=profile.date_of_birth, gender = profile.gender,
-                      email=profile.email)
+                      last_name=profile.last_name, email=profile.email)
 
     def load(self, profile_id):
         """
@@ -148,7 +150,6 @@ class Profile:
         db = current.db
         return not db(db.profile.email == email).isempty()
 
-
     def record_device_value_changed(self, device_id, value):
         """
         Records an activity done by the user - a device's value changed.
@@ -161,7 +162,6 @@ class Profile:
         PushNotification.set_device_status(device_id, value)
 
         # TODO - Send status update to the clients
-
 
     def record_action_executed(self, action_id):
         """
