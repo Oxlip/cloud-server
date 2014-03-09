@@ -16,12 +16,13 @@ def dashboard():
 
     from applications.backend.modules.Device import Device
     from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
 
     response.view = 'dashboard.html'
     devices = Device.get_devices_for_user(session.user_id)
     #TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
-    return dict(devices=devices, device_types=device_types)
+    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
 
 
 def login():
@@ -53,7 +54,7 @@ def login_redirect():
 
     from applications.backend.modules.Profile import Profile
     if 'givenName' in json_profile['name']:
-        first_name = ['givenName']
+        first_name = json_profile['name']['givenName']
         last_name = json_profile['name']['familyName']
     else:
         names = json_profile['name']['formatted'].split(' ')
