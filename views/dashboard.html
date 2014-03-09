@@ -5,12 +5,12 @@
 <!--[if IE 7]><html class="ie ie7 ie-lte9 ie-lte8 ie-lte7 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
 <!--[if IE 8]><html class="ie ie8 ie-lte9 ie-lte8 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
 <!--[if IE 9]><html class="ie9 ie-lte9 no-js" lang="{{=T.accepted_language or 'en'}}"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="{{=T.accepted_language or 'en'}}" xmlns="http://www.w3.org/1999/html"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="images/favicon.png">
     <title>PlugZ - Dashboard</title>
 
@@ -716,23 +716,23 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.4.3/morris.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.4/jquery.easypiechart.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.resize.js')}}"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.pie.resize.js')}}"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.tooltip.min.js')}}"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.animator.js')}}"></script>
-<script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.js')}}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
 
-<script src="{{=URL('static','assets/gauge/gauge.js')}}"></script>
-<script src="{{=URL('static','assets/easypiechart/jquery.easypiechart.js')}}"></script>
+<script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.min.js')}}"></script>
+<script src="{{=URL('static','assets/gauge/gauge.min.js')}}"></script>
+
 <script src="{{=URL('static','js/dashboard.js')}}"></script>
-<script src="{{=URL('static','js/custom-select/jquery.customSelect.min.js')}}"></script>
+
+<script src="//cdn.jsdelivr.net/jquery.customselect/0.4.1/jquery.customSelect.min.js"></script>
 <script src="{{=URL('static','js/accordion-menu/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{=URL('static','js/scripts.js')}}"></script>
+
 <!--script for this page-->
 <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
