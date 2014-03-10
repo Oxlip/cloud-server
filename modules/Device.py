@@ -2,7 +2,9 @@
 """
 
 from gluon import current
+from datetime import datetime
 import PlugZExceptions
+import PushNotification
 
 class Device:
     def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
@@ -74,22 +76,52 @@ class Device:
 
         return self.id
 
-    def get_status_channel(self):
+    def get_status_channels(self):
         """
-        Returns status channel associated with this device.
+        Returns a list of status channels on which interested parties are listening to the get updates.
         """
-        #TODO - Add code for this
-        return 'user_samueldotj'
+        #TODO - Add code to select all the channels for now it is using only owner's channel.
+        from Profile import Profile
+        profile = Profile.load(self.profile_id)
+        if profile is None:
+            raise PlugZExceptions.NotFoundError('Profile {0} not found'.format(self.profile_id))
+        return [profile.get_status_channel()]
+
+    def get_image(self, platform="web"):
+        """
+        Returns a best icon for this device.
+        1) Based on device type the image will change.
+        2) If switch then based on appliance the image change.
+        3) Based platform(web, iphone, android) the image will change.
+        4) If user uploaded an image it will override everything.
+        """
+        # TODO - Do actual implementation
+        if self.id == 1:
+            return 'desktop.png'
+        elif self.id == 2:
+            return 'laptop.png'
+        elif self.id == 3:
+            return 'ps3.png'
+        elif self.id == 4:
+            return 'washing-machine.png'
+        elif self.id == 5:
+            return 'tv.png'
+        elif self.id == 6:
+            return 'bulb.png'
+        else:
+            return 'x.png'
 
     def record_value_change(self, timestamp, value, time_range):
         """
         Record a device value change(light on, current reading etc) in the database.
         """
         #Save the data in the database
-        db.device_data.insert(device_id=self.id, output_value=value, activity_date=timestamp, time_range=time_range)
+        db = current.db
+        db.device_data.insert(device_id=self.id, output_value=value, activity_date=timestamp, time_range=time_range,
+                              recorded_date=datetime.now())
+        db.commit()
         #push notifications to interested clients(which are connected on the device's update channel)
         PushNotification.device_update(self, value)
-
 
     @staticmethod
     def delete(device_id):
