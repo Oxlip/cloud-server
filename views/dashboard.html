@@ -390,7 +390,7 @@
                  </span>
             </header>
             <div class="panel-body">
-                <table class="table  table-hover general-table">
+                <table class="table table-hover general-table">
                     <tbody>
                         {{
                         for device in devices:
@@ -399,7 +399,7 @@
                         <tr>
                             <td>{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</td>
                             <td>{{=device.name}}</td>
-                            <td>
+                            <td class="m-bot20">
                                 <input id="device_{{=device.id}}" type="checkbox" checked data-on="danger" data-off="warning" class="switch-mini">
                             </td>
                         </tr>
@@ -742,7 +742,7 @@
         subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
     });
     pubnub.subscribe({
-        channel: 'user_samueldotj',
+        channel: '{{=profile.get_status_channel()}}',
         message: function (m) {
             var button_id = '#device_' + m.device_id;
             $(button_id).bootstrapSwitch('state', false);
@@ -755,7 +755,7 @@
         var device_id = $el[0].id.split("_")[1];
         var value = 0;
 
-        var username = "samueldotj";
+        var username = '{{=profile.username}}';
         var server_url = "/backend/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
 

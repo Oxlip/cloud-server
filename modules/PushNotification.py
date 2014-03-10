@@ -69,11 +69,12 @@ def device_update(device, new_value):
     """
     Notify web and mobile clients that status of the device is changed.
     """
-    channel = device.get_status_channel()
-    info = pubnub.publish({
-        'channel': channel,
-        'message': {
-            'device_id': device.id,
-            'value': new_value
-        }
-    })
+    channels = device.get_status_channels()
+    for channel in channels:
+        info = pubnub.publish({
+            'channel': channel,
+            'message': {
+                'device_id': device.id,
+                'value': new_value
+            }
+        })

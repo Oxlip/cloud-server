@@ -51,15 +51,16 @@ class Profile:
                                       city_id=contact_info.city.id,
                                       postal_code=contact_info.postal_code,
                                       phone=contact_info.phone)
+        db.commit()
 
         return Profile.get_user(username)
 
-    def get_channel(self):
+    def get_status_channel(self):
         """
         Returns channel id to communicate with the mobile/browser(for status updates).
         """
         #TODO - Change the channel name to random one for security reasons
-        return self.username
+        return 'status_channel_' + self.username
 
     @staticmethod
     def login(email):
@@ -79,7 +80,8 @@ class Profile:
         Profile.logout(profile.profile_id)
 
         # Insert an entry to User sessions
-        user_session = db.user_session.insert(profile_id=profile.profile_id, connect_time=datetime.utcnow(), channel=profile.get_channel())
+        user_session = db.user_session.insert(profile_id=profile.profile_id, connect_time=datetime.utcnow(),
+                                              channel=profile.get_status_channel())
 
         return profile.username, user_session.id, profile.profile_id
 
@@ -102,7 +104,8 @@ class Profile:
                       last_name=profile.last_name, email=profile.email, photo=profile.photo,
                       identifier=profile.identifier)
 
-    def load(self, profile_id):
+    @staticmethod
+    def load(profile_id):
         """
          Returns user for the given Profile ID
         """
@@ -110,7 +113,9 @@ class Profile:
         profile = db(db.profile.id == profile_id).select().first()
         if profile is None:
             raise PlugZExceptions.NotFoundError('user not found {0}'.format(username))
-        self._load(profile)
+        p = Profile()
+        p._load(profile)
+        return p
 
     @staticmethod
     def get_user(username):
@@ -158,6 +163,7 @@ class Profile:
         db = current.db
         db.user_activity.insert(profile_id=self.profile_id, activity_date=datetime.utcnow(),
                                 device_id=device_id, output_value=value)
+        db.commit()
 
         # Command Hub to do this work
         PushNotification.set_device_status(device_id, value)
@@ -170,6 +176,7 @@ class Profile:
         """
         db = current.db
         db.user_activity.insert(profile_id=self.profile_id, activity_date=datetime.utcnow(), action_id=device_id)
+        db.commit()
 
         # Command Hub to do this work
         PushNotification.execute_action(action_id)
