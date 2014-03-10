@@ -215,7 +215,7 @@ def post_device(args, vars):
     if action == 'activity':
         if 'timestamp' not in vars or 'value' not in vars or 'time_range' not in vars:
             raise HTTP(406)
-        device.record_value_change(vars['timestamp'], vars['value'], vars['time_range'])
+        device.record_value_change(timestamp=vars['timestamp'], value=vars['value'], time_range= vars['time_range'])
         return {'result': 'ok'}
 
     raise HTTP(404)
