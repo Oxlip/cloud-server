@@ -74,7 +74,7 @@ class Profile:
 
         # Load the profile
         profile = Profile()
-        profile.load(db(db.profile.email == email).select().first())
+        profile._load(db(db.profile.email == email).select().first())
 
         #Logout previous session
         Profile.logout(profile.profile_id)
