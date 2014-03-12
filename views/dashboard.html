@@ -11,20 +11,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <link rel="shortcut icon" href="images/favicon.png">
+    <!-- http://dev.w3.org/html5/markup/meta.name.html -->
+    <meta name="application-name" content="{{=request.application}}" />
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
     <title>PlugZ - Dashboard</title>
 
-    <!--Core CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/css/bootstrap3/bootstrap-switch.min.css">
-
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
 
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="js/ie8/ie8-responsive-file-warning.js"></script><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,17 +33,12 @@
     <!--[if !HTML5]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
     <![endif]-->
-    <!-- http://dev.w3.org/html5/markup/meta.name.html -->
-    <meta name="application-name" content="{{=request.application}}" />
-    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
-    <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 
     <!-- include stylesheets -->
     {{
     response.files.insert(0,URL('static','css/style.css'))
-    response.files.insert(0,URL('static','css/style-responsive.css'))
     response.files.insert(0,URL('static','css/web2py.css'))
     }}
     {{include 'web2py_ajax.html'}}
@@ -56,7 +51,6 @@
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-
     <a href="index.html" class="logo">
         <img src="images/logo.png" alt="">
     </a>
@@ -383,42 +377,27 @@
         <section class="panel">
             <header class="panel-heading no-border">
                 Devices
-                <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="javascript:;" class="fa fa-cog"></a>
-                    <a href="javascript:;" class="fa fa-times"></a>
-                 </span>
             </header>
             <div class="panel-body">
-                <table class="table table-hover general-table">
-                    <tbody>
-                        {{
-                        for device in devices:
-                            dt = device_types[device.device_type_id - 1]
-                        }}
-                        <tr>
-                            <td>{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</td>
-                            <td>{{=device.name}}</td>
-                            <td class="m-bot20">
-                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="danger" data-off="warning" class="switch-mini">
-                            </td>
-                        </tr>
-                        {{pass}}
-                    </tbody>
-                </table>
+                {{
+                for device in devices:
+                    dt = device_types[device.device_type_id - 1]
+                }}
+                <div class="row">
+                        <div class="col-md-2">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
+                        <div class="col-md-5">{{=device.name}}</div>
+                        <div class="col-md-5">
+                            <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                        </div>
+                </div>
+                {{pass}}
             </div>
-
         </section>
     </div>
     <div class="col-sm-6">
         <section class="panel">
             <header class="panel-heading no-border">
                 Rules
-                <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="javascript:;" class="fa fa-cog"></a>
-                    <a href="javascript:;" class="fa fa-times"></a>
-                 </span>
             </header>
             <div class="panel-body">
                 <table class="table  table-hover general-table">
@@ -487,7 +466,7 @@
             <a href="javascript:;" class="fa fa-times"></a>
             </span>
         </header>
-        <div class="panel-body">
+        <div id='notification_window' class="panel-body">
             <div class="alert alert-info clearfix">
                 <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
                 <div class="notification-info">
@@ -734,9 +713,25 @@
 <script src="{{=URL('static','js/scripts.js')}}"></script>
 
 <!--script for this page-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+<script src="{{=URL('static','js/livestamp.min.js')}}"></script>
 <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
+    function append_notification(icon, alert_type, msg, dt) {
+        var str ='<div class="alert alert-info clearfix">\
+                <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>\
+                <div class="notification-info">\
+                    <ul class="clearfix notification-meta">\
+                        <li class="pull-left notification-sender"><span>' + msg + '</span></li>\
+                        <li class="pull-right notification-time"><span data-livestamp="' + dt + '"></span></li>\
+                    </ul>\
+                </div>\
+            </div>';
+        console.log(str);
+        $("#notification_window").append(str);
+        $("#notification_window").find('div:first').slideUp(800, function() {$(this).remove();} );
+    }
     var pubnub = PUBNUB.init({
         publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
         subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
@@ -745,8 +740,10 @@
         channel: '{{=profile.get_status_channel()}}',
         message: function (m) {
             var button_id = '#device_' + m.device_id;
+            var d = new Date();
             $(button_id).bootstrapSwitch('state', false);
-            console.log(button_id)
+
+            append_notification('icon', 'info', 'Device value changed.', d.getTime()/1000);
         }
     });
     $(".switch-mini").bootstrapSwitch();
