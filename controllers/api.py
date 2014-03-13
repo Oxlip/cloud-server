@@ -4,62 +4,11 @@ REST API v1
 from applications.backend.modules.Device import Device
 from applications.backend.modules.Hub import Hub
 from applications.backend.modules.Profile import Profile
+from wheezy.routing import url
+from wheezy.routing import PathRouter
 
 import PlugZExceptions
 import PushNotification
-
-@request.restful()
-def v1():
-    """
-    Main handler for Version 1 REST API.
-    """
-    def GET(*args, **vars):
-        """
-        Handler for GET calls
-        """
-        request.extension = 'json'
-        response.generic_patterns = ['*.json']
-        if args is None or len(args) == 0:
-            raise HTTP(406)
-
-        if args[0] == 'user':
-            return get_user(args[1:], vars)
-        elif args[0] == 'device':
-            return get_device(args[1:], vars)
-        elif args[0] == 'hub':
-            return get_hub(args[1:], vars)
-
-        raise HTTP(406)
-
-    def POST(*args, **vars):
-        """
-        Handler for POST calls
-        """
-        request.extension = 'json'
-        response.generic_patterns = ['*.json']
-        if args is None or len(args) == 0:
-            raise HTTP(406)
-
-        if args[0] == 'user':
-            return post_user(args[1:], vars)
-        elif args[0] == 'device':
-            return post_device(args[1:], vars)
-        elif args[0] == 'hub':
-            return post_hub(args[1:], vars)
-
-        raise HTTP(406)
-
-    def PUT(*args, **vars):
-        request.extension = 'json'
-        response.generic_patterns = ['*.json']
-        return dict()
-
-    def DELETE(*args, **vars):
-        request.extension = 'json'
-        response.generic_patterns = ['*.json']
-        return dict()
-
-    return locals()
 
 
 def get_device_dict(device):
@@ -75,21 +24,15 @@ def get_device_dict(device):
     }
 
 
-def get_hub_devices_dict(hub_id):
+def api_v1_get_user(args, vars):
     """
-    Returns all devices associated with an hub as a dict
+    GET /user/{username}
     """
-    devices = []
-    for device in Hub.get_devices(hub_id):
-        devices.append(get_device_dict(device))
+    try:
+        profile = Profile.get_user(args['username'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
 
-    return {'devices': devices}
-
-
-def get_user_dict(profile):
-    """
-    Returns user information as a dictionary
-    """
     return {
         'first_name': profile.first_name,
         'last_name': profile.last_name,
@@ -97,10 +40,15 @@ def get_user_dict(profile):
     }
 
 
-def get_user_devices_dict(profile):
+def api_v1_get_user_devices(args, vars):
     """
-    Returns all devices associated with an user as a dict
+    GET /user/{username}/devices
     """
+    try:
+        profile = Profile.get_user(args['username'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
     devices = []
     for device in Device.get_devices_for_user(profile.profile_id):
         devices.append(get_device_dict(device))
@@ -108,156 +56,152 @@ def get_user_devices_dict(profile):
     return {'devices': devices}
 
 
-def hub_connect_result_as_dict(hub_identification, authentication_key):
+def api_v1_get_user_activity(args, vars):
     """
-    Establishes a hub session and returns channel
+    GET /user/{username}/activity
     """
-    hub_id, channel = Hub.connect(hub_identification, authentication_key)
+    try:
+        profile = Profile.get_user(args['username'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    #TODO - Implement this
+    return {'activity': []}
+
+
+def api_v1_get_device(args, vars):
+    """
+    GET /device/{device_id}
+    """
+    try:
+        device = Device.load(args['device_id'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    return get_device_dict(device)
+
+
+def api_v1_get_hub_devices(args, vars):
+    """
+    GET /hub/{identification}/devices
+    """
+    try:
+        hub = Hub.load_by_identification(args['identification'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    devices = []
+    for device in Hub.get_devices(hub.id):
+        devices.append(get_device_dict(device))
+
+    return {'devices': devices}
+
+get_router = PathRouter()
+get_router.add_routes([
+    ('/user/(?P<username>\w+)', api_v1_get_user),
+    ('/user/(?P<username>\w+)/devices', api_v1_get_user_devices),
+    ('/user/(?P<username>\w+)/activity', api_v1_get_user_activity),
+
+    ('/device/(?P<device_id>\w+)', api_v1_get_device),
+
+    ('/hub/(?P<identification>\w+)/devices', api_v1_get_hub_devices)
+])
+
+
+def api_v1_post_user_activity(args, vars):
+    """
+    POST /user/{username}/activity
+    """
+    try:
+        profile = Profile.get_user(args['username'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    if 'device_id' in vars and 'value' in vars:
+        profile.record_device_value_changed(long(vars['device_id']), vars['value'])
+    elif 'action_id' in vars:
+        profile.record_action_executed(vars['action_id'])
+    else:
+        raise HTTP(400)
+
+    return {'result': 'ok'}
+
+
+def api_v1_post_device_activity(args, vars):
+    """
+    GET /device/{device_id}/activity
+    """
+    if 'timestamp' not in vars or 'value' not in vars or 'time_range' not in vars:
+        raise HTTP(406)
+
+    try:
+        device = Device.load(args['device_id'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    device.record_value_change(timestamp=vars['timestamp'], value=vars['value'], time_range= vars['time_range'])
+
+    return {'result': 'ok'}
+
+
+def api_v1_post_hub_connect(args, vars):
+    """
+    POST /hub/{identification}/connect
+    """
+    hub_id, channel = Hub.connect(args['identification'], request.env['http_auth_key'])
     return {
         'id': hub_id,
         'channel': channel
     }
 
 
-def get_user(args, vars):
+post_router = PathRouter()
+post_router.add_routes([
+    ('/user/(?P<username>\w+)/activity', api_v1_post_user_activity),
+
+    ('/device/(?P<device_id>\w+)/activity', api_v1_post_device_activity),
+
+    ('/hub/(?P<identification>\w+)/connect', api_v1_post_hub_connect)
+])
+
+url_prefix = '/{0}/{1}/{2}'.format(request.application, request.controller, request.function)
+
+@request.restful()
+def v1():
     """
-    Main handler for GET REST api starting /user URL
+    Main handler for Version 1 REST API.
     """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
+    def GET(*args, **vars):
+        request.extension = 'json'
+        response.generic_patterns = ['*.json']
 
-    user_name = args[0]
-    try:
-        profile = Profile.get_user(user_name)
-    except PlugZExceptions.NotFoundError:
-        raise HTTP(404)
+        url_path = request.url.split(url_prefix).pop()
+        handler, args = get_router.match(url_path)
+        if handler is None:
+            raise HTTP(404)
 
-    if len(args) == 1:
-        # /user/{username}
-        return get_user_dict(profile)
+        return handler(args, vars)
 
-    if args[1] == 'devices':
-        # /user/{username}/devices
-        return get_user_devices_dict(profile)
+    def POST(*args, **vars):
+        request.extension = 'json'
+        response.generic_patterns = ['*.json']
 
-    if args[1] == 'activity':
-        # /user/{username}/devices
-        return get_user_devices_dict(profile)
+        url_path = request.url.split(url_prefix).pop()
+        handler, args = post_router.match(url_path)
+        if handler is None:
+            raise HTTP(404)
 
-    raise HTTP(404)
+        return handler(args, vars)
 
+    def PUT(*args, **vars):
+        request.extension = 'json'
+        response.generic_patterns = ['*.json']
+        return dict()
 
-def post_user(args, vars):
-    """
-    Main handler for POST REST api starting /user URL
-    """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
+    def DELETE(*args, **vars):
+        request.extension = 'json'
+        response.generic_patterns = ['*.json']
+        return dict()
 
-    user_name = args[0]
-    try:
-        profile = Profile.get_user(user_name)
-    except PlugZExceptions.NotFoundError:
-        raise HTTP(404)
+    return locals()
 
-    if args[1] == 'activity':
-        # /user/{username}/activity
-        if 'device_id' in vars and 'value' in vars:
-            profile.record_device_value_changed(long(vars['device_id']), vars['value'])
-        elif 'action_id' in vars:
-            profile.record_action_executed(vars['action_id'])
-        else:
-            raise HTTP(400)
-
-        return {'result': 'ok'}
-
-    raise HTTP(404)
-
-
-def get_device(args, vars):
-    """
-    Main handler for GET REST api starting /device URL
-    """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
-
-    device_id = args[0]
-    try:
-        device = Device.load(device_id)
-    except PlugZExceptions.NotFoundError:
-        raise HTTP(404)
-
-    if len(args) == 1:
-        # /device/{device_id}
-        return get_device_dict(device)
-
-    raise HTTP(404)
-
-
-def post_device(args, vars):
-    """
-    Main handler for POST REST api starting /device URL
-    """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
-
-    device_id = args[0]
-    try:
-        device = Device.load(device_id)
-    except PlugZExceptions.NotFoundError:
-        raise HTTP(404)
-
-    if len(args) == 1:
-        # /device/{device_id} create new device
-        return HTTP(406)
-
-    action = args[1]
-    if action == 'activity':
-        if 'timestamp' not in vars or 'value' not in vars or 'time_range' not in vars:
-            raise HTTP(406)
-        device.record_value_change(timestamp=vars['timestamp'], value=vars['value'], time_range= vars['time_range'])
-        return {'result': 'ok'}
-
-    raise HTTP(404)
-
-
-def get_hub(args, vars):
-    """
-    Main handler for GET REST api starting /hub URL
-    """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
-
-    hub_identification = args[0]
-    try:
-        hub = Hub.load_by_identification(hub_identification)
-    except PlugZExceptions.NotFoundError:
-        raise HTTP(404)
-
-    if len(args) == 1:
-        # /hub/{identification} is not supported
-        return HTTP(406)
-
-    if args[1] == 'devices':
-        # /hub/{identification}/devices
-        return get_hub_devices_dict(hub.id)
-
-    raise HTTP(404)
-
-
-def post_hub(args, vars):
-    """
-    Main handler for POST REST api starting /hub URL
-    """
-    if args is None or len(args) == 0:
-        raise HTTP(406)
-
-    hub_identification = args[0]
-
-    if len(args) == 1:
-        # /hub/{identification} is not acceptable
-        return HTTP(406)
-
-    if args[1] == 'connect':
-        # /hub/{identification}/connect - create new connection
-        return hub_connect_result_as_dict(hub_identification, request.env['http_auth_key'])
