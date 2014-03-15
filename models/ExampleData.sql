@@ -4,7 +4,7 @@ INSERT INTO country(name) VALUES('USA');
 INSERT INTO states(name, country_id) VALUES('CA', 1);
 INSERT INTO city(name, state_id) VALUES('Cupertino', 1);
 
-INSERT INTO profile(username, first_name, last_name, date_of_birth, gender, email) VALUES('samueldotj', 'Samuel', 'Jacob', '1980-2-1', 1, 'samueldotj@gmail.com');
+INSERT INTO profile(username, first_name, last_name, email) VALUES('samueldotj', 'Samuel', 'Jacob', 'samueldotj@gmail.com');
 
 INSERT INTO user_contact_info(profile_id, contact_type, address_line_1, address_line_2, city_id, postal_code, phone)
                        VALUES(1, 'Home', '10161 Beardon Dr', '4', 1, '95014', '408-744-2305');
