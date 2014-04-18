@@ -56,23 +56,23 @@ class Device:
         db = current.db
         #Check whether need to create a new record OR update existing record.
         if self.id:
-            db.device(self.id).update(device_type_id=self.device_type,
+            db.device(self.id).update(device_type_id=self.device_type_id,
                                       identification=self.identification,
-                                      profile_id=self.profile,
-                                      hub_id=self.hub,
+                                      profile_id=self.profile_id,
+                                      hub_id=self.hub_id,
                                       name=self.name,
                                       registered_date=self.registered_date,
                                       default_value=self.default_value,
-                                      appliance_id=self.appliance)
+                                      appliance_id=self.appliance_id)
         else:
-            self.id = db.device.insert(device_type_id=self.device_type,
+            self.id = db.device.insert(device_type_id=self.device_type_id,
                                        identification=self.identification,
-                                       profile_id=self.profile,
-                                       hub_id=self.hub,
+                                       profile_id=self.profile_id,
+                                       hub_id=self.hub_id,
                                        name=self.name,
                                        registered_date=self.registered_date,
                                        default_value=self.default_value,
-                                       appliance_id=self.appliance)
+                                       appliance_id=self.appliance_id)
 
         return self.id
 
@@ -109,7 +109,7 @@ class Device:
         elif self.id == 6:
             return 'bulb.png'
         else:
-            return 'x.png'
+            return 'bulb.png'
 
     def record_value_change(self, timestamp, value, time_range):
         """
@@ -158,3 +158,28 @@ class Device:
             return None
         #TODO - Security alert - For now hub identification is channel name but we should change this to a random string every time the hub connects.
         return hub.identification
+
+    @staticmethod
+    def add_device(serial_no, device_name, profile_id):
+        """
+        Adds a device if Parameters are valid
+
+        @param serial_no: Manufactured Device Serial No
+        @param device_name: User Defined Device Name
+        @param profile_id: User ID
+        @return: Returns Success if Valid
+        """
+
+        db = current.db
+        manufactured_devices = db(db.manufactured_devices.identification == serial_no).select().first()
+        if manufactured_devices is None:
+            return False
+
+        device = Device(manufactured_devices.device_type_id, serial_no, profile_id, None, device_name,
+                        str(datetime.now()), 0, None)
+
+        return device.load(device.save())
+
+
+
+
