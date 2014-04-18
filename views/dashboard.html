@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/css/bootstrap3/bootstrap-switch.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
 
+
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 
@@ -35,6 +36,7 @@
     <![endif]-->
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
 
     <!-- include stylesheets -->
     {{
@@ -52,7 +54,7 @@
 <!--logo start-->
 <div class="brand">
     <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="">
+        <img src="{{=URL('static','images/logo.png')}}" alt="">
     </a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
@@ -275,7 +277,7 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="user/dashboard">
+                    <a class="active" href="dashboard">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
@@ -297,7 +299,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="user/statistics">
+                    <a href="Statistics">
                         <i class=" fa fa-bar-chart-o"></i>
                         <span>Statistics</span>
                     </a>
@@ -373,28 +375,61 @@
 
 </div>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-4">
         <section class="panel">
             <header class="panel-heading no-border">
-                Devices
+                Devices <span class="tools pull-right">
+            <a href="#" class="fa fa-plus-square" id="fafaAddDevice" onclick="toggle_element('#divAddDevice')"></a>
+            <a href="javascript:;" class="fa fa-chevron-down"></a>
+            <a href="javascript:;" class="fa fa-times"></a>
+            </span>
             </header>
+
             <div class="panel-body">
-                {{
-                for device in devices:
-                    dt = device_types[device.device_type_id - 1]
-                }}
-                <div class="row">
-                        <div class="col-md-2">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
-                        <div class="col-md-5">{{=device.name}}</div>
-                        <div class="col-md-5">
-                            <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                <div class="alert alert-info" id="divAddDevice" style="display: none;">
+                <span class="alert-icon"><i class="fa fa-plus-square"></i></span>
+                <div class="notification-info">
+                    <form action="" id="registration-form">
+                        <div class="form-group">
+                            <input type="text" name="txtSerialNo" placeholder="Enter Serial No"
+                                      data-validation="length alphanumeric"
+                                      data-validation-length="3-12"
+                                      data-validation-error-msg="Invalid Serial No">
                         </div>
+                        <div class="form-group">
+                            <input type="text" name="txtdeviceName" placeholder="Enter Device Name"
+                                    data-validation="length alphanumeric" data-validation-length="min3"
+                                    data-validation-error-msg="Invalid Device Name">
+                        </div>
+
+                        <Button id="btnAddDevice" type="button" class="btn btn-default"
+                               onclick="ajax('register_device',['txtSerialNo','txtdeviceName'],'DeviceList','ErrorDiv');"
+                               >Register</Button>
+                        </form>
+                    </div>
                 </div>
-                {{pass}}
+
+                    <div class="row" id="DeviceList" style="overflow-y: scroll; overflow-x: hidden; height: 300px;">
+                    {{
+                    for device in devices:
+                        dt = device_types[device.device_type_id - 1]
+                    }}
+                    <div class="row">
+                            <div class="col-md-2">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
+                            <div class="col-md-5">{{=device.name}}</div>
+                            <div class="col-md-5">
+                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                            </div>
+                    </div>
+                    {{pass}}
+                    </div>
+<div id="ErrorDiv"></div>
+
             </div>
+
         </section>
     </div>
-    <div class="col-sm-6">
+    <div class="col-md-4">
         <section class="panel">
             <header class="panel-heading no-border">
                 Rules
@@ -434,29 +469,7 @@
             </div>
         </section>
     </div>
-</div>
-<!--mini statistics end-->
-<div class="row">
-    <div class="col-md-6">
-        <!--earning graph start-->
-        <section class="panel">
-            <header class="panel-heading">
-                Energy Graph <span class="tools pull-right">
-            <a href="javascript:;" class="fa fa-chevron-down"></a>
-            <a href="javascript:;" class="fa fa-cog"></a>
-            <a href="javascript:;" class="fa fa-times"></a>
-            </span>
-            </header>
-            <div class="panel-body">
-
-                <div id="graph-area" class="main-chart">
-                </div>
-            </div>
-        </section>
-        <!--earning graph end-->
-    </div>
-
-<div class="col-md-6">
+    <div class="col-md-4">
     <!--notification start-->
     <section class="panel">
         <header class="panel-heading">
@@ -507,6 +520,9 @@
     </section>
     <!--notification end-->
 </div>
+</div>
+<!--mini statistics end-->
+<div class="row">
 
 </div>
 </section>
@@ -702,7 +718,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.min.js')}}"></script>
 <script src="{{=URL('static','assets/gauge/gauge.min.js')}}"></script>
 
@@ -732,6 +748,95 @@
         $("#notification_window").append(str);
         $("#notification_window").find('div:first').slideUp(800, function() {$(this).remove();} );
     }
+    function set_daily_usage(d1)
+    {
+        var data = ([{
+        label: "Too",
+        data: d1,
+        lines: {
+            show: true,
+            fill: true,
+            lineWidth:2,
+            fillColor: {
+                colors: [ "rgba(255,255,255,.1)","rgba(160,220,220,.8)"]
+            }
+        }
+    }
+    ]);
+    var options = {
+        grid: {
+            backgroundColor: { colors: [ "#fff", "#fff" ] },
+            borderWidth:0,borderColor:"#f0f0f0",
+            margin:0,
+            minBorderMargin:0,
+            labelMargin:20,
+            hoverable: true,
+            clickable: true
+        },
+// Tooltip
+        tooltip: true,
+        tooltipOpts: {
+            content: "%s X: %x Y: %y",
+            shifts: {
+                x: -60,
+                y: 25
+            },
+            defaultTheme: false
+        },
+
+        legend: {
+            labelBoxBorderColor: "#ccc",
+            show: false,
+            noColumns: 0
+        },
+        series: {
+            stack: true,
+            shadowSize: 0,
+            highlightColor: 'rgba(30,120,120,.5)'
+
+        },
+        xaxis: {
+            tickLength: 0,
+            tickDecimals: 0,
+            show:true,
+            min:0,
+
+            font :{
+
+                style: "normal",
+
+
+                color: "#666666"
+            }
+        },
+        yaxis: {
+            ticks: 3,
+            tickDecimals: 0,
+            show:true,
+            tickColor: "#f0f0f0",
+            font :{
+
+                style: "normal",
+
+
+                color: "#666666"
+            }
+        },
+//        lines: {
+//            show: true,
+//            fill: true
+//
+//        },
+        points: {
+            show: true,
+            radius: 2,
+            symbol: "circle"
+        },
+        colors: ["#87cfcb", "#48a9a7"]
+    };
+    var plot = $.plot($("#daily-visit-chart"), data, options);
+    }
+
     var pubnub = PUBNUB.init({
         publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
         subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
@@ -746,6 +851,23 @@
             append_notification('icon', 'info', 'Device value changed.', d.getTime()/1000);
         }
     });
+
+    pubnub.subscribe({
+        channel: 'AllUsers-daily',
+        message: function (m) {
+            set_daily_usage(m.data)
+            //alert(m.data)
+        }
+    });
+
+    pubnub.subscribe({
+        channel: 'AllUsers-morris',
+        message: function (m) {
+            set_morris_data(m.data)
+            //alert(m.data)
+        }
+    });
+
     $(".switch-mini").bootstrapSwitch();
     $(".switch-mini").on('switch-change', function (e, data) {
         var $el = $(data.el), state_is_off = data.value;
@@ -771,6 +893,36 @@
             //alert(data.result);
         });
     });
+
+
+
+    function toggle_element(element){$(element).toggle(500);}
+
+
+function set_morris_data(d1) {
+// Use Morris.Area instead of Morris.Line
+        // alert(d1);
+
+    $( "#graph-area" ).empty()
+Morris.Area({
+        element: 'graph-area',
+        padding: 10,
+        behaveLikeLine: true,
+        gridEnabled: false,
+        gridLineColor: '#dddddd',
+        axes: true,
+        fillOpacity:.7,
+        data: d1,
+        lineColors:['#ED5D5D','#D6D23A','#32D2C9'],
+        xkey: 'period',
+        ykeys: ['iphone', 'ipad', 'itouch'],
+        labels: ['iPhone', 'iPad', 'iPod Touch'],
+        pointSize: 0,
+        lineWidth: 0,
+        hideHover: 'auto'
+
+    });
+};
   </script>
 </body>
 </html>
