@@ -92,3 +92,52 @@ def logout():
     session.user_id = None
     session.forget()
 
+
+def Statistics():
+    """
+    Landing page for the user - shows user devices and energy usage etc
+    """
+
+    # if user has not logged in, redirect to login page
+    if session.user_name is None:
+        return login()
+
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
+
+    response.view = 'Statistics.html'
+    devices = Device.get_devices_for_user(session.user_id)
+    #TODO - devicetypes wont change so make them available as global
+    device_types = DeviceType.get_device_types()
+    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
+
+
+def register_device():
+    _error_message = ""
+    if not (request.vars.txtSerialNo and request.vars.txtdeviceName):
+        response.flash = T("Enter a Valid Serial No or Device Name")
+        return
+
+    from applications.backend.modules.Device import Device
+
+    new_device = Device.add_device(request.vars.txtSerialNo, request.vars.txtdeviceName, session.user_id)
+
+    if not new_device:
+        response.flash = "Error Adding Device. Check for Serial Number"
+        _error_message = "Error Adding Device. Check for Serial Number"
+
+    scriptTag = SCRIPT("$('.switch-mini').bootstrapSwitch(); $('#fafaAddDevice').click();" if not _error_message
+                       else ("$('.switch-mini').bootstrapSwitch(); alert('" + _error_message + "');"))
+
+    devices = Device.get_devices_for_user(session.user_id)
+    return CAT(scriptTag,
+               *[DIV(
+                   DIV(IMG(_src=URL('static/images/device_icons', device.get_image())), _class="col-md-2"),
+                   DIV(device.name, _class="col-md-5"),
+                   DIV(INPUT(_type="checkbox", _class="switch-mini"), _class="col-md-5"),
+                   _class="row") for device in devices])
+    #DIV(DIV(DIV(SPAN("ON", _class="switch-left switch-info"), LABEL(_for)),
+    #         _class="has-switch switch-animate switch-mini switch-on"), _class="col-md-5"),
+
+
