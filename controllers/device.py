@@ -4,9 +4,10 @@
 All device related work is controlled by this file.
 """
 
-from applications.backend.modules.ManufacturedDevices import ManufacturedDevices
+import applications.backend.modules.ManufacturedDevices
 import PlugZExceptions
 from datetime import datetime
+from modules import ManufacturedDevices
 
 
 def manufactured():
