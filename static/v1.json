@@ -463,7 +463,7 @@
                 "action_id": {
                     "type": "integer",
                     "description": "Which action was executed."
-                },
+                }
             }
         },
         "ActionCommand": {
