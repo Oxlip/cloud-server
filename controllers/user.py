@@ -14,9 +14,9 @@ def dashboard():
     if session.user_name is None:
         return login()
 
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
+    from Device import Device
+    from DeviceType import DeviceType
+    from Profile import Profile
 
     response.view = 'dashboard.html'
     devices = Device.get_devices_for_user(session.user_id)
@@ -52,7 +52,7 @@ def login_redirect():
     json_result = r.json()
     json_profile = json_result['profile']
 
-    from applications.backend.modules.Profile import Profile
+    from Profile import Profile
     if 'givenName' in json_profile['name']:
         first_name = json_profile['name']['givenName']
         last_name = json_profile['name']['familyName']
@@ -102,9 +102,9 @@ def Statistics():
     if session.user_name is None:
         return login()
 
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
+    from Device import Device
+    from DeviceType import DeviceType
+    from Profile import Profile
 
     response.view = 'Statistics.html'
     devices = Device.get_devices_for_user(session.user_id)
@@ -119,7 +119,7 @@ def register_device():
         response.flash = T("Enter a Valid Serial No or Device Name")
         return
 
-    from applications.backend.modules.Device import Device
+    from Device import Device
 
     new_device = Device.add_device(request.vars.txtSerialNo, request.vars.txtdeviceName, session.user_id)
 
@@ -147,8 +147,8 @@ def add_rule():
         response.flash = T("Please fill All fields.")
     return
 
-    from applications.backend.modules.Condition import Condition
-    from applications.backend.modules.Action import Action
+    from Condition import Condition
+    from Action import Action
 
     conditions = request.vars.ruleexpression['Conditions']
     actions = request.vars.ruleexpression['Actions']

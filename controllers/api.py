@@ -1,15 +1,12 @@
 """
 REST API v1
 """
-from applications.backend.modules.Device import Device
-from applications.backend.modules.Hub import Hub
-from applications.backend.modules.Profile import Profile
-from wheezy.routing import url
+from Device import Device
+from Hub import Hub
+from Profile import Profile
 from wheezy.routing import PathRouter
 
 import PlugZExceptions
-import PushNotification
-
 
 def get_device_dict(device):
     """
@@ -164,7 +161,7 @@ post_router.add_routes([
     ('/hub/(?P<identification>\w+)/connect', api_v1_post_hub_connect)
 ])
 
-url_prefix = '/{0}/{1}/{2}'.format(request.application, request.controller, request.function)
+url_prefix = '/{0}/{1}'.format(request.controller, request.function)
 
 @request.restful()
 def v1():
