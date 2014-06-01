@@ -53,7 +53,6 @@ def login_redirect():
     json_profile = json_result['profile']
 
     from applications.backend.modules.Profile import Profile
-
     if 'givenName' in json_profile['name']:
         first_name = json_profile['name']['givenName']
         last_name = json_profile['name']['familyName']
