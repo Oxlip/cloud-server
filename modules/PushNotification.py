@@ -36,6 +36,32 @@ def _push_to_device(device_id, command, args):
     })
 
 
+
+def _push_to_Userdevice(user_id, command, args):
+    """
+    Publishes given messages to the device.
+    Since we don't have direct communication to any device, find the associated hub and send to it.
+    """
+    from Device import Device
+    from Hub import Hub
+
+    device = Device.load(user_id)
+    if device is None or device.hub_id is None:
+        raise PlugZExceptions.NotFoundError('Device not found.')
+
+    channel = Hub.get_channel(device.hub_id)
+    if channel is None:
+        raise PlugZExceptions.NotConnectedError('Hub not connected.')
+
+    info = pubnub.publish({
+        'channel': channel,
+        'message': {
+            'command': command,
+            'args': args
+        }
+    })
+
+
 def set_device_status(device_id, new_value):
     """
     Notify hub that an user wanted to change value of a device
@@ -76,5 +102,22 @@ def device_update(device, new_value):
             'message': {
                 'device_id': device.id,
                 'value': new_value
+            }
+        })
+
+
+def rule_update(hub, rule_id, rule):
+    """
+    Notify Hub of the Rule added.
+    @param rule:
+    @param new_value:
+    """
+    channels = hub.get_status_channels()
+    for channel in channels:
+        info = pubnub.publish({
+            'channel': channel,
+            'message': {
+                'rule': rule_id,
+                'value': rule
             }
         })

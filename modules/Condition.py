@@ -74,12 +74,18 @@ class Condition:
         db = current.db
 
         try:
-            return db.conditions.update_or_insert(condition_id is None | db.conditions.id == condition_id,
+            return_val = db.conditions.update_or_insert(condition_id is None | db.conditions.id == condition_id,
                                                   device_id=device_id,
                                                   compares=compares,
                                                   condition_value=condition_value,
                                                   is_and_operation=is_and_operation,
                                                   master_condition_id=master_condition_id)
+
+            if master_condition_id is None:
+                db(db.conditions.id==return_val).update(master_condition_id=return_val)
+                master_condition_id = return_val
+
+            return master_condition_id
         except:
             # TODO: Log Exception
             raise
@@ -97,3 +103,36 @@ class Condition:
                 master_condition_id=condition_set[2].id)
 
         db(db.conditions.id == condition_id).delete()
+
+
+    @staticmethod
+    def add_rule(ruleid, profileid, rulename, conditionid, actionid):
+
+        """
+
+        @param ruleid:
+        @param profileid:
+        @param rulename:
+        @param conditionid:
+        @param actionid:
+        @return:
+        """
+        db=current.db
+        db.rules.update
+        return db.rules.update_or_insert(ruleid is None | db.rules.id == ruleid,
+                                                    profile_id = profileid,
+                                                    name = rulename,
+                                                    condition_id = conditionid,
+                                                    action_id = actionid,
+                                                    is_active = True)
+
+
+    @staticmethod
+    def publish_rule_to_hub(profile_id, rule_id, rule_expression):
+
+        from Device import Device
+        import PushNotification
+        for channel in Device.get_hub_publish_channel_user():
+            PushNotification.rule_update(channel,rule_id, rule_expression)
+
+

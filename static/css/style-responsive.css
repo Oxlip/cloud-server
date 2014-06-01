@@ -195,7 +195,9 @@
         width: 100%;
         float: none;
         position: fixed;
-        top: 0px;
+        top: 5px;
+        left: 10px
+        left: 10px
         z-index: 1005;
     }
     .sidebar-toggle-box{

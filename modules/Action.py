@@ -32,6 +32,30 @@ class Action:
         return self.id
 
     @staticmethod
+    def save_action(action_id, device_id, output_value, master_action_id):
+        """
+
+        @param action_id:
+        @param device_id:
+        @param output_value:
+        @param master_action_id:
+        @return: @raise:
+        """
+        db = current.db
+
+        return_val = db.actions.update_or_insert(action_id is None | db.actions.id == action_id,
+                                                 device_id=device_id,
+                                                 output_value=output_value,
+                                                 master_action_id=master_action_id)
+
+        if master_action_id is None:
+            db(db.actions.id == return_val).update(master_action_id=return_val)
+            master_action_id = return_val
+
+        return master_action_id
+
+
+    @staticmethod
     def get_action_by_device(device_id):
         """
         Return list of all the actions by device
@@ -41,7 +65,8 @@ class Action:
 
         actions = []
         for action in action_set.select():
-            actions.append(Action(action.id, action.name, action.device_id, action.output_value, action.master_action_id))
+            actions.append(
+                Action(action.id, action.name, action.device_id, action.output_value, action.master_action_id))
 
         return actions
 
@@ -55,7 +80,8 @@ class Action:
 
         actions = []
         for action in action_set.select()(db.actions.All, groupby=db.actions.id):
-            actions.append(Action(action.id, action.name, action.device_id, action.output_value, action.master_action_id))
+            actions.append(
+                Action(action.id, action.name, action.device_id, action.output_value, action.master_action_id))
 
         return actions
 

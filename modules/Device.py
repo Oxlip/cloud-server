@@ -147,6 +147,19 @@ class Device:
             devices.append(device)
         return devices
 
+    @staticmethod
+    def get_hub_publish_channel_user(profile_id):
+        """
+        Returns all the devices associated with a given user.
+        """
+        db = current.db
+        hubs = []
+        for d in db(db.device.profile_id == profile_id).select(db.device.hub_id, distinct=True):
+            hub = Device.load(d.hub_id)
+            hubs.append(hub.identification)
+
+        return hubs
+
 
     @staticmethod
     def get_hub_publish_channel(hub_id):

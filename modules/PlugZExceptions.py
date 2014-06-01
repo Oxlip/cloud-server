@@ -22,3 +22,6 @@ class InvalidDeviceError(Exception):
 
 class NotConnectedError(Exception):
     pass
+
+class ErrorUpdatingPlugzDatabase(Exception):
+    pass

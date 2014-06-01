@@ -53,6 +53,7 @@ def login_redirect():
     json_profile = json_result['profile']
 
     from applications.backend.modules.Profile import Profile
+
     if 'givenName' in json_profile['name']:
         first_name = json_profile['name']['givenName']
         last_name = json_profile['name']['familyName']
@@ -139,5 +140,35 @@ def register_device():
                    _class="row") for device in devices])
     #DIV(DIV(DIV(SPAN("ON", _class="switch-left switch-info"), LABEL(_for)),
     #         _class="has-switch switch-animate switch-mini switch-on"), _class="col-md-5"),
+
+
+def add_rule():
+    _error_message = ""
+    if not (request.vars.ruleexpression and request.vars.rulename):
+        response.flash = T("Please fill All fields.")
+    return
+
+    from applications.backend.modules.Condition import Condition
+    from applications.backend.modules.Action import Action
+
+    conditions = request.vars.ruleexpression['Conditions']
+    actions = request.vars.ruleexpression['Actions']
+
+    master_condition = None
+    master_action = None
+    for condition in conditions:
+        master_condition = Condition.save_condition(None, condition[0], "equals", condition[1], True, master_condition)
+
+    for action in actions:
+        master_action = Action.save_action(None, action[0], action[1], master_action)
+
+    if (master_action is None or master_condition is None):
+        raise PlugZExceptions.ErrorUpdatingPlugzDatabase('Error updateing Rule')
+
+    rule_id = Condition.add_rule(None, session.user_id, request.vars.rulename, master_condition, master_action)
+    Condition.publish_rule_to_hub(session.user_id, rule_id, request.vars.ruleexpression)
+
+    return True
+
 
 

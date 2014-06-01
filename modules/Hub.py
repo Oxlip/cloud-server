@@ -113,3 +113,20 @@ class Hub(Device):
             raise PlugZExceptions.NotConnectedError('Hub {0} not connected'.format(hub_id))
 
         return hub_session.channel
+
+    @staticmethod
+    def get_channel_by_profile(profile_id):
+        """
+        Returns channel id to communicate with the hub(for push commands).
+        """
+        from Device import Device
+        hubs = Device.get_devices_for_user(profile_id)
+        db = current.db
+
+        hub_sessions = []
+
+        for hub in hubs:
+            hub_session = db((db.hub_session.device_id == hub.device_id) & (db.hub_session.disconnect_time == None)).select().first()
+            hub_sessions.append(hub_session.channel)
+
+        return hub_sessions
