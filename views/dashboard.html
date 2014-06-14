@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
 
 
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -1040,14 +1037,6 @@
         }
     });
 
-    pubnub.subscribe({
-        channel: 'AllUsers-morris',
-        message: function (m) {
-            set_morris_data(m.data)
-            //alert(m.data)
-        }
-    });
-
     $(".switch-mini").bootstrapSwitch();
     $(".switch-mini").on('switch-change', function (e, data) {
         var $el = $(data.el), state_is_off = data.value;
@@ -1076,30 +1065,6 @@
 
     function toggle_element(element){$(element).toggle(500);}
 
-function set_morris_data(d1) {
-// Use Morris.Area instead of Morris.Line
-        // alert(d1);
-
-    $( "#graph-area" ).empty()
-Morris.Area({
-        element: 'graph-area',
-        padding: 10,
-        behaveLikeLine: true,
-        gridEnabled: false,
-        gridLineColor: '#dddddd',
-        axes: true,
-        fillOpacity:.7,
-        data: d1,
-        lineColors:['#ED5D5D','#D6D23A','#32D2C9'],
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
-        pointSize: 0,
-        lineWidth: 0,
-        hideHover: 'auto'
-
-    });
-};
 
   </script>
 </body>
