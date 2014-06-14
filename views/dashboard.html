@@ -376,7 +376,7 @@
 
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <section class="panel">
             <header class="panel-heading no-border">
                 Devices <span class="tools pull-right">
@@ -410,27 +410,25 @@
                     </div>
                 </div>
 
-                    <div class="row" id="DeviceList" style="overflow-y: scroll; overflow-x: hidden; height: 300px;">
+                    <div id="DeviceList">
                     {{
                     for device in devices:
                         dt = device_types[device.device_type_id - 1]
                     }}
-                    <div class="row">
-                            <div class="col-md-2">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
-                            <div class="col-md-5">{{=device.name}}</div>
-                            <div class="col-md-5">
-                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
-                            </div>
-                    </div>
+                        <div class="col-md-2">
+                                <div align="center">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
+                                <div align="center">{{=device.name}}</div>
+                                <div align="center">
+                                    <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                                </div>
+                        </div>
                     {{pass}}
                     </div>
-<div id="ErrorDiv"></div>
-
+                <div id="ErrorDiv"></div>
             </div>
-
         </section>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <section class="panel">
             <header class="panel-heading no-border">
                 Rules
@@ -1076,10 +1074,7 @@
         });
     });
 
-
-
     function toggle_element(element){$(element).toggle(500);}
-
 
 function set_morris_data(d1) {
 // Use Morris.Area instead of Morris.Line
@@ -1105,6 +1100,7 @@ Morris.Area({
 
     });
 };
+
   </script>
 </body>
 </html>
