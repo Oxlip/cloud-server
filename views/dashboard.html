@@ -1042,14 +1042,6 @@
         }
     });
 
-    pubnub.subscribe({
-        channel: 'AllUsers-morris',
-        message: function (m) {
-            set_morris_data(m.data)
-            //alert(m.data)
-        }
-    });
-
     $(".switch-mini").bootstrapSwitch();
     $(".switch-mini").on('switch-change', function (e, data) {
         var $el = $(data.el), state_is_off = data.value;
@@ -1057,7 +1049,7 @@
         var value = 0;
 
         var username = '{{=profile.username}}';
-        var server_url = "/api/v1";
+        var server_url = "/backend/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
 
         if (state_is_off) {
