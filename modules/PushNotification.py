@@ -106,18 +106,25 @@ def device_update(device, new_value):
         })
 
 
-def rule_update(hub, rule_id, rule):
+def notify_rule_change(user_id):
     """
-    Notify Hub of the Rule added.
-    @param rule:
-    @param new_value:
+    Publishes given messages to the device.
+    Since we don't have direct communication to any device, find the associated hub and send to it.
     """
-    channels = hub.get_status_channels()
-    for channel in channels:
-        info = pubnub.publish({
-            'channel': channel,
-            'message': {
-                'rule': rule_id,
-                'value': rule
-            }
-        })
+    from Device import Device
+    from Hub import Hub
+
+    device = Device.load_by_user(user_id)
+    if device is None or device.hub_id is None:
+        raise PlugZExceptions.NotFoundError('Device not found.')
+
+    channel = Hub.get_channel(device.hub_id)
+    if channel is None:
+        raise PlugZExceptions.NotConnectedError('Hub not connected.')
+
+    info = pubnub.publish({
+        'channel': channel,
+        'message': {
+            'command': ServerCommands.GET_ALL_RULES
+        }
+    })

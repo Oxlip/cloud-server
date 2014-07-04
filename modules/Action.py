@@ -3,6 +3,7 @@
 """
 
 from gluon import current
+import sys
 
 
 class Action:
@@ -32,27 +33,35 @@ class Action:
         return self.id
 
     @staticmethod
-    def save_action(action_id, device_id, output_value, master_action_id):
+    def save_action(action_name, device_id, output_value, master_action):
         """
 
-        @param action_id:
+        @param action_name:
         @param device_id:
         @param output_value:
         @param master_action_id:
         @return: @raise:
         """
         db = current.db
+        try:
 
-        return_val = db.actions.update_or_insert(action_id is None | db.actions.id == action_id,
-                                                 device_id=device_id,
-                                                 output_value=output_value,
-                                                 master_action_id=master_action_id)
+            action = db.actions.update_or_insert(name=action_name)
 
-        if master_action_id is None:
-            db(db.actions.id == return_val).update(master_action_id=return_val)
-            master_action_id = return_val
+            if action is not None:
+                master_action = action
 
-        return master_action_id
+            if master_action is 0:
+                db(db.action_details.action_id == action).delete()
+
+            db.action_details.update_or_insert(device_id=device_id,
+                                               output_value=output_value,
+                                               action_id=master_action)
+
+            return master_action
+        except:
+            # TODO: Log Exception
+            exception = sys.exc_info()[0]
+            raise exception
 
 
     @staticmethod

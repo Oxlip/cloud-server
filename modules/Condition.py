@@ -1,6 +1,8 @@
 """ Class to Manage and create Conditions
 """
 
+import sys
+
 from gluon import current
 
 
@@ -46,7 +48,8 @@ class Condition:
         db = current.db
 
         condition_list = []
-        for condition in db(db.rules.profile_id == profile_id & db.conditions.master_condition_id == db.rules.condition_id):
+        for condition in db(
+                                db.rules.profile_id == profile_id & db.conditions.master_condition_id == db.rules.condition_id):
             _condition = Condition()
             _condition.condition_id = condition.id
             _condition.device_id = condition.device_id
@@ -59,7 +62,7 @@ class Condition:
         return condition_list
 
     @staticmethod
-    def save_condition(condition_id, device_id, compares, condition_value, is_and_operation, master_condition_id):
+    def save_condition(device_id, compares, condition_value, is_and_operation, master_condition_id):
 
         """
         Insert/Update an existing condition
@@ -74,21 +77,22 @@ class Condition:
         db = current.db
 
         try:
-            return_val = db.conditions.update_or_insert(condition_id is None | db.conditions.id == condition_id,
-                                                  device_id=device_id,
-                                                  compares=compares,
-                                                  condition_value=condition_value,
-                                                  is_and_operation=is_and_operation,
-                                                  master_condition_id=master_condition_id)
+            return_val = db.conditions.update_or_insert(device_id=device_id,
+                                                        compares=compares,
+                                                        condition_value=condition_value,
+                                                        is_and_operation=is_and_operation,
+                                                        master_condition_id=master_condition_id)
 
             if master_condition_id is None:
-                db(db.conditions.id==return_val).update(master_condition_id=return_val)
+                db(db.conditions.id == return_val).update(master_condition_id=return_val)
                 master_condition_id = return_val
 
             return master_condition_id
         except:
             # TODO: Log Exception
-            raise
+            exception = sys.exc_info()[0]
+            raise exception
+
 
     @staticmethod
     def remove_condition(condition_id):
@@ -109,7 +113,6 @@ class Condition:
     def add_rule(ruleid, profileid, rulename, conditionid, actionid):
 
         """
-
         @param ruleid:
         @param profileid:
         @param rulename:
@@ -117,22 +120,40 @@ class Condition:
         @param actionid:
         @return:
         """
-        db=current.db
-        db.rules.update
-        return db.rules.update_or_insert(ruleid is None | db.rules.id == ruleid,
-                                                    profile_id = profileid,
-                                                    name = rulename,
-                                                    condition_id = conditionid,
-                                                    action_id = actionid,
-                                                    is_active = True)
+
+        try:
+            db = current.db
+            rule_id = db.rules.update_or_insert(profile_id=profileid,
+                                                name=rulename,
+                                                condition_id=conditionid,
+                                                action_id=actionid,
+                                                is_active=True)
+            db.commit()
+            return rule_id
+        except:
+            # TODO: Log Exception
+            exception = sys.exc_info()[0]
+            raise exception
 
 
     @staticmethod
-    def publish_rule_to_hub(profile_id, rule_id, rule_expression):
+    def get_all_rules(profile_id):
+        try:
+            db = current.db
+            complete_rule = db(
+                (db.rules.profile_id == profile_id) & (db.rules.is_active == True) & (
+                    db.rules.condition_id == db.conditions.master_condition_id) &
+                (db.rules.action_id == db.actions.id) & (db.actions.id == db.action_details.action_id))
 
-        from Device import Device
-        import PushNotification
-        for channel in Device.get_hub_publish_channel_user():
-            PushNotification.rule_update(channel,rule_id, rule_expression)
+            return complete_rule
+
+        except:  # TODO: Log Exception
+            exception = sys.exc_info()[0]
+            raise exception
 
 
+@staticmethod
+def publish_rule_to_hub(profile_id, rule_id, rule_expression):
+    import PushNotification
+
+    PushNotification.notify_rule_change(profile_id)

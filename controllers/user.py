@@ -14,13 +14,33 @@ def dashboard():
     if session.user_name is None:
         return login()
 
-    from Device import Device
-    from DeviceType import DeviceType
-    from Profile import Profile
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
 
     response.view = 'dashboard.html'
     devices = Device.get_devices_for_user(session.user_id)
-    #TODO - devicetypes wont change so make them available as global
+    # TODO - devicetypes wont change so make them available as global
+    device_types = DeviceType.get_device_types()
+    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
+
+
+def home():
+    """
+    Landing page for the user - shows user devices and energy usage etc
+    """
+
+    # if user has not logged in, redirect to login page
+    if session.user_name is None:
+        return login()
+
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
+
+    response.view = 'home.html'
+    devices = Device.get_devices_for_user(session.user_id)
+    # TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
     return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
 
@@ -52,7 +72,8 @@ def login_redirect():
     json_result = r.json()
     json_profile = json_result['profile']
 
-    from Profile import Profile
+    from applications.backend.modules.Profile import Profile
+
     if 'givenName' in json_profile['name']:
         first_name = json_profile['name']['givenName']
         last_name = json_profile['name']['familyName']
@@ -65,22 +86,22 @@ def login_redirect():
     if 'preferredUsername' in json_profile:
         username = json_profile['preferredUsername']
     else:
-        #TODO - some providers(such as yahoo) does not have username concept, we should handle it correctly
-        #for now I am joining the first name and last name
+        # TODO - some providers(such as yahoo) does not have username concept, we should handle it correctly
+        # for now I am joining the first name and last name
         username = '{first}_{last}'.format(first=first_name.lower(), last=last_name.lower())
     photo = json_profile['photo']
     identifier = json_profile['identifier']
 
     # if the user is signing in for first time, register them
     if not Profile.is_email_registered(email):
-        #TODO - add custom field in janrain to capture shipping address but that requires PRO account so for now....
-        #TODO - handle registration failure
+        # TODO - add custom field in janrain to capture shipping address but that requires PRO account so for now....
+        # TODO - handle registration failure
         Profile.register_profile(username=username, first_name=first_name, last_name=last_name, email=email,
                                  photo=photo, identifier=identifier)
 
     session.user_name, session.user_session_id, session.user_id = Profile.login(email)
 
-    return dashboard()
+    return home()
 
 
 def logout():
@@ -93,7 +114,7 @@ def logout():
     session.forget()
 
 
-def Statistics():
+def statistics():
     """
     Landing page for the user - shows user devices and energy usage etc
     """
@@ -102,13 +123,53 @@ def Statistics():
     if session.user_name is None:
         return login()
 
-    from Device import Device
-    from DeviceType import DeviceType
-    from Profile import Profile
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
 
     response.view = 'Statistics.html'
     devices = Device.get_devices_for_user(session.user_id)
-    #TODO - devicetypes wont change so make them available as global
+    # TODO - devicetypes wont change so make them available as global
+    device_types = DeviceType.get_device_types()
+    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
+
+
+def manage_rule():
+    """
+    Landing page for the user - shows user devices and energy usage etc
+    """
+
+    # if user has not logged in, redirect to login page
+    if session.user_name is None:
+        return login()
+
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
+
+    response.view = 'manage_rule.html'
+    devices = Device.get_devices_for_user(session.user_id)
+    # TODO - devicetypes wont change so make them available as global
+    device_types = DeviceType.get_device_types()
+    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
+
+
+def manage_device():
+    """
+    Landing page for the user - shows user devices and energy usage etc
+    """
+
+    # if user has not logged in, redirect to login page
+    if session.user_name is None:
+        return login()
+
+    from applications.backend.modules.Device import Device
+    from applications.backend.modules.DeviceType import DeviceType
+    from applications.backend.modules.Profile import Profile
+
+    response.view = 'manage_device.html'
+    devices = Device.get_devices_for_user(session.user_id)
+    # TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
     return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
 
@@ -119,7 +180,7 @@ def register_device():
         response.flash = T("Enter a Valid Serial No or Device Name")
         return
 
-    from Device import Device
+    from applications.backend.modules.Device import Device
 
     new_device = Device.add_device(request.vars.txtSerialNo, request.vars.txtdeviceName, session.user_id)
 
@@ -137,34 +198,44 @@ def register_device():
                    DIV(device.name, _class="col-md-5"),
                    DIV(INPUT(_type="checkbox", _class="switch-mini"), _class="col-md-5"),
                    _class="row") for device in devices])
-    #DIV(DIV(DIV(SPAN("ON", _class="switch-left switch-info"), LABEL(_for)),
-    #         _class="has-switch switch-animate switch-mini switch-on"), _class="col-md-5"),
+    # DIV(DIV(DIV(SPAN("ON", _class="switch-left switch-info"), LABEL(_for)),
+    # _class="has-switch switch-animate switch-mini switch-on"), _class="col-md-5"),
 
 
 def add_rule():
     _error_message = ""
-    if not (request.vars.ruleexpression and request.vars.rulename):
+    if not request.vars.ruleexpression:
         response.flash = T("Please fill All fields.")
-    return
 
-    from Condition import Condition
-    from Action import Action
+    from applications.backend.modules.Condition import Condition
+    from applications.backend.modules.Action import Action
 
-    conditions = request.vars.ruleexpression['Conditions']
-    actions = request.vars.ruleexpression['Actions']
+    try:
+        import json
+    except ImportError:
+        import simplejson as json
+
+    rule_expression = json.loads(request.vars.ruleexpression)
+    conditions = rule_expression['Conditions']
+    actions = rule_expression['Actions']
+
+    rule_name = rule_expression['rulename']
+    action_name = rule_expression['actionName']
 
     master_condition = None
-    master_action = None
+    master_action = 0
     for condition in conditions:
-        master_condition = Condition.save_condition(None, condition[0], "equals", condition[1], True, master_condition)
+        for key, value in condition.items():
+            master_condition = Condition.save_condition(key, 1, value, True, master_condition)
 
     for action in actions:
-        master_action = Action.save_action(None, action[0], action[1], master_action)
+        for key, value in action.items():
+            master_action = Action.save_action(action_name, key, value, master_action)
 
-    if (master_action is None or master_condition is None):
+    if master_action is None or master_condition is None:
         raise PlugZExceptions.ErrorUpdatingPlugzDatabase('Error updateing Rule')
 
-    rule_id = Condition.add_rule(None, session.user_id, request.vars.rulename, master_condition, master_action)
+    rule_id = Condition.add_rule(None, session.user_id, rule_name, master_condition, master_action)
     Condition.publish_rule_to_hub(session.user_id, rule_id, request.vars.ruleexpression)
 
     return True

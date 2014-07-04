@@ -281,19 +281,19 @@
                         </a>
                     </li>
                     <li class="sub-menu">
-                        <a href="manage_device">
+                        <a href="#" id="aManageDevice"  onclick="$('#divMainContent').load('manage_device');">
                             <i class="fa fa-refresh"></i>
                             <span>Manage Device</span>
                         </a>
                     </li>
                     <li class="sub-menu">
-                        <a href="manage_rule">
+                        <a href="#" id="aManageRule"  onclick="$('#divMainContent').load('manage_rule');">
                             <i class="icon-cogs modal-title"></i>
                             <span>Manage Rule</span>
                         </a>
                     </li>
                     <li>
-                        <a href="statistics">
+                        <a href="#"  id="aStatistics"  onclick="$('#divMainContent').load('statistics');">
                             <i class=" fa fa-bar-chart-o"></i>
                             <span>Statistics</span>
                         </a>
@@ -399,7 +399,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" id="DeviceList">
+                            <div class="row" id="DeviceList" style="height: 180px;">
                                 {{
                                 for device in devices:
                                     dt = device_types[device.device_type_id - 1]
@@ -808,7 +808,6 @@
     </div>
 <!--right sidebar end-->
 </section>
-
 <!-- Placed js at the end of the document so the pages load faster -->
 <!--Core js-->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -827,11 +826,9 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.min.js')}}"></script>
 <script src="{{=URL('static','assets/gauge/gauge.min.js')}}"></script>
-
-<script src="{{=URL('static','js/dashboard.js')}}"></script>
 
 <script src="//cdn.jsdelivr.net/jquery.customselect/0.4.1/jquery.customSelect.min.js"></script>
 <script src="{{=URL('static','js/accordion-menu/jquery.dcjqaccordion.2.7.js')}}"></script>
@@ -844,221 +841,11 @@
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
 
-	$('#btnSaveRule').click(function() {
-
-		var ruleEngine = {};
-
-
-		ruleEngine.Conditions = [];
-		$(".PlugzConditionClass").each(function(i) {
-			ruleEngine.Conditions.push( "{'" + $(this).attr('ParameterData') + "':'"  + $(this).val() + "'}");
-		});
-
-		ruleEngine.Actions = [];
-		$(".PlugzActionClass").each(function(i) {
-			ruleEngine.Actions.push( "{'" + $(this).attr('ParameterData') + "':'"  + $(this).val() + "'}");
-
-		});
-
-        var rule = "{ 'Conditions' :[ " + ruleEngine.Conditions + " ], 'Actions' : [ " + ruleEngine.Actions +  " ]}";
-        //alert(rule);
-        //ajax('add_rule',[rule]).always(function(){alert("Complete")});
-
-        $.ajax({url:"add_rule", type:"POST", data: { ruleexpression: rule, rulename: $( "#ActionContainer").text()}})
-                .always(function() { alert( "Rule Saved Successfully " );  btnCloseRuleWindow.click(); });
-
-
-
-	});
-
-	$(".ConditionClass").click(function() {
-		//alert($(this).attr('value'));
-		$( "#ConditionContainer" ).append( "<div class='row'><div class='col-md-5'><span class='label label-primary'>When " + $(this).text() +" is </span></div><div class='col-md-1'></div><div class='col-md-7'><Input type='text' ParameterType='" + $(this).attr('ParameterType') +"' ParameterData='" + $(this).attr('ParameterData') +"' class='form-control  PlugzConditionClass' DataTypeMember='Time' DataValueMember placeholder='Enter a Value'></input></div></div>" );
-		$( "#ConditionContainer" ).append('<p></p><p><i class="fa fa-plus"></i></p>');
-
-	});
-
-
-	$(".ActionClass").click(function() {
-		//alert($(this).attr('value'));
-
-        var k = Math.floor((Math.random() * 1000) + 1);
-
-		$( "#ActionContainer" ).append( "<div class='row'><div class='col-md-5'><span class='label label-primary'>Set " + $(this).text() +" to </span></div><div class='col-md-1'></div><div class='col-md-7'><Input type='checkbox'  checked data-on='info' data-off='warning' ParameterType='" + $(this).attr('ParameterType') +"' ParameterData='" + $(this).attr('ParameterData') +"' id='" + k + "' class='switch-mini'></input></div></div>" );
-		$( "#ActionContainer" ).append('<p></p><p><i class="fa fa-plus"></i></p>');
-        $('#' + k ).bootstrapSwitch();
-
-	});
-
-	$("#btnClearConditions").click(function() {
-		$("#ConditionContainer").empty();
-	});
-
-	$("#btnClearActions").click(function() {
-		$("#ActionContainer").empty();
-	});
-
-    $("#btnBuildRuleEngine").click(function(){
-        $("#txtRuleName").val("");
-        $("#ActionContainer").empty();
-        $("#ConditionContainer").empty();
-    })
-
-    function append_notification(icon, alert_type, msg, dt) {
-        var str ='<div class="alert alert-info clearfix">\
-                <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>\
-                <div class="notification-info">\
-                    <ul class="clearfix notification-meta">\
-                        <li class="pull-left notification-sender"><span>' + msg + '</span></li>\
-                        <li class="pull-right notification-time"><span data-livestamp="' + dt + '"></span></li>\
-                    </ul>\
-                </div>\
-            </div>';
-        console.log(str);
-        $("#notification_window").append(str);
-        $("#notification_window").find('div:first').slideUp(800, function() {$(this).remove();} );
-    }
-    function set_daily_usage(d1)
-    {
-        var data = ([{
-        label: "Too",
-        data: d1,
-        lines: {
-            show: true,
-            fill: true,
-            lineWidth:2,
-            fillColor: {
-                colors: [ "rgba(255,255,255,.1)","rgba(160,220,220,.8)"]
-            }
-        }
-    }
-    ]);
-    var options = {
-        grid: {
-            backgroundColor: { colors: [ "#fff", "#fff" ] },
-            borderWidth:0,borderColor:"#f0f0f0",
-            margin:0,
-            minBorderMargin:0,
-            labelMargin:20,
-            hoverable: true,
-            clickable: true
-        },
-// Tooltip
-        tooltip: true,
-        tooltipOpts: {
-            content: "%s X: %x Y: %y",
-            shifts: {
-                x: -60,
-                y: 25
-            },
-            defaultTheme: false
-        },
-
-        legend: {
-            labelBoxBorderColor: "#ccc",
-            show: false,
-            noColumns: 0
-        },
-        series: {
-            stack: true,
-            shadowSize: 0,
-            highlightColor: 'rgba(30,120,120,.5)'
-
-        },
-        xaxis: {
-            tickLength: 0,
-            tickDecimals: 0,
-            show:true,
-            min:0,
-
-            font :{
-
-                style: "normal",
-
-
-                color: "#666666"
-            }
-        },
-        yaxis: {
-            ticks: 3,
-            tickDecimals: 0,
-            show:true,
-            tickColor: "#f0f0f0",
-            font :{
-
-                style: "normal",
-
-
-                color: "#666666"
-            }
-        },
-//        lines: {
-//            show: true,
-//            fill: true
-//
-//        },
-        points: {
-            show: true,
-            radius: 2,
-            symbol: "circle"
-        },
-        colors: ["#87cfcb", "#48a9a7"]
-    };
-    var plot = $.plot($("#daily-visit-chart"), data, options);
-    }
-
-    var pubnub = PUBNUB.init({
-        publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
-        subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
-    });
-    pubnub.subscribe({
-        channel: '{{=profile.get_status_channel()}}',
-        message: function (m) {
-            var button_id = '#device_' + m.device_id;
-            var d = new Date();
-            $(button_id).bootstrapSwitch('state', false);
-
-            append_notification('icon', 'info', 'Device value changed.', d.getTime()/1000);
-        }
+    $(document).ready(function() {
+            $("#divMainContent").load("dashboard");
     });
 
-    pubnub.subscribe({
-        channel: 'AllUsers-daily',
-        message: function (m) {
-            set_daily_usage(m.data)
-            //alert(m.data)
-        }
-    });
 
-    $(".switch-mini").bootstrapSwitch();
-    $(".switch-mini").on('switch-change', function (e, data) {
-        var $el = $(data.el), state_is_off = data.value;
-        var device_id = $el[0].id.split("_")[1];
-        var value = 0;
-
-        var username = '{{=profile.username}}';
-        var server_url = "/api/v1";
-        var rest_endpoint = "/user/" + username + "/activity";
-
-        if (state_is_off) {
-            value = 100
-        }
-
-        $.ajax({
-            url: server_url + rest_endpoint,
-            type: "POST",
-            data: {
-                device_id: device_id,
-                value: value
-            }
-        }).then(function (data) {
-            //alert(data.result);
-        });
-    });
-
-    function toggle_element(element){$(element).toggle(500);}
-
-
-  </script>
+</script>
 </body>
 </html>

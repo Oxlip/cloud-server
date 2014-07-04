@@ -93,6 +93,22 @@ def api_v1_get_hub_devices(args, vars):
 
     return {'devices': devices}
 
+
+def api_v1_get_hub_rules(args, vars):
+    """
+    GET /hub/{identification}/rules
+    """
+    try:
+        hub = Hub.load_by_identification(args['identification'])
+        from applications.backend.modules.Condition import Condition
+        rules = Condition.get_all_rules(hub.profile_id)
+
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    return {'rules': rules}
+
+
 get_router = PathRouter()
 get_router.add_routes([
     ('/user/(?P<username>\w+)', api_v1_get_user),
@@ -101,7 +117,8 @@ get_router.add_routes([
 
     ('/device/(?P<device_id>\w+)', api_v1_get_device),
 
-    ('/hub/(?P<identification>\w+)/devices', api_v1_get_hub_devices)
+    ('/hub/(?P<identification>\w+)/devices', api_v1_get_hub_devices),
+    ('/hub/(?P<identification>\w+)/rules', api_v1_get_hub_rules)
 ])
 
 
@@ -158,7 +175,7 @@ post_router.add_routes([
 
     ('/device/(?P<device_id>\w+)/activity', api_v1_post_device_activity),
 
-    ('/hub/(?P<identification>\w+)/connect', api_v1_post_hub_connect)
+    ('/hub/(?P<identification>\w+)/connect', api_v1_post_hub_connect),
 ])
 
 url_prefix = '/{0}/{1}'.format(request.controller, request.function)

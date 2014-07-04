@@ -40,13 +40,31 @@ class Device:
         If the device is not found then raises an exception.
         """
         db = current.db
-        device = db(db.device.id == device_id).select().first()
+        device = db(db.device.id == device_id).select().last()
         if device is None:
             raise PlugZExceptions.NotFoundError('Device ID not found - {id}'.format(id=device_id))
 
         d = Device()
         d._load(device)
         return d
+
+
+    @staticmethod
+    def load_by_user(user_id):
+        """
+        Loads device information from the database into current object.
+        If the device is not found then raises an exception.
+        """
+        db = current.db
+        device = db(db.device.profile_id == user_id).select().last()
+        if device is None:
+            raise PlugZExceptions.NotFoundError('Devices not found for user - {id}'.format(id=user_id))
+
+        d = Device()
+        d._load(device)
+        return d
+
+
 
     def save(self):
         """

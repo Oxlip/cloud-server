@@ -16,14 +16,13 @@
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
-    <title>PlugZ - Statistics</title>
+    <title>PlugZ - Dashboard</title>
 
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/css/bootstrap3/bootstrap-switch.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
 
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,6 +34,7 @@
     <![endif]-->
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
 
     <!-- include stylesheets -->
     {{
@@ -275,14 +275,14 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="sub-menu" href="dashboard">
+                    <a class="active" href="dashboard">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="manage_device:;">
-                        <i class="fa-cubes"></i>
+                    <a href="manage_device">
+                        <i class="fa fa-refresh"></i>
                         <span>Manage Device</span>
                     </a>
                 </li>
@@ -292,16 +292,10 @@
                         <span>Manage Rule</span>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="statistics">
                         <i class=" fa fa-bar-chart-o"></i>
                         <span>Statistics</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-glass"></i>
-                        <span>Extra</span>
                     </a>
                 </li>
                 <li>
@@ -368,27 +362,273 @@
     </div>
 
 </div>
-
-<!--mini statistics end-->
 <div class="row">
-    <div class="col-md-6">
-        <!--earning graph start-->
+    <div class="col-md-12">
         <section class="panel">
-            <header class="panel-heading">
-                Energy Graph <span class="tools pull-right">
+            <header class="panel-heading no-border">
+                Devices <span class="tools pull-right">
+            <a href="#" class="fa fa-plus-square" id="fafaAddDevice" onclick="toggle_element('#divAddDevice')"></a>
+            <a href="javascript:;" class="fa fa-chevron-down"></a>
+            <a href="javascript:;" class="fa fa-times"></a>
+            </span>
+            </header>
+
+            <div class="panel-body">
+                <div class="alert alert-info" id="divAddDevice" style="display: none;">
+                <span class="alert-icon"><i class="fa fa-plus-square"></i></span>
+                <div class="notification-info">
+                    <form action="" id="registration-form">
+                        <div class="form-group">
+                            <input type="text" name="txtSerialNo" placeholder="Enter Serial No"
+                                      data-validation="length alphanumeric"
+                                      data-validation-length="3-12"
+                                      data-validation-error-msg="Invalid Serial No">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="txtdeviceName" placeholder="Enter Device Name"
+                                    data-validation="length alphanumeric" data-validation-length="min3"
+                                    data-validation-error-msg="Invalid Device Name">
+                        </div>
+
+                        <Button id="btnAddDevice" type="button" class="btn btn-default"
+                               onclick="ajax('register_device',['txtSerialNo','txtdeviceName'],'DeviceList','ErrorDiv');"
+                               >Register</Button>
+                        </form>
+                    </div>
+                </div>
+
+                    <div id="DeviceList">
+                    {{
+                    for device in devices:
+                        dt = device_types[device.device_type_id - 1]
+                    }}
+                        <div class="col-md-2">
+                                <div align="center">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
+                                <div align="center">{{=device.name}}</div>
+                                <div align="center">
+                                    <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                                </div>
+                        </div>
+                    {{pass}}
+                    </div>
+                <div id="ErrorDiv"></div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-8">
+        <section class="panel">
+            <header class="panel-heading no-border">
+                Rules
+                <span class="tools pull-right">
+                <p class="bg-primary"></p>
+                <a href="#" data-toggle="modal" id="btnBuildRuleEngine" data-target="#myModal">
+                <i class=" icon-cogs modal-title"></i>
+                  Add Rule
+                </a>
+
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+                </span>
+            </header>
+            <div class="panel-body">
+
+                <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <div class="form-group">
+                                    <i class=" icon-cog icon-spin modal-title"></i>
+                                    <h4 class="modal-title" id="myModalLabel">Add New Rule</h4>
+                                </div>
+
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group input-group-md">
+                                        <span class="label label-default">Enter Rule Name</span>
+                                        <input type="text" class="form-control" id ="txtRuleName" placeholder="Enter Rule Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"><p></p></div>
+                            <div class="row"><p></p></div>
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                <span class="label label-default">Build condition set</span>
+                                <div class="panel panel-info panel-default">
+                                    <div class="panel-heading">Rules
+                                        <span class="tools pull-right">
+                                            <p class="bg-primary"></p>
+                                            <a href="#" id="btnClearConditions">
+                                            <i class=" fa fa-trash-o modal-title"></i>
+                                              Clear
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="ConditionContainer">
+                                            <!-- <div class='row'><div class='col-sm-3'><span class='label label-primary'>Time is</span></div><div class='col-sm-1'></div><div class='col-sm-5'><Input type='text' class='form-control' placeholder='Enter a Value'></input></div><div class='col-sm-1'> <button type='button' class='btn btn-default removeButton'><i class='icon-trash icon-white'></i></button></div></div> -->
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Add Condition <i class="fa fa-plus"></i></button>
+                                            <ul class="dropdown-menu">
+                                                    <li><a href="#"  value="TEet" ParameterType="Calender" ParameterData="Time" class="ConditionClass"><i class=" icon-time icon-spin icon-2x"></i> Time</a></li>
+                                                    <li><a href="#"  value="TEet" ParameterType="TemperatureSlider" ParameterData="Temperature" class="ConditionClass"><i class=" icon-bolt icon-2x"></i> Temperature</a></li>
+                                                    <li><a href="#"  value="TEet" ParameterType="HumiditySlider" ParameterData="Humidity" class="ConditionClass"><i class=" icon-umbrella icon-2x"></i> Humidity</a></li>
+                                                    <li class="divider" ></li>
+
+                                                    {{
+                                                    for device in devices:
+                                                        dt = device_types[device.device_type_id - 1]
+                                                    }}
+                                                    <li><a href="#" ParameterType="MotionNone" ParameterData="{{=device.id}}" class="ConditionClass"><i class=" icon-edit icon-2x"></i> {{=device.name}}</a></li>
+                                                    {{pass}}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 pull-center"><i class="fa fa-sign-in fa-5x"></i></div>
+                            <div class="col-md-5">
+                                <span class="label label-default">Build action set</span>
+                                <div class="panel panel-warning panel-default">
+                                    <div class="panel-heading">Action
+                                        <span class="tools pull-right">
+                                            <p class="bg-warning"></p>
+                                            <a href="#" id="btnClearActions">
+                                            <i class=" fa fa-trash-o modal-title"></i>
+                                              Clear
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="ActionContainer">
+                                            <!-- <div class='row'><div class='col-sm-3'><span class='label label-primary'>Time is</span></div><div class='col-sm-1'></div><div class='col-sm-5'><Input type='text' class='form-control' placeholder='Enter a Value'></input></div><div class='col-sm-1'> <button type='button' class='btn btn-default removeButton'><i class='icon-trash icon-white'></i></button></div></div> -->
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Add Action <i class="fa fa-plus"></i></button>
+                                            <ul class="dropdown-menu">
+
+                                                {{
+                                                    for device in devices:
+                                                        dt = device_types[device.device_type_id - 1]
+                                                    }}
+                                                    <li><a href="#" ParameterType="LightCheckBox" ParameterData="{{=device.id}}" class="ActionClass"><i class=" icon-edit "></i> {{=device.name}}</a></li>
+                                                    {{pass}}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="btnCloseRuleWindow" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnSaveRule">Save Rule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <table class="table  table-hover general-table">
+                    <thead>
+                        <tr>
+                            <th>Rule</th>
+                            <th>Condition</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wake up</td>
+                            <td>Every working day morning 6am</td>
+                            <td>Turn on bedroom light and turn off bedroom fan</td>
+                        </tr>
+                        <tr>
+                            <td>TV on</td>
+                            <td>None</td>
+                            <td>Turn on TV, turn on cable, turn on HT, tune to channel 183 and set volume to 10</td>
+                        </tr>
+                        <tr>
+                            <td>Bathroom light auto on</td>
+                            <td>When motion detected in bathroom</td>
+                            <td>Turn on bathroom light</td>
+                        </tr>
+                        <tr>
+                            <td>Bathroom light auto off</td>
+                            <td>When motion is not detected in bathroom for 5 min</td>
+                            <td>Turn off bathroom light</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-4">
+    <!--notification start-->
+    <section class="panel">
+        <header class="panel-heading">
+            Notification <span class="tools pull-right">
             <a href="javascript:;" class="fa fa-chevron-down"></a>
             <a href="javascript:;" class="fa fa-cog"></a>
             <a href="javascript:;" class="fa fa-times"></a>
             </span>
-            </header>
-            <div class="panel-body">
-                <div id="graph-area" class="main-chart">
+        </header>
+        <div id='notification_window' class="panel-body">
+            <div class="alert alert-info clearfix">
+                <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
+                <div class="notification-info">
+                    <ul class="clearfix notification-meta">
+                        <li class="pull-left notification-sender"><span><a href="#">Samuel</a></span> turned on TV </li>
+                        <li class="pull-right notification-time">1 min ago</li>
+                    </ul>
                 </div>
             </div>
-        </section>
-        <!--earning graph end-->
-    </div>
-
+            <div class="alert alert-warning">
+                <span class="alert-icon"><i class="fa fa-bell-o"></i></span>
+                <div class="notification-info">
+                    <ul class="clearfix notification-meta">
+                        <li class="pull-left notification-sender"><span><a href="#">Samuel</a></span> turned off hall light </li>
+                        <li class="pull-right notification-time">7 min ago</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-success ">
+                <span class="alert-icon"><i class="fa fa-comments-o"></i></span>
+                <div class="notification-info">
+                    <ul class="clearfix notification-meta">
+                        <li class="pull-left notification-sender">Reconnected to cloud</li>
+                        <li class="pull-right notification-time">25 min ago</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-danger">
+                <span class="alert-icon"><i class="fa fa-bell-o"></i></span>
+                <div class="notification-info">
+                    <ul class="clearfix notification-meta">
+                        <li class="pull-left notification-sender">Somebody entered hall</li>
+                        <li class="pull-right notification-time">1 hour ago</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--notification end-->
+</div>
+</div>
+<!--mini statistics end-->
+<div class="row">
 
 </div>
 </section>
@@ -570,7 +810,7 @@
 <!--Core js-->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/js/bootstrap-switch.min.js"</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/js/bootstrap-switch.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
@@ -584,11 +824,11 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.min.js')}}"></script>
 <script src="{{=URL('static','assets/gauge/gauge.min.js')}}"></script>
 
-<script src="{{=URL('static','js/statistics.js')}}"></script>
+<script src="{{=URL('static','js/dashboard.js')}}"></script>
 
 <script src="//cdn.jsdelivr.net/jquery.customselect/0.4.1/jquery.customSelect.min.js"></script>
 <script src="{{=URL('static','js/accordion-menu/jquery.dcjqaccordion.2.7.js')}}"></script>
@@ -600,6 +840,67 @@
 <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
+
+	$('#btnSaveRule').click(function() {
+
+		var ruleEngine = {};
+
+
+		ruleEngine.Conditions = [];
+		$(".PlugzConditionClass").each(function(i) {
+			ruleEngine.Conditions.push( "{'" + $(this).attr('ParameterData') + "':'"  + $(this).val() + "'}");
+		});
+
+		ruleEngine.Actions = [];
+		$(".PlugzActionClass").each(function(i) {
+			ruleEngine.Actions.push( "{'" + $(this).attr('ParameterData') + "':'"  + $(this).val() + "'}");
+
+		});
+
+        var rule = "{ 'Conditions' :[ " + ruleEngine.Conditions + " ], 'Actions' : [ " + ruleEngine.Actions +  " ]}";
+        //alert(rule);
+        //ajax('add_rule',[rule]).always(function(){alert("Complete")});
+
+        $.ajax({url:"add_rule", type:"POST", data: { ruleexpression: rule, rulename: $( "#ActionContainer").text()}})
+                .always(function() { alert( "Rule Saved Successfully " );  btnCloseRuleWindow.click(); });
+
+
+
+	});
+
+	$(".ConditionClass").click(function() {
+		//alert($(this).attr('value'));
+		$( "#ConditionContainer" ).append( "<div class='row'><div class='col-md-5'><span class='label label-primary'>When " + $(this).text() +" is </span></div><div class='col-md-1'></div><div class='col-md-7'><Input type='text' ParameterType='" + $(this).attr('ParameterType') +"' ParameterData='" + $(this).attr('ParameterData') +"' class='form-control  PlugzConditionClass' DataTypeMember='Time' DataValueMember placeholder='Enter a Value'></input></div></div>" );
+		$( "#ConditionContainer" ).append('<p></p><p><i class="fa fa-plus"></i></p>');
+
+	});
+
+
+	$(".ActionClass").click(function() {
+		//alert($(this).attr('value'));
+
+        var k = Math.floor((Math.random() * 1000) + 1);
+
+		$( "#ActionContainer" ).append( "<div class='row'><div class='col-md-5'><span class='label label-primary'>Set " + $(this).text() +" to </span></div><div class='col-md-1'></div><div class='col-md-7'><Input type='checkbox'  checked data-on='info' data-off='warning' ParameterType='" + $(this).attr('ParameterType') +"' ParameterData='" + $(this).attr('ParameterData') +"' id='" + k + "' class='switch-mini'></input></div></div>" );
+		$( "#ActionContainer" ).append('<p></p><p><i class="fa fa-plus"></i></p>');
+        $('#' + k ).bootstrapSwitch();
+
+	});
+
+	$("#btnClearConditions").click(function() {
+		$("#ConditionContainer").empty();
+	});
+
+	$("#btnClearActions").click(function() {
+		$("#ActionContainer").empty();
+	});
+
+    $("#btnBuildRuleEngine").click(function(){
+        $("#txtRuleName").val("");
+        $("#ActionContainer").empty();
+        $("#ConditionContainer").empty();
+    })
+
     function append_notification(icon, alert_type, msg, dt) {
         var str ='<div class="alert alert-info clearfix">\
                 <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>\
@@ -703,7 +1004,6 @@
     var plot = $.plot($("#daily-visit-chart"), data, options);
     }
 
-
     var pubnub = PUBNUB.init({
         publish_key: 'pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
         subscribe_key: 'sub-c-7e20413a-8d2d-11e3-ae86-02ee2ddab7fe'
@@ -727,14 +1027,6 @@
         }
     });
 
-    pubnub.subscribe({
-        channel: 'AllUsers-morris',
-        message: function (m) {
-            set_morris_data(m.data)
-            //alert(m.data)
-        }
-    });
-
     $(".switch-mini").bootstrapSwitch();
     $(".switch-mini").on('switch-change', function (e, data) {
         var $el = $(data.el), state_is_off = data.value;
@@ -742,7 +1034,7 @@
         var value = 0;
 
         var username = '{{=profile.username}}';
-        var server_url = "/api/v1";
+        var server_url = "/backend/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
 
         if (state_is_off) {
@@ -761,30 +1053,9 @@
         });
     });
 
-function set_morris_data(d1) {
-// Use Morris.Area instead of Morris.Line
-        // alert(d1);
+    function toggle_element(element){$(element).toggle(500);}
 
-    $( "#graph-area" ).empty()
-Morris.Area({
-        element: 'graph-area',
-        padding: 10,
-        behaveLikeLine: true,
-        gridEnabled: false,
-        gridLineColor: '#dddddd',
-        axes: true,
-        fillOpacity:.7,
-        data: d1,
-        lineColors:['#ED5D5D','#D6D23A','#32D2C9'],
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
-        pointSize: 0,
-        lineWidth: 0,
-        hideHover: 'auto'
 
-    });
-};
   </script>
 </body>
 </html>
