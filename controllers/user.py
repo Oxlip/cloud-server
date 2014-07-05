@@ -1,8 +1,11 @@
 """
 All user/profile related functions.
 """
-import PlugZExceptions
 import requests
+import PlugZExceptions
+from Device import Device
+from DeviceType import DeviceType
+from Profile import Profile
 
 
 def dashboard():
@@ -13,10 +16,6 @@ def dashboard():
     # if user has not logged in, redirect to login page
     if session.user_name is None:
         return login()
-
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
 
     response.view = 'dashboard.html'
     devices = Device.get_devices_for_user(session.user_id)
@@ -33,10 +32,6 @@ def home():
     # if user has not logged in, redirect to login page
     if session.user_name is None:
         return login()
-
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
 
     response.view = 'home.html'
     devices = Device.get_devices_for_user(session.user_id)
@@ -71,8 +66,6 @@ def login_redirect():
 
     json_result = r.json()
     json_profile = json_result['profile']
-
-    from applications.backend.modules.Profile import Profile
 
     if 'givenName' in json_profile['name']:
         first_name = json_profile['name']['givenName']
@@ -123,10 +116,6 @@ def statistics():
     if session.user_name is None:
         return login()
 
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
-
     response.view = 'Statistics.html'
     devices = Device.get_devices_for_user(session.user_id)
     # TODO - devicetypes wont change so make them available as global
@@ -142,10 +131,6 @@ def manage_rule():
     # if user has not logged in, redirect to login page
     if session.user_name is None:
         return login()
-
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
 
     response.view = 'manage_rule.html'
     devices = Device.get_devices_for_user(session.user_id)
@@ -163,10 +148,6 @@ def manage_device():
     if session.user_name is None:
         return login()
 
-    from applications.backend.modules.Device import Device
-    from applications.backend.modules.DeviceType import DeviceType
-    from applications.backend.modules.Profile import Profile
-
     response.view = 'manage_device.html'
     devices = Device.get_devices_for_user(session.user_id)
     # TODO - devicetypes wont change so make them available as global
@@ -179,8 +160,6 @@ def register_device():
     if not (request.vars.txtSerialNo and request.vars.txtdeviceName):
         response.flash = T("Enter a Valid Serial No or Device Name")
         return
-
-    from applications.backend.modules.Device import Device
 
     new_device = Device.register(request.vars.txtSerialNo, 1, session.user_id, request.vars.txtdeviceName)
 
@@ -207,8 +186,8 @@ def add_rule():
     if not request.vars.ruleexpression:
         response.flash = T("Please fill All fields.")
 
-    from applications.backend.modules.Condition import Condition
-    from applications.backend.modules.Action import Action
+    from Condition import Condition
+    from Action import Action
 
     try:
         import json

@@ -100,7 +100,7 @@ def api_v1_get_hub_rules(args, vars):
     """
     try:
         hub = Hub.load_by_identification(args['identification'])
-        from applications.backend.modules.Condition import Condition
+        from Condition import Condition
         rules = Condition.get_all_rules(hub.profile_id)
 
     except PlugZExceptions.NotFoundError:
