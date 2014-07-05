@@ -141,6 +141,41 @@ def api_v1_post_user_activity(args, vars):
     return {'result': 'ok'}
 
 
+def api_v1_post_user_register_device(args, vars):
+    """
+    POST /user/{username}/register_device
+    """
+    try:
+        profile = Profile.get_user(args['username'])
+    except PlugZExceptions.NotFoundError:
+        raise HTTP(404)
+
+    if 'serial_no' not in vars or 'device_type' not in vars or 'device_name' not in vars:
+        raise HTTP(406)
+
+    if 'hub_identification' in vars:
+        try:
+            hub = Hub.load_by_identification(vars['hub_identification'])
+            hub_id = hub.id
+        except PlugZExceptions.NotFoundError:
+            raise HTTP(404)
+    else:
+        hub_id = None
+
+    try:
+        from DeviceType import DeviceType
+        device_type_id = DeviceType.get_device_type_id(vars['device_type'])
+        device = Device.register(serial_no=vars['serial_no'], device_type_id=device_type_id,
+                                 profile_id=profile.profile_id, device_name=vars['device_name'], hub_id=hub_id)
+    except:
+        raise HTTP(400)
+
+    return {
+        'result': 'ok',
+        'id': device.id
+    }
+
+
 def api_v1_post_device_activity(args, vars):
     """
     GET /device/{device_id}/activity
@@ -169,9 +204,11 @@ def api_v1_post_hub_connect(args, vars):
     }
 
 
+
 post_router = PathRouter()
 post_router.add_routes([
     ('/user/(?P<username>\w+)/activity', api_v1_post_user_activity),
+    ('/user/(?P<username>\w+)/register_device', api_v1_post_user_register_device),
 
     ('/device/(?P<device_id>\w+)/activity', api_v1_post_device_activity),
 

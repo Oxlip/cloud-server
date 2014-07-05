@@ -35,3 +35,19 @@ class DeviceType:
                                            device_type.is_output_device,
                                            device_type.image, device_type.icon))
         return device_types
+
+    @staticmethod
+    def get_device_type_id(device_type_name):
+        """
+        Returns device_type id for the given type name.
+        """
+        if device_type_name == 'Timer':
+            return DeviceType.TIMER
+        if device_type_name == 'uHub':
+            return DeviceType.HUB
+        if device_type_name == 'uSwitch':
+            return DeviceType.SWITCH
+        if device_type_name == 'uPlug':
+            return DeviceType.PLUG
+        if device_type_name == 'uSense':
+            return DeviceType.SENSE

@@ -212,5 +212,29 @@ class Device:
         return device.load(device.save())
 
 
+    @staticmethod
+    def register(serial_no, device_type_id, profile_id, device_name, hub_id=None):
+        """
+        Registers a device.
+        This will result in creation of a new device in the device table.
 
+        :param serial_no: Unique identification number of the device.
+        :param device_type_id - Device type id - uHub, uSwitch, uPlug etc.
+        :param device_name: User given name of the device.
+        :param profile_id: User id.
+        :param hub_id: Through which hub this device is connected.
+        :return: Returns the newly created device.
 
+        """
+        db = current.db
+
+        if hub_id:
+            #check the device is already registered with the hub, just return it.
+            qry = db((db.device.identification == serial_no) & (db.device.hub_id == hub_id) & (db.device.hub_id is not None))
+            device = qry.select().first()
+            if device:
+                return device
+
+        device = Device(device_type_id, serial_no, profile_id, hub_id, device_name, str(datetime.now()))
+        device.save()
+        return device

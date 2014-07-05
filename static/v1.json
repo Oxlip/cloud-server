@@ -221,6 +221,62 @@
              ]
         },
         {
+            "path": "/user/{user_id}/register_device",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Registers a new device.",
+                    "notes": "Registers a new device",
+                    "nickname": "registerDevice",
+                    "parameters": [
+                        {
+                            "name": "serial_no",
+                            "description": "Serial number of the device.",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "device_type",
+                            "description": "Type of the device - uSwitch, uPlug, uSense, uHub etc.",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "device_name",
+                            "description": "Human readable name for the device.",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "hub_identification",
+                            "description": "Through which Hub this device is connected.",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "body"
+                        }
+                     ],
+                    "type": "integer",
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Bad parameter"
+                        },
+                        {
+                            "code": 404,
+                            "message": "User or Hub not found"
+                        },
+                        {
+                            "code": 406,
+                            "message": "Missing parameter"
+                        }
+                     ]
+                }
+             ]
+        },
+        {
             "path": "/user/{user_id}/actions",
             "operations": [
                 {
