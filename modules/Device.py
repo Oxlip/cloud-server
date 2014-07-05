@@ -190,27 +190,6 @@ class Device:
         #TODO - Security alert - For now hub identification is channel name but we should change this to a random string every time the hub connects.
         return hub.identification
 
-    @staticmethod
-    def add_device(serial_no, device_name, profile_id):
-        """
-        Adds a device if Parameters are valid
-
-        @param serial_no: Manufactured Device Serial No
-        @param device_name: User Defined Device Name
-        @param profile_id: User ID
-        @return: Returns Success if Valid
-        """
-
-        db = current.db
-        manufactured_devices = db(db.manufactured_devices.identification == serial_no).select().first()
-        if manufactured_devices is None:
-            return False
-
-        device = Device(manufactured_devices.device_type_id, serial_no, profile_id, None, device_name,
-                        str(datetime.now()), 0, None)
-
-        return device.load(device.save())
-
 
     @staticmethod
     def register(serial_no, device_type_id, profile_id, device_name, hub_id=None):

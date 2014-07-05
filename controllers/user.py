@@ -182,7 +182,7 @@ def register_device():
 
     from applications.backend.modules.Device import Device
 
-    new_device = Device.add_device(request.vars.txtSerialNo, request.vars.txtdeviceName, session.user_id)
+    new_device = Device.register(request.vars.txtSerialNo, 1, session.user_id, request.vars.txtdeviceName)
 
     if not new_device:
         response.flash = "Error Adding Device. Check for Serial Number"

@@ -82,14 +82,6 @@ db.define_table('appliance',
                                                                     # (Only appicable for Plugs and Swithces)
 
 
-# All devices coming out of factory is entered in this table.
-db.define_table('manufactured_devices',
-                Field('identification', 'string', length=50),       # Unique identification no - may be a Serial No.
-                Field('device_type_id', 'reference device_type'),   # Such as Timer, Switch, Hub, Sensor etc
-                Field('date_of_manufacture', 'datetime'),           # Date of Manufacture
-                primarykey=['identification'])
-
-
 # Contains information about a single device registered to a user.
 db.define_table('device',
                 Field('device_type_id', 'reference device_type'),   # Such as Timer, Switch, Hub, Sensor etc
