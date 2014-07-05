@@ -381,20 +381,28 @@
                                 <div class="notification-info">
                                     <form action="" id="registration-form">
                                         <div class="form-group">
-                                            <input type="text" name="txtSerialNo" placeholder="Enter Serial No"
+                                            <input type="text" name="txtSerialNo" placeholder="Device serial no"
                                                       data-validation="length alphanumeric"
                                                       data-validation-length="3-12"
                                                       data-validation-error-msg="Invalid Serial No">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="txtdeviceName" placeholder="Enter Device Name"
+                                            <select name="lstDeviceType" class="input-small">
+                                                {{for dt in device_types:
+                                                    if dt.name == 'Timer':
+                                                        continue
+                                                }}
+                                                    <option>{{=dt.name}}</option>
+                                                    {{pass}}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="txtdeviceName" placeholder="Device name"
                                                     data-validation="length alphanumeric" data-validation-length="min3"
                                                     data-validation-error-msg="Invalid Device Name">
                                         </div>
-
                                         <Button id="btnAddDevice" type="button" class="btn btn-default"
-                                               onclick="ajax('register_device',['txtSerialNo','txtdeviceName'],'DeviceList','ErrorDiv');"
-                                               >Register</Button>
+                                               onclick="ajax('register_device',['txtSerialNo', 'lstDeviceType', 'txtdeviceName'],'DeviceList','ErrorDiv');">Register</Button>
                                     </form>
                                 </div>
                             </div>
@@ -1057,7 +1065,6 @@
     });
 
     function toggle_element(element){$(element).toggle(500);}
-
 
   </script>
 </body>

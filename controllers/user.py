@@ -161,7 +161,13 @@ def register_device():
         response.flash = T("Enter a Valid Serial No or Device Name")
         return
 
-    new_device = Device.register(request.vars.txtSerialNo, 1, session.user_id, request.vars.txtdeviceName)
+    try:
+        from DeviceType import DeviceType
+        device_type_id = DeviceType.get_device_type_id(request.vars.lstDeviceType)
+    except:
+        return DIV('Error registering device.')
+
+    new_device = Device.register(request.vars.txtSerialNo, device_type_id, session.user_id, request.vars.txtdeviceName)
 
     if not new_device:
         response.flash = "Error Adding Device. Check for Serial Number"
@@ -174,8 +180,8 @@ def register_device():
     return CAT(scriptTag,
                *[DIV(
                    DIV(IMG(_src=URL('static/images/device_icons', device.get_image())), _class="col-md-2"),
-                   DIV(device.name, _class="col-md-5"),
-                   DIV(INPUT(_type="checkbox", _class="switch-mini"), _class="col-md-5"),
+                   DIV(device.name, _class="col-md-2"),
+                   DIV(INPUT(_type="checkbox", _class="switch-mini"), _class="col-md-2"),
                    _class="row") for device in devices])
     # DIV(DIV(DIV(SPAN("ON", _class="switch-left switch-info"), LABEL(_for)),
     # _class="has-switch switch-animate switch-mini switch-on"), _class="col-md-5"),
