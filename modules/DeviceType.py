@@ -11,6 +11,12 @@ class DeviceType:
     PLUG = 4
     SENSE = 5
 
+    type_names = ['Timer',
+                  'uHub',
+                  'uSwitch',
+                  'uPlug',
+                  'uSense']
+
     def __init__(self, type_id, name, description, device_version, is_input_device, is_output_device, image, icon):
         self.id = type_id
         self.name = name
@@ -26,7 +32,6 @@ class DeviceType:
         """
         Returns list of all device types.
         """
-
         db = current.db
         device_types = []
         for device_type in db().select(db.device_type.ALL):
@@ -41,13 +46,16 @@ class DeviceType:
         """
         Returns device_type id for the given type name.
         """
-        if device_type_name == 'Timer':
-            return DeviceType.TIMER
-        if device_type_name == 'uHub':
-            return DeviceType.HUB
-        if device_type_name == 'uSwitch':
-            return DeviceType.SWITCH
-        if device_type_name == 'uPlug':
-            return DeviceType.PLUG
-        if device_type_name == 'uSense':
-            return DeviceType.SENSE
+        index = DeviceType.type_names.index(device_type_name)
+        if index >= 0:
+            return index + 1
+
+        return ''
+
+
+    @staticmethod
+    def get_device_type_name(device_type_id):
+        """
+        Returns type name for the given device type id.
+        """
+        return DeviceType.type_names[device_type_id - 1]

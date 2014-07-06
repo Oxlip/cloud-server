@@ -2,11 +2,12 @@
 REST API v1
 """
 from Device import Device
+from DeviceType import DeviceType
 from Hub import Hub
 from Profile import Profile
 from wheezy.routing import PathRouter
-
 import PlugZExceptions
+
 
 def get_device_dict(device):
     """
@@ -16,7 +17,7 @@ def get_device_dict(device):
         'id': device.id,
         'name': device.name,
         'group': '',
-        'type': device.device_type_id,
+        'type': DeviceType.get_device_type_name(device.device_type_id),
         'images': []
     }
 
