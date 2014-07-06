@@ -8,7 +8,7 @@ import PushNotification
 
 class Device:
     def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
-                 registered_date=None, default_value=None, appliance_id=None):
+                 registered_date=None, default_value=None, appliance_type_id=None):
         """
         Initializes device fields with given information.
         """
@@ -20,7 +20,7 @@ class Device:
         self.name = name
         self.registered_date = registered_date
         self.default_value = default_value
-        self.appliance_id = appliance_id
+        self.appliance_type_id = appliance_type_id
 
     def _load(self, device):
         self.id = device.id
@@ -31,7 +31,7 @@ class Device:
         self.name = device.name
         self.registered_date = device.registered_date
         self.default_value = device.default_value
-        self.appliance_id = device.appliance_id
+        self.appliance_type_id = device.appliance_type_id
 
     @staticmethod
     def load(device_id):
@@ -81,7 +81,7 @@ class Device:
                                       name=self.name,
                                       registered_date=self.registered_date,
                                       default_value=self.default_value,
-                                      appliance_id=self.appliance_id)
+                                      appliance_type_id=self.appliance_type_id)
         else:
             self.id = db.device.insert(device_type_id=self.device_type_id,
                                        identification=self.identification,
@@ -90,7 +90,7 @@ class Device:
                                        name=self.name,
                                        registered_date=self.registered_date,
                                        default_value=self.default_value,
-                                       appliance_id=self.appliance_id)
+                                       appliance_type_id=self.appliance_type_id)
 
         return self.id
 
@@ -113,21 +113,17 @@ class Device:
         3) Based platform(web, iphone, android) the image will change.
         4) If user uploaded an image it will override everything.
         """
-        # TODO - Do actual implementation
-        if self.id == 1:
-            return 'desktop.png'
-        elif self.id == 2:
-            return 'laptop.png'
-        elif self.id == 3:
-            return 'ps3.png'
-        elif self.id == 4:
-            return 'washing-machine.png'
-        elif self.id == 5:
-            return 'tv.png'
-        elif self.id == 6:
-            return 'bulb.png'
-        else:
-            return 'bulb.png'
+        from DeviceType import DeviceType
+        db = current.db
+        if self.appliance_type_id:
+            appliance_type = db(db.appliance_type.id == self.appliance_type_id).select().last()
+            if appliance_type is None:
+                return 'unknown.png'
+            return appliance_type.image
+
+        device_type = DeviceType.get_device_type_name(self.device_type_id)
+        return '{0}.png'.format(device_type.lower())
+
 
     def record_value_change(self, timestamp, value, time_range):
         """

@@ -1,6 +1,21 @@
 USE plugz;
-INSERT INTO device_type(Name, description, device_version, image, icon) VALUES('Timer', 'Date and time', 1, NULL, NULL);
-INSERT INTO device_type(Name, description, device_version, image, icon) VALUES('uHub', 'Hub connecting all the device', 1, 'hub.jpg', 'hub.icon');
-INSERT INTO device_type(Name, description, device_version, image, icon) VALUES('uSwitch', 'Wall outlet conceled switch', 1, 'switch.jpg', 'switch.icon');
-INSERT INTO device_type(Name, description, device_version, image, icon) VALUES('uPlug', 'Easy accessible, portable plug', 1, 'plug.jpg', 'plug.icon');
-INSERT INTO device_type(Name, description, device_version, image, icon) VALUES('uSense', 'All sensors', 1, 'sense.jpg', 'sense.icon');
+INSERT INTO device_type(name, description, device_version, image, icon) VALUES('Timer', 'Date and time', 1, NULL, NULL);
+INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uHub', 'Hub connecting all the device', 1, 'uhub.png', 'uhub.png');
+INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uSwitch', 'Wall outlet conceled switch', 1, 'uswitch.png', 'uswitch.png');
+INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uPlug', 'Easy accessible, portable plug', 1, 'uplug.png', 'uplug.png');
+INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uSense', 'All sensors', 1, 'usense.png', 'usense.png');
+
+INSERT INTO appliance_type(name, image) VALUES('ADSL Modem', 'modem.png');
+INSERT INTO appliance_type(name, image) VALUES('Air conditioner', 'ac.png');
+INSERT INTO appliance_type(name, image) VALUES('Cable Setup box', 'setup-box.png');
+INSERT INTO appliance_type(name, image) VALUES('Desktop', 'desktop.png');
+INSERT INTO appliance_type(name, image) VALUES('Dishwasher', 'dishwasher.png');
+INSERT INTO appliance_type(name, image) VALUES('Laptop', 'laptop.png');
+INSERT INTO appliance_type(name, image) VALUES('Microwave oven', 'microwave-oven.png');
+INSERT INTO appliance_type(name, image) VALUES('Printer', 'printer.png');
+INSERT INTO appliance_type(name, image) VALUES('Refrigerator', 'refrigerator.png');
+INSERT INTO appliance_type(name, image) VALUES('Speakers', 'speakers.png');
+INSERT INTO appliance_type(name, image) VALUES('Television', 'tv.png');
+INSERT INTO appliance_type(name, image) VALUES('Washing machine', 'washing-machine.png');
+INSERT INTO appliance_type(name, image) VALUES('Water heater', 'water-heater.png');
+INSERT INTO appliance_type(name, image) VALUES('Wifi Router', 'router.png');

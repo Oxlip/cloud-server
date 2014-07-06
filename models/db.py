@@ -72,14 +72,19 @@ db.define_table('device_type',
                 Field('image', 'string'),                           # Path to the picture of the device on the web page
                 Field('icon', 'string'))                            # Path to the picture of the device on the mobile
 
+# A master table to different type of appliances.
+db.define_table('appliance_type',
+                Field('name', 'string'),                            # Type of appliance - Washing machine/TV etc.
+                Field('image', 'string'))                           # Icon file name.
+
 # Type, Model and make of the devices the user would connect to a Switch or Plug.
-db.define_table('appliance',
-                Field('appliance_type', 'string'),                  # Type of appliance connected -
-                                                                    # (Only appicable for Plugs and Swithces)
-                Field('appliance_make', 'string'),                  # Make of the device Like Philips, GE -
-                                                                    # (Only appicable for Plugs and Swithces)
-                Field('appliance_model', 'string'))                 # Model number of the appliance - Sony X400 -
-                                                                    # (Only appicable for Plugs and Swithces)
+db.define_table('appliance_detail',
+                Field('type_id', 'reference appliance_type'),
+                Field('make', 'string'),                            # Make of the device Like Philips, GE -
+                                                                    # (Only applicable for uPlug, uSwitch and 3rd party)
+                Field('model', 'string'),                           # Model number of the appliance - Sony X400 -
+                                                                    # (Only applicable for uPlug, uSwitch and 3rd party)
+                Field('image', 'string'))                           # Icon file name.
 
 
 # Contains information about a single device registered to a user.
@@ -89,7 +94,8 @@ db.define_table('device',
                 Field('sub_identification', 'integer'),             # Only for USwitch-
                                                                     # To Identify each individual devices in a uSwitch
                 Field('device_group', 'string'),                    # Display field used to group Devices
-                Field('appliance_id', 'reference appliance'),       # Appliance Referred
+                Field('appliance_type_id', 'reference appliance_type'),  # Type of appliance connected
+                Field('appliance_detail_id', 'reference appliance_detail'),  # Details of the appliance
                 Field('profile_id', 'reference profile'),           # User who owns this device
                 Field('hub_id', 'reference device'),                # The hub this device is connected to
                 Field('name', 'string'),                            # name given by the user for device-HallBulb

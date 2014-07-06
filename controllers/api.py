@@ -18,7 +18,7 @@ def get_device_dict(device):
         'name': device.name,
         'group': '',
         'type': DeviceType.get_device_type_name(device.device_type_id),
-        'images': []
+        'images': [URL('static', 'images/device_icons/' + device.get_image())]
     }
 
 
