@@ -121,9 +121,19 @@ db.define_table('device_data',
                 Field('device_id', 'reference device'),             # Device Id which generated this activity.
                 Field('activity_date', 'datetime'),                 # Actual time when this activity recorded in hub.
                 Field('recorded_date', 'datetime'),                 # Time when this is updated in the web server
-                Field('output_value', 'string'),                    # What was the value such as motion detected,
-                                                                    # current consumption is below 1A
-                Field('time_range', 'integer'))                     # Time range for averaged values -
+                Field('value_source', 'integer'),                   # A single device can generate multiple type of
+                                                                    # values this field differentiates it. For example,
+                                                                    # uPlug has current sensor, Triac and button.
+                                                                    # Currently the following values are possible:
+                                                                    # 0 - Button(value in percentage 0-100)
+                                                                    # 1 - Current Sensor(value in milli amps)
+                                                                    # 2 - Temperature(value in F)
+                                                                    # 3 - Motion sensor(value = 0 - no motion)
+                                                                    # 4 - Humidity(value in percentage 0-100)
+                                                                    # 5 - Light sensor(value in lux)
+                                                                    # 6 - Gas sensor(value in percentage)
+                Field('output_value', 'string'),                    # value such as 80F/100milliAmps/
+                Field('time_range', 'integer'))                     # Time range in minutes for averaged values -
                                                                     # For example, current sensor measurement
                                                                     # can be updated every 15 min..
 

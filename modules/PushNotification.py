@@ -91,7 +91,7 @@ def execute_action(action_id):
     _push_to_device(action.device_id, ServerCommands.EXECUTE_ACTION, args)
 
 
-def device_update(device, new_value):
+def device_update(device, source, value):
     """
     Notify web and mobile clients that status of the device is changed.
     """
@@ -101,7 +101,8 @@ def device_update(device, new_value):
             'channel': channel,
             'message': {
                 'device_id': device.id,
-                'value': new_value
+                'source': source,
+                'value': value
             }
         })
 

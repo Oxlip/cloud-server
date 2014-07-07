@@ -6,7 +6,20 @@ from datetime import datetime
 import PlugZExceptions
 import PushNotification
 
-class Device:
+from enum import Enum
+
+
+class DeviceDataSource(int, Enum):
+    button = 0
+    current_sensor = 1
+    temperature_sensor = 2
+    motion_sensor = 3
+    humidity_sensor = 4
+    light_sensor = 5
+    gas_sensor = 6
+
+
+class Device(object):
     def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
                  registered_date=None, default_value=None, appliance_type_id=None):
         """
@@ -125,17 +138,17 @@ class Device:
         return '{0}.png'.format(device_type.lower())
 
 
-    def record_value_change(self, timestamp, value, time_range):
+    def record_value_change(self, timestamp, source, value, time_range):
         """
         Record a device value change(light on, current reading etc) in the database.
         """
         #Save the data in the database
         db = current.db
-        db.device_data.insert(device_id=self.id, output_value=value, activity_date=timestamp, time_range=time_range,
-                              recorded_date=datetime.now())
+        db.device_data.insert(device_id=self.id, value_source=source, output_value=value, activity_date=timestamp,
+                              time_range=time_range, recorded_date=datetime.now())
         db.commit()
         #push notifications to interested clients(which are connected on the device's update channel)
-        PushNotification.device_update(self, value)
+        PushNotification.device_update(self, source, value)
 
     @staticmethod
     def delete(device_id):

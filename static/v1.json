@@ -175,6 +175,13 @@
                             "description": "Id of the device whose status is changed.",
                             "required": true,
                             "type": "integer",
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "source",
+                            "description": "Source of the value.",
+                            "required": true,
+                            "type": "integer",
                             "paramType": "path"
                         },
                         {
@@ -182,7 +189,21 @@
                             "description": "Current value.",
                             "required": true,
                             "type": "integer",
-                            "paramType": "path"
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "timestamp",
+                            "description": "When this event occured",
+                            "required": true,
+                            "type": "date",
+                            "paramType": "body"
+                        },
+                        {
+                            "name": "timerange",
+                            "description": "How long this event was measured(in minutes)",
+                            "required": true,
+                            "type": "integer",
+                            "paramType": "body"
                         }
                      ],
                     "type": "integer",

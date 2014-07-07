@@ -189,7 +189,8 @@ def api_v1_post_device_activity(args, vars):
     except PlugZExceptions.NotFoundError:
         raise HTTP(404)
 
-    device.record_value_change(timestamp=vars['timestamp'], value=vars['value'], time_range= vars['time_range'])
+    device.record_value_change(source=vars['source'], value=vars['value'],
+                               timestamp=vars['timestamp'], time_range=vars['time_range'])
 
     return {'result': 'ok'}
 
