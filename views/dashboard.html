@@ -1025,6 +1025,7 @@
     pubnub.subscribe({
         channel: '{{=profile.get_status_channel()}}',
         message: function (m) {
+            console.log(m);
             var button_id = '#device_' + m.device_id;
             var d = new Date();
             $(button_id).bootstrapSwitch('state', false);

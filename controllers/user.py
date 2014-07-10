@@ -2,6 +2,8 @@
 All user/profile related functions.
 """
 import requests
+import string
+import random
 import PlugZExceptions
 from Device import Device
 from DeviceType import DeviceType
@@ -21,7 +23,13 @@ def dashboard():
     devices = Device.get_devices_for_user(session.user_id)
     # TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
-    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
+    try:
+        profile = Profile.get_user(session.user_name)
+    except PlugZExceptions.NotFoundError:
+        session.user_name = None
+        return 'User name not found'
+
+    return dict(profile=profile, devices=devices, device_types=device_types)
 
 
 def home():
@@ -226,4 +234,63 @@ def add_rule():
     return True
 
 
+def _random_serial(length=10):
+    """
+    Returns random serial number with given length
+    """
+    chars = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(chars) for _ in range(length))
 
+
+def add_random_devices():
+    """
+    For debugging and testing we need an easy way to add devices. This function does that, we invoked via
+     http://servername/user/add_random_devices it creates 3 devices(uSwitch, uPlug and uSense)
+    """
+    try:
+        profile = Profile.get_user(session.user_name)
+    except PlugZExceptions.NotFoundError:
+        return 'Invalid username - {0}'.format(session.user_name)
+
+    # Find a hub associated with the user.
+    try:
+        devices = Device.get_devices_for_user(profile.profile_id)
+    except:
+        return 'Hub fetch error'
+    hub_id = None
+    for dev in devices:
+        if dev.device_type_id == DeviceType.HUB:
+            hub_id = dev.id
+            break
+    if hub_id is None:
+        #No hub is registered.
+        hub = Device.register(serial_no=_random_serial(), device_type_id=DeviceType.HUB, profile_id=profile.profile_id,
+                              device_name='Hub')
+        hub_id = hub.id
+
+    appliance_type_count = db(db.appliance_type).count()
+
+    created_count = 0
+    for device_type_id in [DeviceType.SWITCH, DeviceType.SENSE, DeviceType.PLUG]:
+        serial = _random_serial()
+
+        #uSwitch would have 4 devices using the same serial number
+        if device_type_id == DeviceType.SWITCH:
+            device_count = 4
+        else:
+            device_count = 1
+        for i in range(device_count):
+            try:
+                if device_type_id in [DeviceType.SWITCH, DeviceType.PLUG]:
+                    appliance_type_id = random.choice(range(appliance_type_count))
+                else:
+                    appliance_type_id = None
+
+                Device.register(serial_no=serial, device_type_id=device_type_id, profile_id=profile.profile_id,
+                                device_name=serial, hub_id=hub_id, appliance_type_id=appliance_type_id)
+            except:
+                continue
+            created_count += 1
+
+
+    return '{0} devices created'.format(created_count)

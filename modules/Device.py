@@ -201,7 +201,7 @@ class Device(object):
 
 
     @staticmethod
-    def register(serial_no, device_type_id, profile_id, device_name, hub_id=None):
+    def register(serial_no, device_type_id, profile_id, device_name, hub_id=None, appliance_type_id=None):
         """
         Registers a device.
         This will result in creation of a new device in the device table.
@@ -223,6 +223,6 @@ class Device(object):
             if device:
                 return device
 
-        device = Device(device_type_id, serial_no, profile_id, hub_id, device_name, str(datetime.now()))
+        device = Device(device_type_id, serial_no, profile_id, hub_id, device_name, str(datetime.now()), appliance_type_id=appliance_type_id)
         device.save()
         return device
