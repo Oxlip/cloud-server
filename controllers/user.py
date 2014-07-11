@@ -115,16 +115,16 @@ def statistics():
     return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
 
 
-def manage_rule():
+def rule():
     """
-    Landing page for the user - shows user devices and energy usage etc
+    Rule - controller to manage rule.
     """
 
     # if user has not logged in, redirect to login page
     if session.user_name is None:
         return login()
 
-    response.view = 'manage_rule.html'
+    response.view = 'rule.html'
     devices = Device.get_devices_for_user(session.user_id)
     # TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
