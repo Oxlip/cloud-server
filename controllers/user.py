@@ -32,22 +32,6 @@ def dashboard():
     return dict(profile=profile, devices=devices, device_types=device_types)
 
 
-def home():
-    """
-    Landing page for the user - shows user devices and energy usage etc
-    """
-
-    # if user has not logged in, redirect to login page
-    if session.user_name is None:
-        return login()
-
-    response.view = 'home.html'
-    devices = Device.get_devices_for_user(session.user_id)
-    # TODO - devicetypes wont change so make them available as global
-    device_types = DeviceType.get_device_types()
-    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
-
-
 def login():
     """
     Login through social login using janrain
@@ -117,7 +101,7 @@ def logout():
 
 def statistics():
     """
-    Landing page for the user - shows user devices and energy usage etc
+    Controller for Statistics page - shows user devices and energy usage etc
     """
 
     # if user has not logged in, redirect to login page
@@ -141,22 +125,6 @@ def manage_rule():
         return login()
 
     response.view = 'manage_rule.html'
-    devices = Device.get_devices_for_user(session.user_id)
-    # TODO - devicetypes wont change so make them available as global
-    device_types = DeviceType.get_device_types()
-    return dict(profile=Profile.get_user(session.user_name), devices=devices, device_types=device_types)
-
-
-def manage_device():
-    """
-    Landing page for the user - shows user devices and energy usage etc
-    """
-
-    # if user has not logged in, redirect to login page
-    if session.user_name is None:
-        return login()
-
-    response.view = 'manage_device.html'
     devices = Device.get_devices_for_user(session.user_id)
     # TODO - devicetypes wont change so make them available as global
     device_types = DeviceType.get_device_types()
