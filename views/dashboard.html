@@ -268,42 +268,9 @@
         <!--search & user info end-->
     </header>
     <!--header end-->
-    <!--sidebar start-->
     <aside>
-        <div id="sidebar" class="nav-collapse">
-            <!-- sidebar menu start-->
-            <div class="leftside-navigation">
-                <ul class="sidebar-menu" id="nav-accordion">
-                    <li class="active">
-                        <a href="#" id="aDashBoard">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="rule">
-                            <i class="icon-cogs modal-title"></i>
-                            <span>Rules</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="statistics">
-                            <i class=" fa fa-bar-chart-o"></i>
-                            <span>Statistics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="logout">
-                            <i class="fa fa-user"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- sidebar menu end-->
-        </div>
+        {{include 'sidebar_menu.html'}}
     </aside>
-    <!--sidebar end-->
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper">
