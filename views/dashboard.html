@@ -18,10 +18,10 @@
 
     <title>PlugZ - Dashboard</title>
 
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/css/bootstrap3/bootstrap-switch.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.2/css/bootstrap3/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -416,10 +416,11 @@
                                             <div align="center">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
                                             <div align="center">{{=device.name}}</div>
                                             <div align="center">
-                                                <input id="device_{{=device.id}}" type="checkbox" checked data-on="info" data-off="warning" class="switch-mini"/>
+                                                <input id="device_{{=device.id}}" type="checkbox" checked class="switch-mini"/>
                                             </div>
+
                                             <div>
-                                                <br><br>
+                                                <br><br><br>
                                             </div>
                                     </div>
                                 {{pass}}
@@ -822,23 +823,23 @@
 
 <!-- Placed js at the end of the document so the pages load faster -->
 <!--Core js-->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/js/bootstrap-switch.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.4.3/morris.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.4/jquery.easypiechart.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.2/js/bootstrap-switch.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.4.3/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.4/jquery.easypiechart.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.resize.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script src="{{=URL('static','assets/flot-chart/jquery.flot.growraf.min.js')}}"></script>
 <script src="{{=URL('static','assets/gauge/gauge.min.js')}}"></script>
 
@@ -925,7 +926,6 @@
                     </ul>\
                 </div>\
             </div>';
-        console.log(str);
         $("#notification_window").append(str);
         $("#notification_window").find('div:first').slideUp(800, function() {$(this).remove();} );
     }
@@ -1025,10 +1025,13 @@
     pubnub.subscribe({
         channel: '{{=profile.get_status_channel()}}',
         message: function (m) {
-            console.log(m);
             var button_id = '#device_' + m.device_id;
             var d = new Date();
-            $(button_id).bootstrapSwitch('state', false);
+            var state = false;
+            if (m.value > 0) {
+                state = true;
+            }
+            $(button_id).bootstrapSwitch('state', state, true);
 
             append_notification('icon', 'info', 'Device value changed.', d.getTime()/1000);
         }
@@ -1042,17 +1045,16 @@
         }
     });
 
-    $(".switch-mini").bootstrapSwitch();
-    $(".switch-mini").on('switch-change', function (e, data) {
-        var $el = $(data.el), state_is_off = data.value;
-        var device_id = $el[0].id.split("_")[1];
+    $.fn.bootstrapSwitch.defaults.onColor = 'success';
+    $(".switch-mini").bootstrapSwitch('size', 'mini');
+    $(".switch-mini").on('switchChange.bootstrapSwitch', function (event, state) {
+        var device_id = this.id.split("_")[1];
         var value = 0;
-
         var username = '{{=profile.username}}';
         var server_url = "/api/v1";
         var rest_endpoint = "/user/" + username + "/activity";
 
-        if (state_is_off) {
+        if (state) {
             value = 100
         }
 

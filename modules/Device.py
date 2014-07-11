@@ -6,18 +6,6 @@ from datetime import datetime
 import PlugZExceptions
 import PushNotification
 
-from enum import Enum
-
-
-class DeviceDataSource(int, Enum):
-    button = 0
-    current_sensor = 1
-    temperature_sensor = 2
-    motion_sensor = 3
-    humidity_sensor = 4
-    light_sensor = 5
-    gas_sensor = 6
-
 
 class Device(object):
     def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
