@@ -86,7 +86,7 @@ def login_redirect():
 
     session.user_name, session.user_session_id, session.user_id = Profile.login(email)
 
-    return home()
+    return dashboard()
 
 
 def logout():
