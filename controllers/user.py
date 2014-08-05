@@ -143,11 +143,18 @@ def register_device():
     except:
         return DIV('Error registering device.')
 
-    new_device = Device.register(request.vars.txtSerialNo, device_type_id, session.user_id, request.vars.txtdeviceName)
+    hub_id = request.vars.txtHubId.strip()
+    if hub_id == '':
+        hub_id = None
+
+    new_device = Device.register(serial_no=request.vars.txtSerialNo, device_type_id=device_type_id,
+                                 profile_id=session.user_id, device_name=request.vars.txtdeviceName,
+                                 hub_id=hub_id)
 
     if not new_device:
-        response.flash = "Error Adding Device. Check for Serial Number"
         _error_message = "Error Adding Device. Check for Serial Number"
+        response.flash = _error_message
+
 
     scriptTag = SCRIPT("$('.switch-mini').bootstrapSwitch(); $('#fafaAddDevice').click();" if not _error_message
                        else ("$('.switch-mini').bootstrapSwitch(); alert('" + _error_message + "');"))

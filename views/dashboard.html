@@ -142,8 +142,13 @@
                                                     data-validation="length alphanumeric" data-validation-length="min3"
                                                     data-validation-error-msg="Invalid Device Name">
                                         </div>
+                                        <div class="form-group">
+                                            <input type="text" name="txtHubId" placeholder="Hub Id"
+                                                    data-validation="numeric"
+                                                    data-validation-error-msg="Invalid Hub Id">
+                                        </div>
                                         <Button id="btnAddDevice" type="button" class="btn btn-default"
-                                               onclick="ajax('register_device',['txtSerialNo', 'lstDeviceType', 'txtdeviceName'],'DeviceList','ErrorDiv');">Register</Button>
+                                               onclick="ajax('register_device',['txtSerialNo', 'lstDeviceType', 'txtdeviceName', 'txtHubId'],'DeviceList','ErrorDiv');">Register</Button>
                                     </form>
                                 </div>
                             </div>
@@ -155,7 +160,12 @@
                                 }}
                                     <div class="col-md-2">
                                             <div align="center">{{=IMG(_src=URL('static/images/device_icons', device.get_image()))}}</div>
-                                            <div align="center">{{=device.name}}</div>
+                                            <div align="center">
+                                                {{=device.name}}
+                                                {{if device.device_type_id == 2:}}
+                                                    <b>{{=device.id}}</b>
+                                                    {{pass}}
+                                            </div>
                                             <div align="center">
                                                 <input id="device_{{=device.id}}" type="checkbox" checked class="switch-mini"/>
                                             </div>
