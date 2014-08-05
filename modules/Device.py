@@ -8,31 +8,39 @@ import PushNotification
 
 
 class Device(object):
-    def __init__(self, device_type_id=None, identification=None, profile_id=None, hub_id=None, name=None,
-                 registered_date=None, default_value=None, appliance_type_id=None):
+    def __init__(self, device_type_id=None, identification=None, sub_identification=None,
+                 name=None, profile_id=None, hub_id=None,
+                 registered_date=None, default_value=None, group=None,
+                 appliance_type_id=None, appliance_detail_id=None):
         """
         Initializes device fields with given information.
         """
         self.id = None
         self.device_type_id = device_type_id
         self.identification = identification
+        self.sub_identification = sub_identification
         self.profile_id = profile_id
         self.hub_id = hub_id
         self.name = name
         self.registered_date = registered_date
         self.default_value = default_value
+        self.device_group = group
         self.appliance_type_id = appliance_type_id
+        self.appliance_detail_id = appliance_detail_id
 
     def _load(self, device):
         self.id = device.id
         self.device_type_id = device.device_type_id
         self.identification = device.identification
+        self.sub_identification = device.sub_identification
         self.profile_id = device.profile_id
         self.hub_id = device.hub_id
         self.name = device.name
         self.registered_date = device.registered_date
         self.default_value = device.default_value
+        self.device_group = device.device_group
         self.appliance_type_id = device.appliance_type_id
+        self.appliance_detail_id = device.appliance_detail_id
 
     @staticmethod
     def load(device_id):
@@ -211,6 +219,8 @@ class Device(object):
             if device:
                 return device
 
-        device = Device(device_type_id, serial_no, profile_id, hub_id, device_name, str(datetime.now()), appliance_type_id=appliance_type_id)
+        device = Device(device_type_id=device_type_id, identification=serial_no, name=device_name,
+                        profile_id=profile_id, hub_id=hub_id, registered_date=str(datetime.now()),
+                        default_value=None, group=None, appliance_type_id=appliance_type_id)
         device.save()
         return device
