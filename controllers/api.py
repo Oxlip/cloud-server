@@ -16,7 +16,10 @@ def get_device_dict(device):
     return {
         'id': device.id,
         'name': device.name,
-        'group': '',
+        'identification': device.identification,
+        'sub_identification': device.sub_identification,
+        'group': device.device_group,
+        'default_value': device.default_value,
         'type': DeviceType.get_device_type_name(device.device_type_id),
         'images': [URL('static', 'images/device_icons/' + device.get_image())]
     }
