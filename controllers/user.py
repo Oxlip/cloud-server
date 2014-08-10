@@ -4,7 +4,7 @@ All user/profile related functions.
 import requests
 import string
 import random
-import PlugZExceptions
+import CloudServerExceptions
 from Device import Device
 from DeviceType import DeviceType
 from Profile import Profile
@@ -25,7 +25,7 @@ def dashboard():
     device_types = DeviceType.get_device_types()
     try:
         profile = Profile.get_user(session.user_name)
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         session.user_name = None
         return 'User name not found'
 
@@ -201,7 +201,7 @@ def add_rule():
             master_action = Action.save_action(action_name, key, value, master_action)
 
     if master_action is None or master_condition is None:
-        raise PlugZExceptions.ErrorUpdatingPlugzDatabase('Error updateing Rule')
+        raise CloudServerExceptions.DatabaseError('Error updateing Rule')
 
     rule_id = Condition.add_rule(None, session.user_id, rule_name, master_condition, master_action)
     Condition.publish_rule_to_hub(session.user_id, rule_id, request.vars.ruleexpression)
@@ -224,7 +224,7 @@ def add_random_devices():
     """
     try:
         profile = Profile.get_user(session.user_name)
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         return 'Invalid username - {0}'.format(session.user_name)
 
     # Find a hub associated with the user.

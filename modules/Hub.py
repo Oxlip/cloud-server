@@ -3,7 +3,7 @@
 
 from gluon import current
 import datetime
-import PlugZExceptions
+import CloudServerExceptions
 from Device import Device
 from DeviceType import DeviceType
 
@@ -40,7 +40,7 @@ class Hub(Device):
         db = current.db
         hub = db((db.device.id == hub_id) & (db.device.device_type_id == DeviceType.HUB)).select().first()
         if hub is None:
-            raise PlugZExceptions.NotFoundError('Hub not found - {id}'.format(id=hub_id))
+            raise CloudServerExceptions.NotFoundError('Hub not found - {id}'.format(id=hub_id))
 
         h = Hub()
         h._load(hub)
@@ -55,7 +55,7 @@ class Hub(Device):
         db = current.db
         hub = db(db.device.identification == identification).select().first()
         if hub is None:
-            raise PlugZExceptions.NotFoundError('Hub not found - {id}'.format(id=identification))
+            raise CloudServerExceptions.NotFoundError('Hub not found - {id}'.format(id=identification))
 
         return Hub.load(hub.id)
 
@@ -110,7 +110,7 @@ class Hub(Device):
         hub_session = db((db.hub_session.device_id == hub_id) & (db.hub_session.disconnect_time == None)).select().first()
         if hub_session is None:
             #TODO - this exception is only for testing - this should be converted to log message and return ''
-            raise PlugZExceptions.NotConnectedError('Hub {0} not connected'.format(hub_id))
+            raise CloudServerExceptions.NotConnectedError('Hub {0} not connected'.format(hub_id))
 
         return hub_session.channel
 

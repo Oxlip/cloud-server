@@ -2,7 +2,7 @@
 """
 from gluon import current
 from datetime import datetime
-import PlugZExceptions
+import CloudServerExceptions
 import PushNotification
 
 
@@ -31,12 +31,12 @@ class Profile:
 
         try:
             if Profile.get_user(username):
-                raise PlugZExceptions.AlreadyExistsError('Username already in use.')
-        except PlugZExceptions.NotFoundError:
+                raise CloudServerExceptions.AlreadyExistsError('Username already in use.')
+        except CloudServerExceptions.NotFoundError:
             pass
 
         if Profile.is_email_registered(email):
-            raise PlugZExceptions.AlreadyExistsError('Email is already registered')
+            raise CloudServerExceptions.AlreadyExistsError('Email is already registered')
 
         profile_id = db.profile.insert(username=username,
                                        first_name=first_name,
@@ -70,7 +70,7 @@ class Profile:
         db = current.db
 
         if not Profile.is_email_registered(email):
-            raise PlugZExceptions.NotFoundError('User does not Exists {0}'.format(email))
+            raise CloudServerExceptions.NotFoundError('User does not Exists {0}'.format(email))
 
         # Load the profile
         profile = Profile()
@@ -112,7 +112,7 @@ class Profile:
         db = current.db
         profile = db(db.profile.id == profile_id).select().first()
         if profile is None:
-            raise PlugZExceptions.NotFoundError('user not found {0}'.format(username))
+            raise CloudServerExceptions.NotFoundError('user not found {0}'.format(username))
         p = Profile()
         p._load(profile)
         return p
@@ -125,7 +125,7 @@ class Profile:
         db = current.db
         profile = db(db.profile.username == username).select().first()
         if profile is None:
-            raise PlugZExceptions.NotFoundError('user not found {0}'.format(username))
+            raise CloudServerExceptions.NotFoundError('user not found {0}'.format(username))
         user = Profile()
         user._load(profile)
         return user
@@ -200,7 +200,7 @@ class UserContactInfo:
         db = current.db
         contact_info = db(db.user_contact_info.id == id).select().first()
         if contact_info is None:
-            raise PlugZExceptions.NotFoundError('UserContactInfo not found {0}'.format(id))
+            raise CloudServerExceptions.NotFoundError('UserContactInfo not found {0}'.format(id))
         city = City(contact_info.city_id).__dict__
         self.__init__(id=id, profile_id=contact_info.profile_id, contact_type=contact_info.contact_type,
                       address_line_1=contact_info.address_line_1, address_line_2=contact_info.address_line_2,
@@ -212,7 +212,7 @@ class City:
         db = current.db
         record = db((db.city.id == id) & (db.states.id == db.city.state_id) & (db.country.id == db.states.country_id)).select().first()
         if record is None:
-            raise PlugZExceptions.NotFoundError('City not found {0}'.format(id))
+            raise CloudServerExceptions.NotFoundError('City not found {0}'.format(id))
         self.id = id
         self.city = record.city.name
         self.state = record.states.name

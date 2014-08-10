@@ -3,7 +3,7 @@
 
 from gluon import current
 from datetime import datetime
-import PlugZExceptions
+import CloudServerExceptions
 import PushNotification
 
 
@@ -51,7 +51,7 @@ class Device(object):
         db = current.db
         device = db(db.device.id == device_id).select().last()
         if device is None:
-            raise PlugZExceptions.NotFoundError('Device ID not found - {id}'.format(id=device_id))
+            raise CloudServerExceptions.NotFoundError('Device ID not found - {id}'.format(id=device_id))
 
         d = Device()
         d._load(device)
@@ -67,7 +67,7 @@ class Device(object):
         db = current.db
         device = db(db.device.profile_id == user_id).select().last()
         if device is None:
-            raise PlugZExceptions.NotFoundError('Devices not found for user - {id}'.format(id=user_id))
+            raise CloudServerExceptions.NotFoundError('Devices not found for user - {id}'.format(id=user_id))
 
         d = Device()
         d._load(device)
@@ -111,7 +111,7 @@ class Device(object):
         from Profile import Profile
         profile = Profile.load(self.profile_id)
         if profile is None:
-            raise PlugZExceptions.NotFoundError('Profile {0} not found'.format(self.profile_id))
+            raise CloudServerExceptions.NotFoundError('Profile {0} not found'.format(self.profile_id))
         return [profile.get_status_channel()]
 
     def get_image(self, platform="web"):

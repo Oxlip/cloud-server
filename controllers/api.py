@@ -6,7 +6,7 @@ from DeviceType import DeviceType
 from Hub import Hub
 from Profile import Profile
 from wheezy.routing import PathRouter
-import PlugZExceptions
+import CloudServerExceptions
 
 
 def get_device_dict(device):
@@ -31,7 +31,7 @@ def api_v1_get_user(args, vars):
     """
     try:
         profile = Profile.get_user(args['username'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     return {
@@ -47,7 +47,7 @@ def api_v1_get_user_devices(args, vars):
     """
     try:
         profile = Profile.get_user(args['username'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     devices = []
@@ -63,7 +63,7 @@ def api_v1_get_user_activity(args, vars):
     """
     try:
         profile = Profile.get_user(args['username'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     #TODO - Implement this
@@ -76,7 +76,7 @@ def api_v1_get_device(args, vars):
     """
     try:
         device = Device.load(args['device_id'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     return get_device_dict(device)
@@ -88,7 +88,7 @@ def api_v1_get_hub_devices(args, vars):
     """
     try:
         hub = Hub.load_by_identification(args['identification'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     devices = []
@@ -107,7 +107,7 @@ def api_v1_get_hub_rules(args, vars):
         from Condition import Condition
         rules = Condition.get_all_rules(hub.profile_id)
 
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     return {'rules': rules}
@@ -132,7 +132,7 @@ def api_v1_post_user_activity(args, vars):
     """
     try:
         profile = Profile.get_user(args['username'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     if 'device_id' in vars and 'value' in vars:
@@ -151,7 +151,7 @@ def api_v1_post_user_register_device(args, vars):
     """
     try:
         profile = Profile.get_user(args['username'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     if 'serial_no' not in vars or 'device_type' not in vars or 'device_name' not in vars:
@@ -161,7 +161,7 @@ def api_v1_post_user_register_device(args, vars):
         try:
             hub = Hub.load_by_identification(vars['hub_identification'])
             hub_id = hub.id
-        except PlugZExceptions.NotFoundError:
+        except CloudServerExceptions.NotFoundError:
             raise HTTP(404)
     else:
         hub_id = None
@@ -189,7 +189,7 @@ def api_v1_post_device_activity(args, vars):
 
     try:
         device = Device.load(args['device_id'])
-    except PlugZExceptions.NotFoundError:
+    except CloudServerExceptions.NotFoundError:
         raise HTTP(404)
 
     device.record_value_change(source=vars['source'], value=vars['value'],

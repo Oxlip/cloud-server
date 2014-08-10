@@ -4,7 +4,7 @@ This module takes care of pushing messages to the client
 
 import PubNub
 from ServerCommands import ServerCommands
-import PlugZExceptions
+import CloudServerExceptions
 
 #todo - Remove hardcoded keys
 pubnub = PubNub.Pubnub(publish_key='pub-c-9ff29ff2-1427-4864-bbfa-7d3270a233dc',
@@ -21,11 +21,11 @@ def _push_to_device(device_id, command, args):
     from Hub import Hub
     device = Device.load(device_id)
     if device is None or device.hub_id is None:
-        raise PlugZExceptions.NotFoundError('Device not found.')
+        raise CloudServerExceptions.NotFoundError('Device not found.')
 
     channel = Hub.get_channel(device.hub_id)
     if channel is None:
-        raise PlugZExceptions.NotConnectedError('Hub not connected.')
+        raise CloudServerExceptions.NotConnectedError('Hub not connected.')
 
     info = pubnub.publish({
         'channel': channel,
@@ -47,11 +47,11 @@ def _push_to_Userdevice(user_id, command, args):
 
     device = Device.load(user_id)
     if device is None or device.hub_id is None:
-        raise PlugZExceptions.NotFoundError('Device not found.')
+        raise CloudServerExceptions.NotFoundError('Device not found.')
 
     channel = Hub.get_channel(device.hub_id)
     if channel is None:
-        raise PlugZExceptions.NotConnectedError('Hub not connected.')
+        raise CloudServerExceptions.NotConnectedError('Hub not connected.')
 
     info = pubnub.publish({
         'channel': channel,
@@ -86,7 +86,7 @@ def execute_action(action_id):
     # We need to find the hub - for that find the device associated with the action
     action = Action.load(action_id)
     if action is None:
-        raise PlugZExceptions.NotFoundError('Action not found.')
+        raise CloudServerExceptions.NotFoundError('Action not found.')
 
     _push_to_device(action.device_id, ServerCommands.EXECUTE_ACTION, args)
 
@@ -117,11 +117,11 @@ def notify_rule_change(user_id):
 
     device = Device.load_by_user(user_id)
     if device is None or device.hub_id is None:
-        raise PlugZExceptions.NotFoundError('Device not found.')
+        raise CloudServerExceptions.NotFoundError('Device not found.')
 
     channel = Hub.get_channel(device.hub_id)
     if channel is None:
-        raise PlugZExceptions.NotConnectedError('Hub not connected.')
+        raise CloudServerExceptions.NotConnectedError('Hub not connected.')
 
     info = pubnub.publish({
         'channel': channel,

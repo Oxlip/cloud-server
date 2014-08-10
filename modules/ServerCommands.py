@@ -1,5 +1,5 @@
 """
-Enum of supported commands - This class used in both plugz-backend and plugz-hub.
+Enum of supported commands - This class used in both cloud server and uHub.
 If you modify this file copy it in the other project also.
 """
 
