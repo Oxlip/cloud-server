@@ -126,7 +126,8 @@ db.define_table('device_data',
                                                                     # uPlug has current sensor, Triac and button.
                                                                     # Currently the following values are possible:
                                                                     # B - Button(value in percentage 0-100)
-                                                                    # C - Current Sensor(value in milli amps)
+                                                                    # CA - Current Sensor(value in milli amps)
+                                                                    # CS - Current Sensor Summary(active, peak, voltage/watts etc in JSON format)
                                                                     # T - Temperature sensor(value in F)
                                                                     # M - Motion sensor(value = 0 - no motion)
                                                                     # H - Humidity sensor(value in percentage 0-100)
