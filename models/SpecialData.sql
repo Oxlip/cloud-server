@@ -1,4 +1,4 @@
-USE plugz;
+USE astral_main_db;
 INSERT INTO device_type(name, description, device_version, image, icon) VALUES('Timer', 'Date and time', 1, NULL, NULL);
 INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uHub', 'Hub connecting all the device', 1, 'uhub.png', 'uhub.png');
 INSERT INTO device_type(name, description, device_version, image, icon) VALUES('uSwitch', 'Wall outlet conceled switch', 1, 'uswitch.png', 'uswitch.png');
