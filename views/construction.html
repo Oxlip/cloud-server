@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Astral</title>
+        <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon" />
+
+        <!-- =========================================
+        Mobile Configurations
+        ========================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <link rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" media="screen" href="{{=URL('static','css/construction.css')}}"/>
+    </head>
+
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please upgrade your browser to improve your experience.</p>
+        <![endif]-->
+        <div id="Loader">
+            <div id="circle"></div>
+            <div id="circle1"></div>
+        </div>
+        <section id="header">
+            <div class="container">
+                <div class="row">
+                    <div id="logo" data-uk-scrollspy="{cls:'uk-animation-slide-top', delay:500, repeat: true}">
+                        <a href="index.html" title="Astral">
+                            <img src="{{=URL('static','images/logo.png')}}" alt="Logo"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="home-section">
+            <div id="home-section-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div id="home-section-container" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', delay:500, repeat: true}">
+                            <h1 id="welcome-msg">Smart home for everyone - Soon</h1>
+                            <!-- welcome-msg-mobile -->
+                            <h1 id="welcome-msg-mobile">Smart home for everyone - Soon</h1>
+
+                            <div id="countdown_dashboard">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="days_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">days</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="hours_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">hours</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="minutes_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">minutes</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <div class="seconds_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.0/modernizr.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/uikit/2.8.0/js/uikit.min.js"></script>
+        <script src="{{=URL('static','js/construction.js')}}"></script>
+
+        <script type="text/javascript">
+                (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+                e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+                e.src='http://www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+                ga('create','UA-43841493-1', '_trackPageview');
+                ga('send','pageview');
+        </script>
+    </body>
+</html>

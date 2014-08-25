@@ -2,5 +2,6 @@
 
 
 def index():
-    return 'Everything works fine.'
+    response.view = 'construction.html'
+    return dict()
 
