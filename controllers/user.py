@@ -10,6 +10,11 @@ from DeviceType import DeviceType
 from Profile import Profile
 
 
+def index():
+    response.view = 'construction.html'
+    return dict()
+
+
 def dashboard():
     """
     Landing page for the user - shows user devices and energy usage etc
