@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="og:image" content="http://www.itsenuf.com/images/lyra.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Astral, Mobile app, Home Automation, Smart Plug, Lighting">
+  
+  <title>Astral</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300&amp;subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="{{=URL('static', 'css/landingpage-grid.css')}}" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/pe-icon-7-stroke.css')}}" media="all">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css" media="all">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/magnific-popup.css" media="all">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/animate.min.css')}}" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/landingpage-style.css')}}" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/landingpage-color.css')}}" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/bookblock.css')}}" />
+  <link rel="stylesheet" href="{{=URL('static', 'css/landingpage-demo5.css')}}" />
+
+  <link rel="shortcut icon" href="images/elements/favicon.ico">
+  <link rel="apple-touch-icon" href="images/elements/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/elements/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="images/elements/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="images/elements/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/elements/apple-touch-icon-180x180.png" />
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<input type="hidden" id="val4" value="" />
+<div id="qLoverlay"></div>
+<div id="top"></div>
+
+<div class="home-slider">
+  <section class="hero parallax-background parallax-background24">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero_inety">
+          <div class="slider_logo" ><img src="{{=URL('static', 'images/logo.png')}}" alt=""></div>
+          <div class="hero-copy wide tinfont coustom_clas">One Home One Control.</div>
+          <div class="play_btn"> <a href="https://www.youtube.com/watch?v=7nUNfol2jOU" class="lightbox-gallery mfp-iframe"> <span class="play_btn_icon"> <i class="fa fa-play"></i> </span> </a> </div>
+        </div>
+        <div class="form_sin_upp container">
+          <div class="errow_messate_box" id="dic1">Everybody has an email!</div>
+          <div class="errow_messate_box_text" id="prt1" >Please enter valid email address</div>
+          <div class="promocode_accept" id="did1">Promo code accepted, put your email and sign up.</div>
+          <div class="promocode_accept_worng" id="div1">You Can Register Without Code As Well</div>
+          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+            <input type="text" class="ssffgt" name="email" placeholder="you@example.com" id="email1">
+            <input type="button"  value="sign up" onClick="validateEmail(1)" >
+          </form>
+        </div>
+        <div class="bg_clich"></div>
+      </div>
+    </div>
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="https://www.facebook.com/astralthings" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/astralthings" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
+      </ul>
+      <div class="ddreew"> <span class="p_code_list l1" data-i="1"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
+        <input type="text" data-i="1" id="name" data-i="1" class="c-text1 blink_no" placeholder=" Enter Code Here" value="" />
+        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
+    </div>
+  </section>
+  <section class="hero parallax-background parallax-background4">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <h1 class="big_white">We Create <span class="element" data-elements="Outstanding Apps, Awesome Web, Delicious Brownies"></span> </h1>
+        <div class="hero-copy">One Home One Control.</div>
+        <span class="btn-holder"></span>
+        <div class="form_sin_upp container">
+          <div class="errow_messate_box" id="dic2">Everybody has an email!</div>
+          <div class="errow_messate_box_text" id="prt2" >Please enter valid email address</div>
+          <div class="promocode_accept" id="did2">Promo code accepted, put your email and sign up.</div>
+          <div class="promocode_accept_worng" id="div2">You Can Register Without Code As Well</div>
+          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+            <input type="text" name="email" placeholder="you@example.com" id="email2">
+            <input type="button"  value="sign up" onClick="validateEmail(2)">
+          </form>
+        </div>
+        <div class="bg_clich"></div>
+      </div>
+    </div>
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="https://www.facebook.com/astralthings" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/astralthings" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
+      </ul>
+      <div class="ddreew"> <span class="p_code_list l2" data-i="2"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
+        <input type="text" data-i="2" class="c-text1 blink_no" id="code_arena" placeholder=" Enter Code Here" value="">
+        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
+    </div>
+  </section>
+  <section class="hero parallax-background parallax-background4">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <h1 class="big_white">We Create <span class="element" data-elements="Outstanding Apps, Awesome Web, Delicious Brownies"></span> </h1>
+        <div class="hero-copy">One Home One Control.</div>
+        <span class="btn-holder"></span>
+        <div class="form_sin_upp container">
+          <div class="errow_messate_box" id="dic3">Everybody has an email!</div>
+          <div class="errow_messate_box_text" id="prt3" >Please Enter Currect Email!</div>
+          <div class="promocode_accept" id="did3">Promo code accepted, put your email and sign up.</div>
+          <div class="promocode_accept_worng" id="div3">You Can Register Without Code As Well</div>
+          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+            <input type="text" name="email" placeholder="you@example.com" id="email3">
+            <input type="button"  value="sign up" onClick="validateEmail(3)">
+          </form>
+        </div>
+        <div class="bg_clich"></div>
+      </div>
+    </div>
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="https://www.facebook.com/astralthings" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/astralthings" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
+      </ul>
+      <div class="ddreew"> <span class="p_code_list l3" data-i="3"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
+        <input type="text" data-i="3" class="c-text1 blink_no" placeholder=" Enter Code Here" value="">
+        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
+    </div>
+  </section>
+  <section class="hero parallax-background parallax-background4">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <h1 class="big_white">We Create <span class="element" data-elements="Outstanding Apps, Awesome Web, Delicious Brownies"></span> </h1>
+        <div class="hero-copy">One Home One Control.</div>
+        <span class="btn-holder"></span>
+        <div class="form_sin_upp container">
+          <div class="errow_messate_box c1" id="dic4">Everybody has an email!</div>
+          <div class="errow_messate_box_text d1" id="prt4" >Please Enter Currect Email!</div>
+          <div class="promocode_accept" id="did4">Promo code accepted, put your email and sign up.</div>
+          <div class="promocode_accept_worng" id="div4">You Can Register Without Code As Well</div>
+          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+            <input type="text" name="email" placeholder="you@example.com" id="val4"  autocomplete="off"onkeyup="$('#val4').val($(this).val())">
+            <input type="button"  value="sign up" onClick="validateEmail(4)">
+          </form>
+        </div>
+        <div class="bg_clich"></div>
+      </div>
+    </div>
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="https://www.facebook.com/astralthings" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/astralthings" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
+      </ul>
+      <div class="ddreew"> <span class="p_code_list l4" data-i="4"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
+        <input type="text" data-i="4" class="c-text1 blink_no" placeholder=" Enter Code Here" value="">
+        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
+    </div>
+  </section>
+</div>
+<section id="home-content" class="top-waypoint" data-animate-up="header-hide" data-animate-down="header-show"> 
+  
+  <!-- Menu -->
+  
+  <header id="header-section" class="ha-header">
+    <div class="container">
+      <div class="row">
+        <div class="column two">
+          <h1 class="logo"> <a href="#top"> <img src="{{=URL('static', 'images/logo.png')}}" alt="logo"> </a> </h1>
+        </div>
+        <nav id="navigation" class="column eight hide-on-mobile">
+          <ul>
+            <li><a href="#top">Home</a></li>
+            <li><a href="#about-us">ASTRALs</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+        <a href="#" id="menu-toggle-wrapper">
+        <div id="menu-toggle"></div>
+        </a> </div>
+    </div>
+  </header>
+  <section id="about-us" class="menu-in">
+    <header class="section-header">
+      <h2 class="section-title" data-anim-delay="400">ASTRALs</h2>
+      <p class="section-tagline">This text here is just a tool to give you placeholder for your own real copy that will hopefully have much more sense than this temporary one.</p>
+    </header>
+    <div class="filter-row">
+      <div class="container">
+        <div class="row">
+          <ul class="filter wow fadeInLeft">
+            <li style="display:none;"><a href="#tab_about_img"></a></li>
+            <li><a href="#lyra">Lyra</a></li>
+            <li><a href="#aura">Aura</a></li>
+            <li><a href="#app">App</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="top_border_row" id="option-section">
+      <div class="container">
+        <div class="row tab_about_img">
+          <ul class="filter">
+            <li style="display:none;"><a href="#tab_about_img"></a></li>
+            <li class="column four border"><span class="main"><a href="#lyra"><img src="{{=URL('static', 'images/lyra.png')}}" alt=""></a></span></li>
+            <li class="column four border"><span class="main"><a href="#aura"><img src="{{=URL('static', 'images/aura.png')}}" alt=""></a></span></li>
+            <li class="column four"><span class="main"><a href="#app"><img src="{{=URL('static', 'images/app.png')}}" alt=""></a></span></li>
+          </ul>
+        </div>
+        <div class="row inner_opction" id="lyra">
+          <div class="column four"> <!--<img src="{{=URL('static', 'images/lyra.png')}}" alt="">-->
+            <ul class="bb-custom-grid" id="bb-custom-grid2">
+              <li>
+                <h3> Lyra</h3>
+                <div class="bb-bookblock">
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/lyra-1.jpg')}}" alt="image05"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/lyra-2.jpg')}}" alt="image06"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/lyra-3.jpg')}}" alt="image07"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/lyra-4.jpg')}}" alt="image08"/></a></div>
+                </div>
+                <nav> <span class="bb-current"></span> <span></span> <span></span> <span></span> </nav>
+              </li>
+            </ul>
+          </div>
+          <div class="column four border border_left libk_libk">
+            <div class="libk_libk_inner">
+              <div class="butt_one lm-button ls fill sact">For You and Me</div>
+              <div class="butt_two lm-button ls fill">For Geeks</div>
+            </div>
+          </div>
+          <div class="column four">
+            <div class="first_para">
+              <iframe src="https://www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="second_para">
+              <div class="para_inner">
+                <div class="para_title">SPECS</div>
+                Electrical
+                <ul>
+                  <li>Demo One</li>
+                  <li>Demo Two</li>
+                  <li>Demo Three</li>
+                  <li>Demo Four</li>
+                </ul>
+                Color
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+                Dimension
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+                Weight
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row inner_opction" id="aura">
+          <div class="column four "> <!--<img src="{{=URL('static', 'images/aura.png')}}" alt="">-->
+            <ul class="bb-custom-grid" id="bb-custom-grid">
+              <li>
+                <h3> Aura</h3>
+                <div class="bb-bookblock">
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/Astral-1.jpg')}}" alt="image01"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/Astral-2.jpg')}}" alt="image02"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/Astral-3.jpg')}}" alt="image03"/></a></div>
+                  <div class="bb-item"><a href="javascript:void(0)"><img src="{{=URL('static', 'images/album/Astral-4.jpg')}}" alt="image04"/></a></div>
+                </div>
+                <nav> <span class="bb-current"></span> <span></span> <span></span> <span></span> </nav>
+              </li>
+            </ul>
+          </div>
+          <div class="column four border border_left libk_libk">
+            <div class="libk_libk_inner">
+              <div class="butt_one lm-button ls fill sact">For You and Me</div>
+              <div class="butt_two lm-button ls fill">For Geeks</div>
+            </div>
+          </div>
+          <div class="column four">
+            <div class="first_para">
+              <iframe src="https://www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="second_para">
+              <div class="para_inner">
+                <div class="para_title">SPECS</div>
+                Electrical
+                <ul>
+                  <li>Demo One</li>
+                  <li>Demo Two</li>
+                  <li>Demo Three</li>
+                  <li>Demo Four</li>
+                </ul>
+                Color
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+                Dimension
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+                Weight
+                <ul>
+                  <li>Demo One</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row inner_opction" id="app">
+          <div class="column four"> <img src="{{=URL('static', 'images/app.png')}}" alt=""> </div>
+          <div class="column four border border_left">
+            <p>Dynamically coordinate go forward infrastructures through bricks and clicks awesome web services. Collaboratively whiteboard low-risk high yield processes for client bttased markets. Phosfluorescently dominate extensive markets before multimedia based relationships. Collaboratively whiteboard low-risk high yield processes for client bttased markets.Collaboratively whiteboard low-risk high yield processes for client bttased markets.</p>
+          </div>
+          <div class="column four">
+            <p>Dynamically coordinate go forward infrastructures through bricks and clicks awesome web services. Collaboratively whiteboard low-risk high yield processes for client bttased markets. Phosfluorescently dominate extensive markets before multimedia based relationships. Collaboratively whiteboard low-risk high yield processes for client bttased markets. Collaboratively whiteboard low-risk high yield processes for client bttased markets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="quote" class="parallax-background parallax-background8" data-type="parallax">
+    <div class="overlay"></div>
+    <div class="container wow zoomIn"> </div>
+  </section>
+  <section id="features">
+    <header class="section-header">
+      <h2 class="section-title">Features</h2>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="column four wow fadeInUp" data-wow-delay="0.3s"> <i class="fa fa-rupee"></i>
+          <h3>Money Saving</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+        <div class="column four wow fadeInUp" data-wow-delay="0.6s"> <i class="fa fa-clock-o"></i>
+          <h3>Time Saving</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+        <div class="column four wow fadeInUp" data-wow-delay="1s"> <i class="fa fa-suitcase"></i>
+          <h3>Effort Saving</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column four wow fadeInUp" data-wow-delay="0.3s"> <i class="fa fa-heart-o"></i>
+          <h3>Trendy</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+        <div class="column four wow fadeInUp" data-wow-delay="0.6s"> <i class="fa fa-child"></i>
+          <h3>Kids Friendly</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+        <div class="column four wow fadeInUp" data-wow-delay="1s"> <i class="fa fa-shield"></i>
+          <h3>Safe</h3>
+          <p>Completely exploit transparent sources with impactful opportunities. Intrinsicly orchestrate standardized services.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="achievements" class="parallax-background parallax-background9" data-type="parallax">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row"> </div>
+    </div>
+  </section>
+  <section id="faq">
+    <header class="section-header">
+      <h2 class="section-title">FAQs</h2>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="">
+          <div class="accordion">
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">How Astral saves energy?</a> </div>
+              <div class="content">
+                <p> Astral saves energy by turning off lights and other appliances when not in use. </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">Does Astral need internet to operate?</a> </div>
+              <div class="content">
+                <p> Astral does not need Internet to operate. </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">Does Astral accurately measures the electricity consumed?</a> </div>
+              <div class="content">
+                <p> Yes - Astral uses a microchip which is used inside most new smart meters, so it measure very accurately the power usage. </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">How safe is Astral?</a> </div>
+              <div class="content">
+                <p> Astral is safer than any normal or modular plug because does not have any mechanical components. Because of this there is no electrical arching issue which leads better safety and reliability. Also Astral is tested and certified by xxxx." </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">Do I need an electrician to install? </a> </div>
+              <div class="content">
+                <p> Astral is plug and play device - no need for installation. </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">What kind of support/Serviecs do you offer? </a> </div>
+              <div class="content">
+                <p> Warranty </p>
+              </div>
+            </div>
+            <div class="accordion-wrap">
+              <div class="title"><a href="javascript:void();">When the product will ship? </a> </div>
+              <div class="content">
+                <p> 2 Months</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="gray">
+    <div class="container">
+      <div class="row">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-tagline">This text here is just a tool to give you placeholder for your own real copy that will hopefully have much more sense than this temporary one.</p>
+      </div>
+    </div>
+    <div id="form">
+      <div class="container">
+        <div class="row">
+          <form name="forms" action="http://itsenuf.com/" id="forms1" method="post">
+            <div class="column four">
+              <input type="text" placeholder="Name" id="name" name="name">
+            </div>
+            <div class="column four">
+              <input type="text" placeholder="Email" id="email_id" name="email_id">
+            </div>
+            <div class="column four">
+              <input type="text" placeholder="Subject" id="subject" name="subject">
+            </div>
+            <div class="column twelve">
+              <textarea name="message" id="message" cols="30" rows="10"></textarea>
+              
+              <!--<input type="hidden" name="submit">-->
+              
+              <input type="submit" name="submit" value="send message">
+            </div>
+            <div class="clearfix"></div>
+            <div class="notification"></div>
+          </form>
+        </div>
+        <div class="row icons">
+          <div class="column four"> <i class="pe-7s-mail-open wow fadeInUp"></i><a href="mailto:info@getastral.com" id="mail" target="blank">info@getastral.com</a> </div>
+          <div class="column four"> <i class="pe-7s-map-marker wow fadeInUp"></i> <span id="address">Some Address, <br/>
+            Some City, CA 94043</span> </div>
+          <div class="column four"> <i class="pe-7s-call wow fadeInUp"></i> <a href="tel:00111111111" id="phone">+321 123 456 7</a> </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  
+  <footer>
+    <div id="copyright" class="wow fadeInUp" data-wow-offset="50"> <img src="{{=URL('static', 'images/logo_foter.png')}}" alt="logo"> <br/>
+      Copyright 2014 Astral. All Rights Reserved.</span> </div>
+    <div class="form_sin_upp container"> 
+     
+      <div class="errow_messate_box" id="dic5">Everybody has an email!</div>
+      <div class="errow_messate_box_text" id="prt5" >Please Enter Currect Email!</div>
+      <div class="promocode_accept" id="did5">Promo code accepted, put your email and sign up.</div>
+      <div class="promocode_accept_worng" id="div5">You Can Register Without Code As Well</div>
+      <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+        <input type="text" name="email" placeholder="you@example.com" id="email5">
+        <input type="button"  value="sign up" onClick="validateEmail(5)">
+      </form>
+    </div>
+    
+    <div id="errormessage4"></div>
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="https://www.facebook.com/astralthings" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+        <li><a href="https://twitter.com/astralthings" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+        <li><a href="https://plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a> </li>
+      </ul>
+    </div>
+  </footer>
+  
+</section>
+<div class="over_lay">
+  <div  id="share_box_wrapper" > <a title="Close" class="modalCloseImg simplemodal-close"></a>
+    <div class="popUp_box_inner">
+      
+    </div>
+  </div>
+</div>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/device.js/0.1.61/device.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax-min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.2/waypoints.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/2.7.8/jquery.mb.YTPlayer.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/wow/1.0.2/wow.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&amp;sensor=false"></script>
+  <script src="{{=URL('static', 'js/typed.js')}}"></script>
+  <script src="{{=URL('static', 'js/SmoothScroll.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.queryloader2.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.bxslider.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquerypp.custom.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.bookblock.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/landingpage-custom.js')}}"></script>
+  <script src="{{=URL('static', 'js/landingpage-scriptall.js')}}"></script>
+</body>
+</html>
