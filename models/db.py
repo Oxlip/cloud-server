@@ -181,3 +181,11 @@ db.define_table('user_activity',
                 Field('device_id', 'reference device'),              # or The device status was changed by the user
                 Field('output_value', 'string'),                     # to this value.
                 Field('activity_date', 'datetime'))                  # date time when it is executed.
+
+
+db.define_table('email_subscriptions',
+                Field('email', 'string'),                            # email id of the user.
+                Field('source_id', 'string'),                        # source - App, Web, etc.
+                Field('promo_code', 'string'),                       # promo code for this user.
+                Field('ref_code', 'string'),                         # which promo code this user used .
+                Field('subscribed_date', 'datetime'))                # date time when the user subscribed.

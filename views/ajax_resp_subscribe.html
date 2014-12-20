@@ -1,0 +1,38 @@
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '568053669992608',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div id="fb-root"></div>
+<h3>
+    Team <span>Astral</span> congratulates you on being a premium member! <br>
+    You shall soon know about your benefits<br>
+</h3>
+
+<div class="promo_code_dige" id="code">{{=auto_share_code}}</div>
+
+<h3>Share this code with your friends and family by clicking the <span>social icons</span> below to enjoy more gooodies</h3>
+<h3>Hint: ipad (Shhh, I didnt tell you)</h3>
+
+<div class="fb-share-button" data-href="http://getastral.com" data-layout="button"></div>
+
+<a class="twitter-share-button" href="http://getastral.com" data-related="twitterdev" data-size="medium" data-count="none"> Tweet </a>
+<script type="text/javascript">
+window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<div class="g-plus" data-action="share" data-annotation="none"></div>

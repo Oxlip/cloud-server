@@ -897,7 +897,7 @@ function validateEmail(id) {
     if ((filter.test(str1))) {
       //alert(str1);
       $.ajax({
-        url: "mail_page.php?var=" + str1,
+        url: "subscribe?email=" + str1,
         cache: false,
         success: function(res) {
           //alert(res);
@@ -924,7 +924,7 @@ function validateEmail(id) {
       //return true;
       //alert("hi");
       $.ajax({
-        url: "mail_page.php?var=" + str1,
+        url: "subscribe?email=" + str1,
         cache: false,
         success: function(res) {
           //alert(res);
