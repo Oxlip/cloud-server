@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 from gluon import current
+from gluon.tools import Mail
 
 
 def index():
@@ -17,10 +18,23 @@ def get_promo_code(num_chars):
     return code
 
 
+def _send_mail(email_to, promo_code):
+    mail = Mail()
+    mail.settings.server = 'localhost:25'
+    mail.settings.sender = 'dont-reply@getastral.com'
+    mail.settings.login = None
+
+    message = response.render('subscription_mail_response.html', dict(promo_code=promo_code))
+    subject = 'Welcome to Astral family'
+
+    mail.send(to=[email_to], subject=subject, message=message)
+
 def subscribe():
     response.view = 'ajax_resp_subscribe.html'
     email = request.vars['email']
     promo_code = get_promo_code(6)
+
+    _send_mail(email, promo_code)
 
     db = current.db
     subscribed = db.email_subscriptions(db.email_subscriptions.email == email)
