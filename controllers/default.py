@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import mandrill
 from gluon import current
 from gluon.tools import Mail
 
@@ -19,25 +20,54 @@ def get_promo_code(num_chars):
 
 
 def _send_mail(email_to, promo_code):
-    mail = Mail()
-    mail.settings.server = 'localhost:25'
-    mail.settings.sender = 'dont-reply@getastral.com'
-    mail.settings.login = None
 
-    message = response.render('subscription_mail_response.html', dict(promo_code=promo_code))
-    subject = 'Welcome to Astral family'
+    try:
+        mandrill_client = mandrill.Mandrill('VRQ_P8wjxDKJfVGV-DqApA')
+        template_content = [{'content': 'example content', 'name': 'example name'}]
+        message = {
+         'from_email': 'info@getastral.com',
+         'global_merge_vars': [{'content': 'merge1 content', 'name': 'merge1'}],
+         'important': False,
+         'inline_css': True,
+         'merge': True,
+         'merge_language': 'mailchimp',
+         'global_merge_vars': [
+            {
+                'name': 'PROMOCODE',
+                'content': promo_code
+            }
+          ],
+         'recipient_metadata': [{'rcpt': email_to}],
+         'subject': 'Welcome to Astral Things',
+         'text': 'Your Promo Code : ' + promo_code,
+         'to': [{'email': email_to,
+                 'type': 'to'}],
+         'track_opens': True,
+         'view_content_link': None}
 
-    mail.send(to=[email_to], subject=subject, message=message)
+        result = mandrill_client.messages.send_template(template_name='email_subscribe',
+                        template_content=template_content, message=message, async=False)
+
+    except mandrill.Error, e:
+        # Mandrill errors are thrown as exceptions
+        print 'A mandrill error occurred: %s - %s' % (e.__class__, e)
+        # A mandrill error occurred: <class 'mandrill.UnknownSubaccountError'> - No subaccount exists with the id 'customer-123'    
+        raise
+
+    return
+
+
 
 def subscribe():
     response.view = 'ajax_resp_subscribe.html'
+    db = current.db
     email = request.vars['email']
+    subscribed = db.email_subscriptions(db.email_subscriptions.email == email)
+
     promo_code = get_promo_code(6)
 
     _send_mail(email, promo_code)
 
-    db = current.db
-    subscribed = db.email_subscriptions(db.email_subscriptions.email == email)
     if subscribed is not None:
         return 'You are already subscribed'
 
