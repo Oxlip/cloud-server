@@ -25,7 +25,7 @@ def _send_mail(email_to, promo_code):
         mandrill_client = mandrill.Mandrill('VRQ_P8wjxDKJfVGV-DqApA')
         template_content = [{'content': 'example content', 'name': 'example name'}]
         message = {
-         'from_email': 'info@getastral.com',
+         'from_email': 'info@nuton.in',
          'global_merge_vars': [{'content': 'merge1 content', 'name': 'merge1'}],
          'important': False,
          'inline_css': True,
@@ -38,7 +38,7 @@ def _send_mail(email_to, promo_code):
             }
           ],
          'recipient_metadata': [{'rcpt': email_to}],
-         'subject': 'Welcome to Astral Things',
+         'subject': 'Welcome to Nuton family',
          'text': 'Your Promo Code : ' + promo_code,
          'to': [{'email': email_to,
                  'type': 'to'}],
