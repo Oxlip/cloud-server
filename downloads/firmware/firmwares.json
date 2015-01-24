@@ -1,0 +1,22 @@
+{
+  "aura": {
+    "v1" : {
+      "filename": "aura_s110.bin",
+      "fw_date": "1-Feb-2015",
+      "release_notes": "Bug fixes."
+    },
+    "ev" : {
+      "filename": "aura_s110.bin",
+      "fw_date": "1-Feb-2015",
+      "release_notes": "Bug fixes."
+    },
+    "dk" : {
+      "filename": "aura_s110.bin",
+      "fw_date": "1-Feb-2015",
+      "release_notes": "Bug fixes."
+    }
+  },
+  "lyra": {
+  
+  }
+}
