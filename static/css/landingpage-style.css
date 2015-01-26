@@ -484,7 +484,7 @@ h1.logo a.text {
     top: -2px;
 }
 #qLoverlay {
-    background-color: #111;
+    background-color: #DDDDDD;
     position: fixed;
     z-index: 666999;
     top: 0;
@@ -3313,8 +3313,9 @@ footer .errow_messate_box{
     padding: 50px 0;
     position: absolute;
     text-align: center;
-    top: 0;
-    width: 158px;*/
+    top: 0;*/
+    width: 210px;
+    height: 20px;
 	 display: inline-block;
     margin-bottom: 0px;
 	position:relative;
