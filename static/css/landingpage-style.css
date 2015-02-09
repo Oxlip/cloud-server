@@ -126,6 +126,7 @@ h6 {
     font-size: 12px;
     line-height: 16px;
 }
+
 p {
     margin: 0 0 25px 0;
 }
@@ -218,6 +219,7 @@ img {
 section {
     padding: 80px 0 0 0;
 }
+
 section section {
     background-color: #fff;
 }
@@ -249,6 +251,14 @@ h2.section-title {
     line-height: 70px;
     font-weight: 700;
 }
+
+h3.name-gallery {
+    font-size: 14px;
+    line-height: 20px;
+    color: #00ccff;
+    font-style: bold;
+}
+
 .section-title:after {
     position: relative;
     display: block;
@@ -609,9 +619,9 @@ h1.logo a.text {
     position: fixed;
     line-height: 80px;
     height: 80px;
-    border-bottom: 1px solid #e6e6e6;
+    #border-bottom: 1px solid #e6e6e6;
     background: rgb(255, 255, 255);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(34, 34, 34, 1);
     width: 100%;
     top: 0;
     left: 0;
@@ -637,8 +647,9 @@ a{
 header nav ul li a {
     display: inline-block;
     padding: 0 5px;
-    color: #808080;
-    font-size: 12px;
+    #color: #808080;
+    color: #FFFFFF;
+    font-size: 14px;
     line-height: 80px;
     letter-spacing: 1.5px
 }
@@ -816,7 +827,7 @@ header nav ul li ul li a {
 
 /* Image 
 ================================================== */
-
+/* overlay tint for banner images */
 .overlay {
     position: absolute;
     top: 0;
@@ -1103,117 +1114,33 @@ h1.big_white.border {
     background-image: url(../images/bg/parallax-change.jpg); 
 }
 
-.parallax-background0 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
 
 .parallax-background1 {
-    background-image: url(../images/bg/parallax-change.jpg); 
+    background-image: url(../images/bg/banner-1.jpg);
 }
 
 .parallax-background2 {
-    background-image: url(../images/bg/parallax-change.jpg); 
+    background-image: url(../images/bg/banner-2.jpg); 
 }
 
 .parallax-background3 {
-    background-image: url(../images/bg/parallax-change.jpg); 
+    background-image: url(../images/bg/banner-3.jpg);
 }
 
 .parallax-background4 {
    /* background-image: url(../images/bg/parallax-change.jpg); */
-   background-image: url(../images/bg/banner-img.jpg);
+   background-image: url(../images/bg/banner-4.jpg);
 }
 
-.parallax-background5 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
+.parallax-background5 { /* place holder between Products and Features */
+  background-image: url(../images/bg/banner-img.jpg);
 
+}
 .parallax-background6 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-
-.parallax-background7 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-
-.parallax-background8 {
-  /*  background-image: url(../images/bg/parallax-change.jpg); */
   background-image: url(../images/bg/banner-img.jpg);
   
 }
-.parallax-background9 {
-    /*background-image: url(../images/bg/parallax-change.jpg); */
-	background-image: url(../images/bg/banner-img.jpg);
-}
-.parallax-background10 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background11 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background12 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background13 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background14 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background15 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background16 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background17 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background18 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background19 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background20 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background21 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background22 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background23 {
-    /*background-image: url(../images/bg/parallax-change.jpg);*/ 
-	background-image: url(../images/bg/banner-img.jpg);
-}
-.parallax-background24 {
-    /*background-image: url(../images/bg/parallax-change.jpg); */
-	background-image: url(../images/bg/banner-img.jpg);
-}
-.parallax-background25 {
-    background-image: url(../images/bg/parallax-change.jpg); 
-}
-.parallax-background26 {
-   /* background-image: url(../images/bg/parallax-change.jpg); */
-	background-image: url(../images/bg/banner-img.jpg);
-}
-.parallax-background27 {
-    background-image: url(../images/bg/parallax-change.jpg);
-}
-.parallax-background28 {
-    background-image: url(../images/bg/parallax-change.jpg);
-}
-.parallax-background29 {
-    background-image: url(../images/bg/parallax-change.jpg);
-}
-.parallax-background30 {
-    background-image: url(../images/bg/parallax-change.jpg);
-}
-.parallax-background31 {
-    background-image: url(../images/bg/parallax-change.jpg);
-}
+
 /* Scout
 ================================================== */
 
@@ -1659,7 +1586,7 @@ input.c-text:-moz-placeholder  {
 ================================================================================================
 */
 
-.bx-wrapper{
+.rgba(0, 0, 0, 0.3){
 	position:relative;
 }
 .bx-controls-direction{
@@ -1915,7 +1842,8 @@ footer .errow_messate_box{
 }
 .popUp_box_inner h3{
 	text-align:left;
-	color:#bfbfbf;
+	#color:#bfbfbf;
+    color:#528ad8
 }
 .popUp_box_inner h3 span{
 	color:#03a9f4;
@@ -2240,11 +2168,11 @@ float:none;
     border-top: none;
 
 }
-.top_border_row .row .column.border {
-    border-right: 1px solid #f3f3f3;
+.top_border_row .row .column.border { /* column divider. We don't need it*/
+    #border-right: 1px solid #f3f3f3;
 }
-.top_border_row .row .column.border_left {
-    border-left: 1px solid #f3f3f3;
+.top_border_row .row .column.border_left { /* column divider. We don't need it*/
+    #border-left: 1px solid #f3f3f3; 
 }
 
 #tab_about_img{
@@ -2300,7 +2228,7 @@ float:none;
 .tab_about_img .column .main {
 
 }
-#about-us.menu-in {
+#products.menu-in {
     padding-top: 150px;
 }
 #about-icons {
@@ -2475,7 +2403,7 @@ ul.filter-target > li.active a, ul.filter-target > li a:hover {
     color: #d3145a;
 }
 #option-section {
-    padding:0 0 40px 0;
+    padding:0 0 110px 0;
     background-color: #fff;
 }
 #option-section .container .row:first-child {
@@ -3851,7 +3779,8 @@ h3.single {
 /* TABS */
 .top_border_row ul.filter > li, .top_border_row ul.filter-target > li {
     display: inline-block;
-    margin: 0 0;
+    #margin: 0 0;
+    margin: 40px 0;
     position: relative;
     text-align: center;
 	padding-top:20px;
