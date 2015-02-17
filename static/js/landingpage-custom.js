@@ -798,25 +798,6 @@ if (!Array.prototype.indexOf) {
       });
       return false;
     });
-    /*
-     * get twitter feeds and init carousel
-     */
-    $.getJSON("twitter/get_tweets.php", function(data) {
-      if (data) {
-        var tweets = '';
-        $.each(data, function() {
-          var tweet = '<div class="tweet">';
-          tweet += '<span class="time">about ' + this.time_ago + ' ago</span>';
-          tweet += '<span class="one-tweet">' + this.text + '</span>';
-          tweet += '<ul class="tweet-actions">' + '<li><a target="_blank" href="' + this.actions.reply + '">Reply</a></li>' + '<li><a target="_blank" href="' + this.actions.retweet + '">Retweet</a></li>' + '<li><a target="_blank" href="' + this.actions.favorite + '">Favorite</a></li>' + '</ul>';
-          tweet += '</div>';
-          tweets += tweet;
-        });
-        $('#twitter-container').append(tweets);
-      }
-    }).always(function() {
-      twitterCarousel();
-    });
   });
   /* Count To Function
   ================================================== */
