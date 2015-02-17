@@ -670,6 +670,7 @@ header nav ul li:last-child {
     -webkit-transform: translateY(0%);
     -moz-transform: translateY(0%);
     transform: translateY(0%);
+    top:-80px;
 }
 .header-show {
     position: fixed;
