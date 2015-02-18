@@ -4,6 +4,37 @@ import os
 import gluon.contrib.simplejson
 
 
+def get_firmware_info():
+    """
+    Return latest firmware info for requested device.
+    HTTP Arguments:
+        dt - Device type (aura, lyra etc)
+        hw - Hardware version (v1, ev, dk)
+
+    Example usage:
+       wget "http://nuton.in/download/get_firmware_info?dt=aura&hw=v1"
+
+    :return: Firmware info as json.
+    """
+    try:
+        device_type = request.vars['dt']
+        hardware_version = request.vars['hw']
+    except:
+        raise HTTP(400, 'Bad parameter')
+
+    try:
+        path_prefix = os.path.join(request.folder, 'downloads', 'firmware')
+        config_path = os.path.join(path_prefix, 'firmwares.json')
+        config_json = open(config_path, 'r').read()
+
+        config_data = gluon.contrib.simplejson.loads(config_json)
+        firmware_config = config_data[device_type][hardware_version]
+    except:
+        raise HTTP(400, 'Invalid request')
+
+    del firmware_config['filename']
+    return gluon.contrib.simplejson.dumps(firmware_config)
+
 def firmware():
     """
     Return latest firmware for requested device.
@@ -17,8 +48,11 @@ def firmware():
     :return: Firmware file as octet stream.
     """
 
-    device_type = request.vars['dt']
-    hardware_version = request.vars['hw']
+    try:
+        device_type = request.vars['dt']
+        hardware_version = request.vars['hw']
+    except:
+        raise HTTP(400, 'Bad parameter')
 
     try:
         path_prefix = os.path.join(request.folder, 'downloads', 'firmware')
