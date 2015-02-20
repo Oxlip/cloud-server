@@ -133,6 +133,14 @@ p {
 p img {
     margin: 0;
 }
+
+.product_sample {
+   padding:2px;
+   border:1px solid #021a40;
+    border-radius: 1%;
+   background-color:#ffffff;
+}
+
 a {
     color: #d3145a;
     font: 15px/26px 'Open Sans', sans-serif;
