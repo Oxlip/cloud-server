@@ -69,7 +69,7 @@
     });
     
 
- </script>
+</script>
 </head>
 
 <body>
@@ -77,140 +77,52 @@
 <div id="qLoverlay"></div>
 <div id="top"></div>
 
-<!-- landing banner image 1 -->
+
 <div class="home-slider">
-  <section class="hero parallax-background parallax-background1">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero_inety">
-          <div class="slider_logo" ><img src="{{=URL('static', 'images/nuton-header-logo.png')}}" alt="header-logo" ></div>
-          <!--<div class="hero-copy wide tinfont coustom_clas">One Home One Control</div> -->
-          <div class="play_btn"> <a href="//www.youtube.com/watch?v=7nUNfol2jOU" class="lightbox-gallery mfp-iframe"> <span class="play_btn_icon"> <i class="fa fa-play"></i> </span> </a> </div>
-        </div>
-        <div class="form_sin_upp container">
-          <div class="errow_messate_box" id="dic1">Everybody has an email!</div>
-          <div class="errow_messate_box_text" id="prt1" >Please enter valid email address</div>
-          <div class="promocode_accept" id="did1">Promo code accepted, put your email and sign up.</div>
-          <div class="promocode_accept_worng" id="div1">You Can Register Without Code As Well</div>
-          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-            <input type="text" class="ssffgt" name="email" placeholder="you@example.com" id="email1">
-            <input type="button"  value="sign up" onClick="validateEmail(1)" >
-          </form>
-        </div>
-        <div class="bg_clich"></div>
-      </div>
-    </div>
-    <div id="social" class="wow fadeInUp" data-wow-offset="0">
-      <ul>
-        <li><a href="//www.facebook.com/Nutons" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="//twitter.com/NutonIOT" target="_blank"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="//plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
-      </ul>
-      <div class="ddreew"> <span class="p_code_list l1" data-i="1"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
-        <input type="text" data-i="1" id="name" data-i="1" class="c-text1 blink_no" placeholder=" Enter Code Here" value="" />
-        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
-    </div>
-  </section>
 
-  <!-- landing banner image 2 -->
-  <section class="hero parallax-background parallax-background2">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <h1 class="big_white">Nuton gives you <span class="element" data-elements="Convenience, Freedom, Style"></span> </h1>
-        <div class="hero-copy">One Home One Control</div>
-        <span class="btn-holder"></span>
-        <div class="form_sin_upp container">
-          <div class="errow_messate_box" id="dic2">Everybody has an email!</div>
-          <div class="errow_messate_box_text" id="prt2" >Please enter valid email address</div>
-          <div class="promocode_accept" id="did2">Promo code accepted, put your email and sign up.</div>
-          <div class="promocode_accept_worng" id="div2">You Can Register Without Code As Well</div>
-          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-            <input type="text" name="email" placeholder="you@example.com" id="email2">
-            <input type="button"  value="sign up" onClick="validateEmail(2)">
-          </form>
+  {{for i, background in enumerate(backgrounds):}}
+    <section class="hero parallax-background parallax-background{{=i+1}}">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="hero-inner">
+          {{if i == 0:}}
+            <div class="hero_inety">
+              <div class="slider_logo" ><img src="{{=URL('static', 'images/nuton-header-logo.png')}}" alt="header-logo" ></div>
+              <div class="play_btn"> <a href="//www.youtube.com/watch?v=7nUNfol2jOU" class="lightbox-gallery mfp-iframe"> <span class="play_btn_icon"> <i class="fa fa-play"></i> </span> </a> </div>
+            </div>
+          {{else:}}
+            <h1 class="big_white">
+              {{=background['prefix']}} <span class="element" data-elements="{{=background['suffix']}}"></span>
+            </h1>
+            <div class="hero-copy">One Home One Control</div>
+          {{pass}}
+          <span class="btn-holder"></span>
+          <div class="form_sin_upp container">
+            <div class="errow_messate_box" id="dic{{=i}}">Please enter your email!</div>
+            <div class="errow_messate_box_text" id="prt{{=i}}" >Please enter valid email address</div>
+            <div class="promocode_accept" id="did{{=i}}">Promo code accepted, enter your email and sign up.</div>
+            <div class="promocode_accept_worng" id="div{{=i}}">You can register without promo code as well</div>
+            <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+              <input type="text" name="email" placeholder="you@example.com" id="email{{=i}}">
+              <input type="button"  value="sign up" onClick="validateEmail({{=i}})">
+            </form>
+          </div>
+          <div class="bg_clich"></div>
         </div>
-        <div class="bg_clich"></div>
       </div>
-    </div>
-    <div id="social" class="wow fadeInUp" data-wow-offset="0">
-      <ul>
-        <li><a href="//www.facebook.com/Nutons" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="//twitter.com/NutonIOT" target="_blank"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="//plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
-      </ul>
-      <div class="ddreew"> <span class="p_code_list l2" data-i="2"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
-        <input type="text" data-i="2" class="c-text1 blink_no" id="code_arena" placeholder=" Enter Code Here" value="">
-        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
-    </div>
-  </section>
+      <div id="social" class="wow fadeInUp" data-wow-offset="0">
+        <ul>
+          <li><a href="//www.facebook.com/Nutons" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="//twitter.com/NutonIOT" target="_blank"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="//plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
+        </ul>
+        <div class="ddreew"> <span class="p_code_list l{{=i}}" data-i="{{=i}}"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
+          <input type="text" data-i="{{=i}}" class="c-text1 blink_no" id="code_arena" placeholder=" Enter code here" value="">
+          </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
+      </div>
+    </section>
+  {{pass}}
 
-  <!-- landing banner image 3 -->
-  <section class="hero parallax-background parallax-background3">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <h1 class="big_white">With Nuton you save <span class="element" data-elements="Time, Money, Electricity"></span> </h1>
-        <div class="hero-copy">One Home One Control</div>
-        <span class="btn-holder"></span>
-        <div class="form_sin_upp container">
-          <div class="errow_messate_box" id="dic3">Everybody has an email!</div>
-          <div class="errow_messate_box_text" id="prt3" >Please enter valid email address!</div>
-          <div class="promocode_accept" id="did3">Promo code accepted, enter your email and sign up.</div>
-          <div class="promocode_accept_worng" id="div3">You can register without a promo code as well</div>
-          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-            <input type="text" name="email" placeholder="you@example.com" id="email3">
-            <input type="button"  value="sign up" onClick="validateEmail(3)">
-          </form>
-        </div>
-        <div class="bg_clich"></div>
-      </div>
-    </div>
-    <div id="social" class="wow fadeInUp" data-wow-offset="0">
-      <ul>
-        <li><a href="//www.facebook.com/Nutons" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="//twitter.com/NutonIOT" target="_blank"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="//plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
-      </ul>
-      <div class="ddreew"> <span class="p_code_list l3" data-i="3"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
-        <input type="text" data-i="3" class="c-text1 blink_no" placeholder=" Enter Code Here" value="">
-        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
-    </div>
-  </section>
-
-  <!-- landing banner image 4 -->
-  <section class="hero parallax-background parallax-background4">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <h1 class="big_white">Nuton is designed for <span class="element" data-elements="You, Your Friends, Your Family"></span> </h1>
-        <div class="hero-copy">One Home One Control</div>
-        <span class="btn-holder"></span>
-        <div class="form_sin_upp container">
-          <div class="errow_messate_box c1" id="dic4">Everybody has an email!</div>
-          <div class="errow_messate_box_text d1" id="prt4" >Please Enter Currect Email!</div>
-          <div class="promocode_accept" id="did4">Promo code accepted, put your email and sign up.</div>
-          <div class="promocode_accept_worng" id="div4">You Can Register Without Code As Well</div>
-          <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-            <input type="text" name="email" placeholder="you@example.com" id="val4"  autocomplete="off"onkeyup="$('#val4').val($(this).val())">
-            <input type="button"  value="sign up" onClick="validateEmail(4)">
-          </form>
-        </div>
-        <div class="bg_clich"></div>
-      </div>
-    </div>
-    <div id="social" class="wow fadeInUp" data-wow-offset="0">
-      <ul>
-        <li><a href="//www.facebook.com/Nutons" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="//twitter.com/NutonIOT" target="_blank"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="//plus.google.com/u/0/116562684728809532541/about" target="_blank"><i class="fa fa-google"></i></a></li>
-      </ul>
-      <div class="ddreew"> <span class="p_code_list l4" data-i="4"><a><i class="fa fa-pcode">C</i></a> </span> <span class="promo_input_box">
-        <input type="text" data-i="4" class="c-text1 blink_no" placeholder=" Enter Code Here" value="">
-        </span> <img src="{{=URL('static', 'images/right_icon.png')}}" alt="" class="right_sing1"> <img src="{{=URL('static', 'images/worng_icon.png')}}" alt="" class="worng_sing1"> </div>
-    </div>
-  </section>
 </div>
 
   <!-- Floating header/main Menu -->

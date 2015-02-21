@@ -162,8 +162,27 @@ def index():
         }
     ]
 
+    backgrounds = [
+        {
+            'prefix': '',
+            'suffix': ''
+        },
+        {
+            'prefix': 'Nuton gives you',
+            'suffix': 'Convenience, Freedom, Style'
+        },
+        {
+            'prefix': 'With Nuton you save ',
+            'suffix': 'Time, Money, Electricity'
+        },
+        {
+            'prefix': 'Nuton is designed for ',
+            'suffix': 'You, Your Friends, Your Family'
+        }
+    ]
+
     response.view = 'index.html'
-    return dict(products=products, faqs=faqs)
+    return dict(products=products, faqs=faqs, backgrounds=backgrounds)
 
 
 def get_promo_code(num_chars):
