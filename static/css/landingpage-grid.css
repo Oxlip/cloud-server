@@ -180,7 +180,7 @@ button, input[type="button"], input[type="reset"], input[type="submit"] {
 
 .container {
   margin: 0 auto;
-  max-width: 1140px; /* Change per design */
+  max-width: 1400px; /* Change per design */
   width: 90%; /* For responsive, 5% left and right of mobile phone screen. */
 }
 
