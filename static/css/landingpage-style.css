@@ -1125,7 +1125,7 @@ h1.big_white.border {
 
 
 .parallax-background1 {
-    background-image: url(../images/bg/banner-1.jpg);
+    background-image: url(../images/bg/banner-img.jpg);
 }
 
 .parallax-background2 {
@@ -1133,12 +1133,11 @@ h1.big_white.border {
 }
 
 .parallax-background3 {
-    background-image: url(../images/bg/banner-3.jpg);
+    background-image: url(../images/bg/banner-product1.jpg);
 }
 
 .parallax-background4 {
-   /* background-image: url(../images/bg/parallax-change.jpg); */
-   background-image: url(../images/bg/banner-4.jpg);
+   background-image: url(../images/bg/banner-product2.jpg);
 }
 
 .parallax-background5 { /* place holder between Products and Features */
