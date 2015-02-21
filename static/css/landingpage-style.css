@@ -2389,8 +2389,8 @@ ul.filter > li, ul.filter-target > li {
 ul.filter > li a, ul.filter-target > li a{
     display: inline-block;
     line-height: 90px;
-    font-size: 13px;
-    color: #adadad;
+    font-size: 0.8em;
+    color: #000021;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     text-align: center;
