@@ -2721,6 +2721,15 @@ footer .errow_messate_box{
     padding-bottom: 80px;
 
 }
+.faq_question {
+    color:black;
+    font-size: 1em;
+}
+.faq_answer {
+    color:black;
+    font-size: 1.2em;
+}
+
 #features {
     text-align: center;
     padding-bottom: 80px;

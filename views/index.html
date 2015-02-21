@@ -282,11 +282,11 @@
       <div class="row">
           <div class="accordion">
               {{for faq in faqs:}}
-                <div class="accordion-wrap">
+                <div class="accordion-wrap faq_question">
                   <div class="title">
                       <a class="faq_question" href="javascript:void(0);">{{=faq['question']}}</a>
                   </div>
-                  <div class="content">
+                  <div class="content faq_answer">
                     {{=faq['answer']}}
                   </div>
                 </div>
