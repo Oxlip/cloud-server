@@ -6,8 +6,123 @@ from gluon.tools import Mail
 
 
 def index():
+    products = [
+        {
+            'name': 'aura',
+            'title': 'Aura the Plug',
+            'desc': 'Aura is a smart plug which will automatically control your lights and other appliances. '
+                    'It also allows wireless control appliances. '
+                    'Also it can monitor current consumption of each appliance.',
+            'album': ['aura-1.png', 'aura-2.jpg', 'aura-3.jpg', 'aura-4.jpg'],
+            'infographic': 'aura.jpg',
+            'spec': {
+                    'Electronics': [
+                        'Bluetooth Smart 4.1'
+                    ],
+                    'Electrical': [
+                        'Current: 15A',
+                        'Voltage: 100v-240v'
+                    ],
+                    'Dimension': [
+                        'Height: 5cm',
+                        'Width: 4.5cm',
+                        'Depth: 3.5cm',
+                        'Weight: 100g'
+                    ],
+            }
+        },
+        {
+            'name': 'lyra',
+            'title': 'Lyra the Touch',
+            'desc': 'Lyra is a slim, wireless switch which can used along with Aura and Mira to control appliances. '
+                    'It can moved and placed anywhere within a house. ',
+            'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
+            'infographic': 'lyra.jpg',
+            'spec': {
+                    'Electronics': [
+                        'Bluetooth Smart 4.1'
+                    ],
+                    'Electrical': [
+                        'Battery: 2032'
+                    ],
+                    'Dimension': [
+                        'Height: 5cm',
+                        'Width: 3cm',
+                        'Depth: 1cm',
+                        'Weight: 50g'
+                    ],
+            }
+        },
+        {
+            'name': 'lyrap',
+            'title': 'Lyra+ the Sense',
+            'desc': 'Lyra+ is a slim, wireless switch which can used along with Aura and Mira to control appliances. '
+                    'It can moved and placed anywhere within a house. '
+                    'It also has extra sensors(motion, temperature, humidity, light) which can automate things based environment',
+            'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
+            'infographic': 'lyra.jpg',
+            'spec': {
+                    'Electronics': [
+                        'Bluetooth Smart 4.1'
+                    ],
+                    'Electrical': [
+                        'Battery: 2 x AAA'
+                    ],
+                    'Dimension': [
+                        'Height: 5cm',
+                        'Width: 3cm',
+                        'Depth: 2cm',
+                        'Weight: 80g'
+                    ],
+            }
+        },
+        {
+            'name': 'hub',
+            'title': 'Hub',
+            'desc': 'Hub enables controlling your appliances from internet.',
+            'album': ['hub-1.jpg', 'hub-2.jpg', 'hub-3.jpg', 'hub-4.jpg'],
+            'infographic': 'hub.jpg',
+            'spec': {
+                    'Electronics': [
+                        'Wifi N',
+                        'Bluetooth Smart 4.1'
+                    ],
+                    'Electrical': [
+                        'Power Connector: Micro USB'
+                    ],
+                    'Dimension': [
+                        'Height: 9cm',
+                        'Width: 6cm',
+                        'Depth: 2cm',
+                        'Weight: 100g'
+                    ],
+            }
+        },
+        {
+            'name': 'mira',
+            'title': 'Mira the Switch',
+            'desc': 'Mira replaces the conventional switch with style.',
+            'album': ['mira-1.jpg', 'mira-2.jpg', 'mira-3.jpg', 'mira-4.jpg'],
+            'infographic': 'mira.jpg',
+            'spec': {
+                    'Electronics': [
+                        'Bluetooth Smart 4.1'
+                    ],
+                    'Electrical': [
+                        'Current: 15A',
+                        'Voltage: 100v-240v'
+                    ],
+                    'Dimension': [
+                        'Height: 9cm',
+                        'Width: 6cm',
+                        'Depth: 2cm',
+                        'Weight: 100g'
+                    ],
+            }
+        },
+    ]
     response.view = 'index.html'
-    return dict()
+    return dict(products=products)
 
 
 def get_promo_code(num_chars):

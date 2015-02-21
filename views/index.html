@@ -263,292 +263,51 @@
     </div>
     <div class="top_border_row" id="option-section">
       <div class="container">
-        <div class="row inner_opction" id="aura">
-          <div class="column four">
-            <ul class="bb-custom-grid" id="bb-custom-grid">
-                <p>
+        {{for product in products:}}
+          <div class="row inner_opction" id="{{=product['name']}}">
+            <div class="column four">
+              <ul class="bb-custom-grid" id="bb-custom-grid">
                   <div>
-                    <a class="fancybox" href="{{=URL('static', 'images/album/aura-1.jpg')}}" data-fancybox-group="aura-gallery" title="Aura the Plug"><img class="product_sample" src="{{=URL('static', 'images/album/aura-1.jpg')}}" alt="Aura the Plug"/></a>
-                    <a class="fancybox" href="{{=URL('static', 'images/album/aura-2.jpg')}}" data-fancybox-group="aura-gallery" title="Aura the Plug"></a>
-                    <a class="fancybox" href="{{=URL('static', 'images/album/aura-3.jpg')}}" data-fancybox-group="aura-gallery" title="Aura the Plug"></a>
-                    <a class="fancybox" href="{{=URL('static', 'images/album/aura-4.jpg')}}" data-fancybox-group="aura-gallery" title="Aura the Plug"></a>
+                    {{for i, image in enumerate(product['album']):}}
+                      <a class="fancybox" href="{{=URL('static', 'images/album/' + image)}}" data-fancybox-group="{{=product['name']}}-gallery" title="{{=product['title']}}">
+                      {{if i == 0:}}
+                          <img style="background:transparent;" src="{{=URL('static', 'images/album/' + image)}}" alt="{{=product['title']}}"/>
+                      {{pass}}
+                      </a>
+                    {{pass}}
                   </div>
-                </p>
-            </ul>
-           </div>       
-
-        <div class="column four border border_left libk_libk">
-            <div class="libk_libk_inner">
-              <h3>Aura the Plug</h3>
-              <p>Aura is a smart plug which will automatically control your lights and other appliances. It also allows wireless control appliances. Also it can monitor current consumption of each appliance.</p>
-              <div class="butt_two lm-button ls fill">Specifications</div>
-              <div class="butt_one lm-button ls fill sact">How it works?</div>
-
+              </ul>
             </div>
-          </div>
-          <div class="column four">
-            <ul class="lb-album">
-              <div class="first_para">
-                <a class="fancybox" href="{{=URL('static', 'images/infographic/aura.jpg')}}"  data-fancybox-group="aura-infographic" title="Aura Usage"><img src="{{=URL('static', 'images/infographic/aura.jpg')}}" alt="Aura Usage"/></a>
+            <div class="column four border border_left libk_libk">
+              <div class="libk_libk_inner">
+                <h3>{{=product['title']}}</h3>
+                <p>{{=product['desc']}}</p>
+                <div class="butt_two lm-button ls fill">Specifications</div>
+                <div class="butt_one lm-button ls fill sact">How it works?</div>
               </div>
-            </ul>
-            <div class="second_para">
-              <div class="para_inner">
-                Electronics
-                <ul>
-                  <li>Bluetooth Smart 4.1</li>
-                </ul>
-                Electrical
-                <ul>
-                  <li>Current: 15A</li>
-                  <li>Voltage: 100v-240v</li>
-                </ul>
-                </ul>
-                Dimension
-                <ul>
-                  <li>Height: 5cm</li>
-                  <li>Width: 4.5cm</li>
-                  <li>Depth: 3.5cm</li>
-                </ul>
-                Weight
-                <ul>
-                  <li>50g</li>
-                </ul>
+            </div>
+            <div class="column four">
+              <ul class="lb-album">
+                <div class="first_para">
+                  <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['infographic'])}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}} Usage">
+                  <img src="{{=URL('static', 'images/infographic/' + product['infographic'])}}" alt="{{=product['name']}}"/></a>
+                </div>
+              </ul>
+              <div class="second_para">
+                <div class="para_inner">
+                  {{for spec_name, spec_items in product['spec'].iteritems():}}
+                    {{=spec_name}}
+                    <ul>
+                        {{for item in spec_items:}}
+                          <li>{{=item}}</li>
+                        {{pass}}
+                    </ul>
+                  {{pass}}
+                </div>
               </div>
             </div>
           </div>
-        </div> 
-        <div class="row inner_opction" id="lyra">
-          <div class="column four "> 
-            <ul class="bb-custom-grid" id="bb-custom-grid">
-              <h3>Simple image gallery</h3>
-                <p>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}"  data-fancybox-group="gallery" title="Image-Aura-1"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image01"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-2"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image02"/></a>
-                  </div>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-3"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image03"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-4"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image04"/></a>
-                      </div>
-                </p>
-            </ul>
-           </div>       
-
-        <div class="column four border border_left libk_libk">
-            <div class="libk_libk_inner">
-              <div class="butt_one lm-button ls fill sact">For You and Me</div>
-              <div class="butt_two lm-button ls fill">For Geeks</div>
-            </div>
-          </div>
-          <div class="column four">
-            <ul class="lb-album">
-            <div class="first_para">
-              <iframe src="//www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </ul>
-            <div class="second_para">
-              <div class="para_inner">
-                <div class="para_title">SPECS</div>
-                Electrical
-                <ul>
-                  <li>Demo One</li>
-                  <li>Demo Two</li>
-                  <li>Demo Three</li>
-                  <li>Demo Four</li>
-                </ul>
-                Color
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Dimension
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Weight
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row inner_opction" id="lyra+">
-          <div class="column four "> 
-            <ul class="bb-custom-grid" id="bb-custom-grid">
-              <h3>Simple image gallery</h3>
-                <p>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}"  data-fancybox-group="gallery" title="Image-Aura-1"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image01"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-2"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image02"/></a>
-                  </div>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-3"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image03"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-4"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image04"/></a>
-                      </div>
-                </p>
-            </ul>
-           </div>       
-
-        <div class="column four border border_left libk_libk">
-            <div class="libk_libk_inner">
-              <div class="butt_one lm-button ls fill sact">For You and Me</div>
-              <div class="butt_two lm-button ls fill">For Geeks</div>
-            </div>
-          </div>
-          <div class="column four">
-            <ul class="lb-album">
-            <div class="first_para">
-              <iframe src="//www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </ul>
-            <div class="second_para">
-              <div class="para_inner">
-                <div class="para_title">SPECS</div>
-                Electrical
-                <ul>
-                  <li>Demo One</li>
-                  <li>Demo Two</li>
-                  <li>Demo Three</li>
-                  <li>Demo Four</li>
-                </ul>
-                Color
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Dimension
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Weight
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row inner_opction" id="hub">
-          <div class="column four "> 
-            <ul class="bb-custom-grid" id="bb-custom-grid">
-
-              <h3>Simple image gallery</h3>
-  <p>
-    <div>
-    <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}"  data-fancybox-group="gallery" title="Image-Aura-1"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image01"/></a>
-
-    <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-2"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image02"/></a>
-    </div>
-    <div>
-    <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-3"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image03"/></a>
-
-    <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-4"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image04"/></a>
-    </div>
-  </p>
-
-
-
-            </ul>
-          </div>
-          <div class="column four border border_left libk_libk">
-            <div class="libk_libk_inner">
-              <div class="butt_one lm-button ls fill sact">For You and Me</div>
-              <div class="butt_two lm-button ls fill">For Geeks</div>
-            </div>
-          </div>
-          <div class="column four">
-            <div class="first_para">
-              <iframe src="//www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="second_para">
-              <div class="para_inner">
-                <div class="para_title">SPECS</div>
-                Electrical
-                <ul>
-                  <li>Demo One</li>
-                  <li>Demo Two</li>
-                  <li>Demo Three</li>
-                  <li>Demo Four</li>
-                </ul>
-                Color
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Dimension
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Weight
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> 
-    
-          <div class="row inner_opction" id="mira">
-            <div class="column four "> 
-            <ul class="bb-custom-grid" id="bb-custom-grid">
-              <h3>Simple image gallery</h3>
-                <p>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}"  data-fancybox-group="gallery" title="Image-Aura-1"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image01"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-2"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image02"/></a>
-                  </div>
-                  <div>
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-3"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image03"/></a>
-
-                      <a class="fancybox" href="{{=URL('static', 'images/album/Place-Holder.jpg')}}" data-fancybox-group="gallery" title="Image-Aura-4"><img src="{{=URL('static', 'images/album/Astral-150x150.jpg')}}" alt="image04"/></a>
-                      </div>
-                </p>
-            </ul>
-           </div>       
-
-        <div class="column four border border_left libk_libk">
-            <div class="libk_libk_inner">
-              <div class="butt_one lm-button ls fill sact">For You and Me</div>
-              <div class="butt_two lm-button ls fill">For Geeks</div>
-            </div>
-          </div>
-          <div class="column four">
-            <ul class="lb-album">
-            <div class="first_para">
-              <iframe src="//www.youtube.com/embed/_Is1Camd8YA?theme=light" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </ul>
-            <div class="second_para">
-              <div class="para_inner">
-                <div class="para_title">FEATURES</div>
-                Electrical
-                <ul>
-                  <li>Demo One</li>
-                  <li>Demo Two</li>
-                  <li>Demo Three</li>
-                  <li>Demo Four</li>
-                </ul>
-                Color
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Dimension
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-                Weight
-                <ul>
-                  <li>Demo One</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
- 
+        {{pass}}
       </div>
     </div>
     </section> <!-- Product Menu End-->
