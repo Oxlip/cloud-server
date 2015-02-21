@@ -368,85 +368,22 @@
     </header>
     <div class="container">
       <div class="row">
-        <div class="">
           <div class="accordion">
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">What is Nuton?</a> </div>
-              <div class="content">
-                <p>Nuton is a family of modern and equally advanced set of home appliances to make your daily life easy, safe and fashionable. </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-            <div class="title"><a class="faq_question" href="javascript:void(0);">How many members are there in Nuton Family?</a> </div>
-              <div class="content">
-                <p>Nuton family currently has 3 members. Aura, the smart plug, Lyra, the smart touch switch, and an easy to use smart phone application. New members are on its way.</p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-            <div class="title"><a class="faq_question" href="javascript:void(0);">What does Nuton do for me ? </a> </div>
-              <div class="content">
-                <p> Nuton family members are designed to make you happy. They save your money, electricity and time in the most trendy and convenient ways. Forgot to turn off your electric geyser, Aura can warn you. Want the TV to start recording your favorite show on a certain time, Aura can do it. Not just that, you can control the brightness of your bulbs to match your mood using the extremely easy-to-use your cell phone application. Something you can flaunt ! </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">How does Nuton save electricity ?</a> </div>
-              <div class="content">
-                <p> Nuton saves electricity by carefully monitoring your electric usage and turning off the devices when not in use. Nuton also detects an empty house and makes sure no electricity is wasted.</p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">Does Nuton need internet to operate ?</a> </div>
-              <div class="content">
-                <p> Nuton devices are not dependent on Internet. Nuton uses Bluetooth technology and it can be used along with any modern day cell phone. </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">Are Nuton products safe for my family ?</a> </div>
-              <div class="content">
-                <p> Nuton is extremely friendly and 100% safe for everyone. Nuton members are designed keeping in mind every safety aspect and its also certified by xxxx" </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">How does Nuton keep a track of my electricity usage ?</a> </div>
-              <div class="content">
-                <p> Nuton devices have an inbuilt advanced microchip which keeps track of every unit of energy consumed by your electric appliances. It doesn't matter if the device is under-use or is on stand-by. </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">Can I just buy Aura or Lyra or do I have to buy both ?</a> </div>
-              <div class="content">
-                <p> You can simply buy Aura and use it with your smart phone application. For Lyra, you have to also have Aura as Lyra works along with Aura. Lyra can also be controlled by your smart phone. </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">How do I install Nuton products ? </a> </div>
-              <div class="content">
-                <p> Nuton members are designed to be a painless experience and it's modern design makes it easier for anybody to simply start using it. No electrician or help required. </p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">What kind of support/Services do you offer? </a> </div>
-              <div class="content">
-                <p> All Nuton members come with a life time warranty. In an unlikely event of trouble with the product, you can contact us on 1-800-6789 or email at info@nuton.in</p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);">When and where can I buy these products ?  </a> </div>
-              <div class="content">
-                <p> Our team is constantly working towards making your experience better. Please sign-up with your email and we promise to contact you as soon as we launch.</p>
-              </div>
-            </div>
-            <div class="accordion-wrap">
-              <div class="title"><a class="faq_question" href="javascript:void(0);"> Give me some examples of how I can use Aura and Lyra.  </a> </div>
-              <div class="content">
-                <p> Please refer to our <a href="//blog.nuton.in/">blog</a> to see how Nuton memebers make your life easier and happier .</p>
-              </div>
-            </div>
+              {{for faq in faqs:}}
+                <div class="accordion-wrap">
+                  <div class="title">
+                      <a class="faq_question" href="javascript:void(0);">{{=faq['question']}}</a>
+                  </div>
+                  <div class="content">
+                    {{=faq['answer']}}
+                  </div>
+                </div>
+              {{pass}}
           </div>
-        </div>
       </div>
     </div>
   </section>
+
   <section id="contact" class="gray">
     <div class="container">
       <div class="row">

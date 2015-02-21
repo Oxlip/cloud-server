@@ -121,8 +121,49 @@ def index():
             }
         },
     ]
+
+    faqs = [
+        {
+            'question': 'What is Nuton and what does it do for me?',
+            'answer': 'Nuton is a family of modern and equally advanced set of home appliances to make your daily life easy, safe and fashionable. '
+                      'Nuton family members are designed to make you happy. They save your money, electricity and time in the most trendy and convenient ways. '
+                      'Forgot to turn off your electric geyser, Aura can warn you. '
+                      'Want the TV to start recording your favorite show on a certain time, Aura can do it. '
+                      'Not just that, you can control the brightness of your bulbs to match your mood using the extremely easy-to-use your cell phone application.'
+        },
+        {
+            'question': 'How does Nuton save electricity?',
+            'answer': 'Nuton saves electricity by carefully monitoring your electric usage and turning off the devices when not in use. '
+                      'Nuton also detects an empty house and makes sure no electricity is wasted.'
+        },
+        {
+            'question': 'Does Nuton need internet to operate?',
+            'answer': 'Nuton devices does not dependent on Internet. '
+                      'Nuton uses Bluetooth technology and it can be used along with any modern day cell phone.'
+        },
+        {
+            'question': 'Are Nuton products safe for my family?',
+            'answer': 'Nuton is extremely friendly and 100% safe for everyone. '
+                      'Nuton members are designed keeping in mind every safety aspect and its also CE certified.'
+        },{
+            'question': 'How does Nuton keep a track of my electricity usage?',
+            'answer': 'Nuton devices have an inbuilt advanced microchip which keeps track of every unit of energy consumed by your electric appliances.'
+                      'It does not matter if the device is under-use or is on stand-by.'
+        },
+        {
+            'question': 'How do I install Nuton products?',
+            'answer': 'Nuton members are designed to be a painless experience and its modern design makes it easier for anybody to simply start using it.'
+                      'No electrician or help required.'
+        },
+        {
+            'question': 'Can I just buy Aura or Lyra or do I have to buy both?',
+            'answer': 'You can simply buy Aura and use it with your smart phone application.'
+                      'For Lyra, you have to also have Aura as Lyra works along with Aura.'
+        }
+    ]
+
     response.view = 'index.html'
-    return dict(products=products)
+    return dict(products=products, faqs=faqs)
 
 
 def get_promo_code(num_chars):
