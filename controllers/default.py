@@ -13,7 +13,8 @@ def index():
             'desc': 'Aura is a smart plug which will automatically control your lights and other appliances. '
                     'It also allows wireless control appliances. '
                     'Also it can monitor current consumption of each appliance.',
-            'album': ['aura-1.png', 'aura-2.jpg', 'aura-3.jpg', 'aura-4.jpg'],
+            'main-img': 'aura-main.png',
+            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
             'infographic': 'aura.jpg',
             'spec': {
                     'Electronics': [
@@ -36,6 +37,7 @@ def index():
             'title': 'Lyra the Touch',
             'desc': 'Lyra is a slim, wireless switch which can used along with Aura and Mira to control appliances. '
                     'It can moved and placed anywhere within a house. ',
+            'main-img': 'lyra-main.png',
             'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
             'infographic': 'lyra.jpg',
             'spec': {
@@ -59,6 +61,7 @@ def index():
             'desc': 'Lyra+ is a slim, wireless switch which can used along with Aura and Mira to control appliances. '
                     'It can moved and placed anywhere within a house. '
                     'It also has extra sensors(motion, temperature, humidity, light) which can automate things based environment',
+            'main-img': 'lyra-main.png',
             'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
             'infographic': 'lyra.jpg',
             'spec': {
@@ -80,6 +83,7 @@ def index():
             'name': 'hub',
             'title': 'Hub',
             'desc': 'Hub enables controlling your appliances from internet.',
+            'main-img': 'hub-main.png',
             'album': ['hub-1.jpg', 'hub-2.jpg', 'hub-3.jpg', 'hub-4.jpg'],
             'infographic': 'hub.jpg',
             'spec': {
@@ -102,6 +106,7 @@ def index():
             'name': 'mira',
             'title': 'Mira the Switch',
             'desc': 'Mira replaces the conventional switch with style.',
+            'main-img': 'mira-main.png',
             'album': ['mira-1.jpg', 'mira-2.jpg', 'mira-3.jpg', 'mira-4.jpg'],
             'infographic': 'mira.jpg',
             'spec': {

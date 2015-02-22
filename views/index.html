@@ -151,7 +151,7 @@
                     {{for i, image in enumerate(product['album']):}}
                       <a class="fancybox" href="{{=URL('static', 'images/album/' + image)}}" data-fancybox-group="{{=product['name']}}-gallery" title="{{=product['title']}}">
                       {{if i == 0:}}
-                          <img style="background:transparent;" src="{{=URL('static', 'images/album/' + image)}}" alt="{{=product['title']}}"/>
+                          <img src="{{=URL('static', 'images/album/' + product['main-img'])}}" alt="{{=product['title']}}"/>
                       {{pass}}
                       </a>
                     {{pass}}
