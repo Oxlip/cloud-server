@@ -870,6 +870,7 @@ if (!Array.prototype.indexOf) {
   }
 })(jQuery);
 
+
 function validateEmail(id) {
   var str1 = "";
   var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;

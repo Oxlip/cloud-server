@@ -185,6 +185,15 @@ def index():
     return dict(products=products, faqs=faqs, backgrounds=backgrounds)
 
 
+def feedback():
+    email = request.vars['email']
+    fullname = request.vars['fullname']
+    subject = request.vars['subject']
+    message = request.vars['message']
+
+    return 'Thanks for sharing your feedback. We will go through your feedback and contact you if needed.'
+
+
 def get_promo_code(num_chars):
     code_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     code = ''
@@ -230,7 +239,6 @@ def _send_mail(email_to, promo_code):
         raise
 
     return
-
 
 
 def subscribe():
