@@ -38,7 +38,7 @@ def index():
             'desc': 'Lyra is a slim, wireless switch which can used along with Aura and Mira to control appliances. '
                     'It can moved and placed anywhere within a house. ',
             'main-img': 'lyra-main.png',
-            'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
+            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
             'infographic': 'lyra.jpg',
             'spec': {
                     'Electronics': [
@@ -62,7 +62,7 @@ def index():
                     'It can moved and placed anywhere within a house. '
                     'It also has extra sensors(motion, temperature, humidity, light) which can automate things based environment',
             'main-img': 'lyra-main.png',
-            'album': ['lyra-1.jpg', 'lyra-2.jpg', 'lyra-3.jpg', 'lyra-4.jpg'],
+            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
             'infographic': 'lyra.jpg',
             'spec': {
                     'Electronics': [
@@ -84,7 +84,7 @@ def index():
             'title': 'Hub',
             'desc': 'Hub enables controlling your appliances from internet.',
             'main-img': 'hub-main.png',
-            'album': ['hub-1.jpg', 'hub-2.jpg', 'hub-3.jpg', 'hub-4.jpg'],
+            'album': ['hub-1.png', 'hub-2.png', 'hub-3.png', 'hub-4.png'],
             'infographic': 'hub.jpg',
             'spec': {
                     'Electronics': [
