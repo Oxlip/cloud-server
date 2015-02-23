@@ -35,34 +35,36 @@ function sendMessage(url) {
   subject = $('#feedback_subject').val();
   message = $('#feedback_message').val();
 
-
-  $.ajax({
-        url: url + "?email=" + email + "&fullname=" + fullname + "&subject=" + subject + "&message=" + message ,
-        cache: false,
-        success: function(res) {
-            var qtip_target = $('#feedback_message');
-            qtip_target.qtip({
-                id: 'messageTooltip',
-                content: {
-                    text: res,
-                    title: 'Message posted'
-                },
-                position: {
-                    my: 'top left',
-                    at: 'center',
-                    target: qtip_target
-                },
-                events: {
-                    hide: function(event, api) {
-                        api.destroy();
-                    }
-                },
-                style: {
-                   classes: 'qtip-youtube'
+  $.get(url, {
+        'email': email,
+        'fullname': fullname,
+        'subject': subject,
+        'message': message
+      },
+    function(res) {
+        var qtip_target = $('#feedback_message');
+        qtip_target.qtip({
+            id: 'messageTooltip',
+            content: {
+                text: res,
+                title: 'Message posted'
+            },
+            position: {
+                my: 'top left',
+                at: 'center',
+                target: qtip_target
+            },
+            events: {
+                hide: function(event, api) {
+                    api.destroy();
                 }
-            });
-            var qtip2_api = qtip_target.qtip('api');
-            qtip2_api.show();
-        }
-  });
+            },
+            style: {
+               classes: 'qtip-youtube'
+            }
+        });
+        var qtip2_api = qtip_target.qtip('api');
+        qtip2_api.show();
+    }
+  );
 }
