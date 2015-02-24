@@ -26,6 +26,8 @@ $(document).ready(function() {
 
       });
 
+    $('.tabs').tabslet();
+
 });
 
 function sendMessage(url) {

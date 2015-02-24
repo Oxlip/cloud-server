@@ -158,32 +158,48 @@
                   </div>
               </ul>
             </div>
-            <div class="column four border border_left libk_libk">
-              <div class="libk_libk_inner">
-                <h3>{{=product['title']}}</h3>
-                <p>{{=product['desc']}}</p>
-                <div class="butt_two lm-button ls fill">Specifications</div>
-                <div class="butt_one lm-button ls fill sact">How it works?</div>
-              </div>
+            <div  class="column four border border_left libk_libk">
+              <h3 class="product_name">{{=product['title']}}</h3>
+              <p class="product_desc">{{=product['desc']}}</p>
             </div>
-            <div class="column four">
-              <ul class="lb-album">
-                <div class="first_para">
-                  <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['infographic'])}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}} Usage">
-                  <img src="{{=URL('static', 'images/infographic/' + product['infographic'])}}" alt="{{=product['name']}}"/></a>
-                </div>
+            <div class="column four tabs">
+
+              <ul class="ptab">
+                <li><a href="#{{=product['name']}}-overview">Overview</a></li>
+                <li><a href="#{{=product['name']}}-features">Features</a></li>
+                <li><a href="#{{=product['name']}}-spec">Specs</a></li>
               </ul>
-              <div class="second_para">
-                <div class="para_inner">
-                  {{for spec_name, spec_items in product['spec'].iteritems():}}
-                    {{=spec_name}}
-                    <ul>
-                        {{for item in spec_items:}}
-                          <li>{{=item}}</li>
-                        {{pass}}
-                    </ul>
+
+              <div class="product_container" id="{{=product['name']}}-overview">
+                <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['infographic'])}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}} Usage">
+                <img src="{{=URL('static', 'images/infographic/' + product['infographic'])}}" alt="{{=product['name']}}"/></a>
+              </div>
+              <div class="product_container" id="{{=product['name']}}-features">
+                  <ul style="list-style-type: circle;">
+                      {{for feature in product['features']:}}
+                        <li>{{=feature}}</li>
+                      {{pass}}
+                  </ul>
+              </div>
+              <div class="product_container" id="{{=product['name']}}-spec">
+                <table>
+                {{for spec_name, spec_items in product['spec'].iteritems():}}
+                  <tr>
+                    <td class="product_spec_title">{{=spec_name}}</td>
+
+                  {{for i, item in enumerate(spec_items):}}
+                    {{if i != 0:}}
+                      <tr>
+                      <td></td>
+                    {{pass}}
+                      <td>&nbsp;&nbsp;&nbsp;</td>
+                      <td class="product_spec_value">{{=item}}</td>
+                    </tr>
+
                   {{pass}}
-                </div>
+                  <tr><td>&nbsp;</td></tr>
+                {{pass}}
+                </table>
               </div>
             </div>
           </div>
@@ -362,6 +378,7 @@
   <script src="{{=URL('static', 'js/jquery.bookblock.min.js')}}"></script>
   <script src="{{=URL('static', 'js/landingpage-custom.js')}}"></script>
   <script src="{{=URL('static', 'js/landingpage-scriptall.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.tabslet.min.js')}}"></script>
   <script src="{{=URL('static', 'js/index.js')}}"></script>
 </body>
 </html>

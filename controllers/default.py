@@ -16,6 +16,12 @@ def index():
             'main-img': 'aura-main.png',
             'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
             'infographic': 'aura.jpg',
+            'features': [
+                'No installation',
+                'Measure energy consumption',
+                'Timer on/off',
+                'Control over phone'
+            ],
             'spec': {
                     'Electronics': [
                         'Bluetooth Smart 4.1'
@@ -40,6 +46,12 @@ def index():
             'main-img': 'lyra-main.png',
             'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
             'infographic': 'lyra.jpg',
+            'features': [
+                'Light weight',
+                'Easily stickable in wall/sofa/bed',
+                'Turn of multiple devices',
+                'Configure over phone'
+            ],
             'spec': {
                     'Electronics': [
                         'Bluetooth Smart 4.1'
@@ -64,6 +76,14 @@ def index():
             'main-img': 'lyra-main.png',
             'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
             'infographic': 'lyra.jpg',
+            'features': [
+                'Motion detector',
+                'Temperature sensor',
+                'Light sensor'
+                'Easily stickable in wall/sofa/bed',
+                'Turn off multiple devices',
+                'Configure over phone'
+            ],
             'spec': {
                     'Electronics': [
                         'Bluetooth Smart 4.1'
@@ -86,6 +106,12 @@ def index():
             'main-img': 'hub-main.png',
             'album': ['hub-1.png', 'hub-2.png', 'hub-3.png', 'hub-4.png'],
             'infographic': 'hub.jpg',
+            'features': [
+                'Small',
+                'Wifi N',
+                'Enables remote control over internet',
+                'Configure over phone'
+            ],
             'spec': {
                     'Electronics': [
                         'Wifi N',
@@ -109,6 +135,12 @@ def index():
             'main-img': 'mira-main.png',
             'album': ['mira-1.jpg', 'mira-2.jpg', 'mira-3.jpg', 'mira-4.jpg'],
             'infographic': 'mira.jpg',
+            'features': [
+                'Simple installation',
+                'Measure energy consumption',
+                'Timer on/off',
+                'Control over phone'
+            ],
             'spec': {
                     'Electronics': [
                         'Bluetooth Smart 4.1'

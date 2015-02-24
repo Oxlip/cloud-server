@@ -2420,6 +2420,70 @@ ul.filter-target > li.active a, ul.filter-target > li a:hover {
 .column.four.border > p {
     margin: 0;
 }
+/* Product Tabs */
+.ptab-row {
+    background-color: #f3f3f3;
+}
+ul.ptab, ul.ptab-target {
+    text-align: center;
+    margin-bottom: 0;
+}
+ul.ptab > li, ul.ptab-target > li {
+    position: relative;
+    display: inline-block;
+    margin: 0 25px;
+    text-align: center;
+}
+ul.ptab > li a, ul.ptab-target > li a{
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #000021;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-align: center;
+}
+ul.ptab > li.active:after,ul.ptab-target > li.active:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+ul.ptab > li.active a, ul.ptab > li a:hover,
+ul.ptab-target > li.active a, ul.ptab-target > li a:hover {
+    color: #d3145a;
+    border-bottom: 1px solid #000000;
+}
+/*Product table*/
+.product_name {
+    text-align: left;
+}
+.product_desc {
+    text-align: justify;
+}
+
+.product_container {
+    margin-left:10%;
+}
+
+.product_spec_title {
+    font-size: 1em;
+    color: #001122;
+    text-align: left;
+}
+
+.product_spec_value {
+    font-size: 1em;
+    color: #001122;
+    text-align: left;
+}
+
 /* Progress Bars
 /*------------------*/
 
