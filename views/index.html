@@ -170,7 +170,9 @@
                 <li><a href="#{{=product['name']}}-spec">Specs</a></li>
               </ul>
 
-              <div class="product_container" id="{{=product['name']}}-overview">
+              <hr class="line">
+
+              <div id="{{=product['name']}}-overview">
                 <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['infographic'])}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}} Usage">
                 <img src="{{=URL('static', 'images/infographic/' + product['infographic'])}}" alt="{{=product['name']}}"/></a>
               </div>

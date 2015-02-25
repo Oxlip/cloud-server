@@ -2420,6 +2420,13 @@ ul.filter-target > li.active a, ul.filter-target > li a:hover {
 .column.four.border > p {
     margin: 0;
 }
+
+hr.line {
+    height:10px;
+    margin:0px;
+    padding:0px;
+}
+
 /* Product Tabs */
 .ptab-row {
     background-color: #f3f3f3;
@@ -2456,7 +2463,7 @@ ul.ptab > li.active:after,ul.ptab-target > li.active:after {
 ul.ptab > li.active a, ul.ptab > li a:hover,
 ul.ptab-target > li.active a, ul.ptab-target > li a:hover {
     color: #d3145a;
-    border-bottom: 1px solid #000000;
+    border-bottom: 5px solid #ccc;
 }
 /*Product table*/
 .product_name {
@@ -2474,13 +2481,13 @@ ul.ptab-target > li.active a, ul.ptab-target > li a:hover {
 
 .product_spec_title {
     font-size: 1em;
-    color: #001122;
+    color: #808080;
     text-align: left;
 }
 
 .product_spec_value {
     font-size: 1em;
-    color: #001122;
+    color: #808080;
     text-align: left;
 }
 
