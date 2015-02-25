@@ -2436,7 +2436,6 @@ ul.ptab > li, ul.ptab-target > li {
 }
 ul.ptab > li a, ul.ptab-target > li a{
     display: inline-block;
-    margin-bottom: 10px;
     font-size: 0.9em;
     color: #000021;
     letter-spacing: 1.5px;
@@ -2453,7 +2452,6 @@ ul.ptab > li.active:after,ul.ptab-target > li.active:after {
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid #fff;
 }
 ul.ptab > li.active a, ul.ptab > li a:hover,
 ul.ptab-target > li.active a, ul.ptab-target > li a:hover {
@@ -2469,7 +2467,9 @@ ul.ptab-target > li.active a, ul.ptab-target > li a:hover {
 }
 
 .product_container {
-    margin-left:10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
 }
 
 .product_spec_title {
