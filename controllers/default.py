@@ -15,7 +15,6 @@ def index():
                     'Also it can monitor current consumption of each appliance.',
             'main-img': 'aura-main.png',
             'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
-            'infographic': 'aura.jpg',
             'features': [
                 'No installation',
                 'Measure energy consumption',
@@ -45,7 +44,6 @@ def index():
                     'It can moved and placed anywhere within a house. ',
             'main-img': 'lyra-main.png',
             'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
-            'infographic': 'lyra.jpg',
             'features': [
                 'Light weight',
                 'Easily stickable in wall/sofa/bed',
@@ -75,7 +73,6 @@ def index():
                     'It also has extra sensors(motion, temperature, humidity, light) which can automate things based environment',
             'main-img': 'lyra-main.png',
             'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
-            'infographic': 'lyra.jpg',
             'features': [
                 'Motion detector',
                 'Temperature sensor',
@@ -105,7 +102,6 @@ def index():
             'desc': 'Hub enables controlling your appliances from internet.',
             'main-img': 'hub-main.png',
             'album': ['hub-1.png', 'hub-2.png', 'hub-3.png', 'hub-4.png'],
-            'infographic': 'hub.jpg',
             'features': [
                 'Small',
                 'Wifi N',
@@ -134,7 +130,6 @@ def index():
             'desc': 'Mira replaces the conventional switch with style.',
             'main-img': 'mira-main.png',
             'album': ['mira-1.jpg', 'mira-2.jpg', 'mira-3.jpg', 'mira-4.jpg'],
-            'infographic': 'mira.jpg',
             'features': [
                 'Simple installation',
                 'Measure energy consumption',

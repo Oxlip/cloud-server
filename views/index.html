@@ -173,8 +173,8 @@
               <hr class="line">
 
               <div id="{{=product['name']}}-overview">
-                <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['infographic'])}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}} Usage">
-                <img src="{{=URL('static', 'images/infographic/' + product['infographic'])}}" alt="{{=product['name']}}"/></a>
+                <a class="fancybox" href="{{=URL('static', 'images/infographic/' + product['name'] + '-large.png')}}"  data-fancybox-group="{{=product['name']}}-infographic" title="{{=product['name']}}">
+                <img src="{{=URL('static', 'images/infographic/' + product['name'] + '-small.png')}}" alt="{{=product['name']}}"/></a>
               </div>
               <div class="product_container" id="{{=product['name']}}-features">
                   <ul style="list-style-type: circle;">
