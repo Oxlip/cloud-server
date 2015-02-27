@@ -961,4 +961,5 @@ var Page = (function() {
     }
   };
 })();
+
 Page.init();
