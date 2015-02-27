@@ -4,57 +4,22 @@ var clearTime = 0;
 var code_val = "";
 var code = "";
 $(document).ready(function() {
-  $('.home-slider').bxSlider({
-    auto: false,
-    //  minSlides: 2,
-    // maxSlides: 5,
-    // autoControls: true,
-    pause: 4000,
-    speed: 500,
-    displaySlideQty: 4,
-  });
+
   $(".overlay").click(function() {
     $(".c-text1").removeClass("c-text-exp");
     $(".errow_messate_box").fadeOut();
     $(".errow_messate_box_text").fadeOut();
     $(".promocode_accept_worng").fadeOut();
   });
-  $(".bg_clich").click(function() {
-    $(".c-text1").removeClass("c-text-exp");
-    $(".errow_messate_box").fadeOut();
-    $(".errow_messate_box_text").fadeOut();
-    $(".promocode_accept_worng").fadeOut();
-  });
+
   $(".p_code_list").click(function() {
     $(".c-text1").addClass("blink_1");
   });
   $(".c-text1").click(function() {
     $(".c-text1").removeClass("blink_no");
   });
-  /*$(".c-text").click(function(){
-  	$(".c-text").removeClass("text_curh");
-  });*/
-  /*$(".modalCloseImg").click(function(){
-  	location.reload();
-  });*/
-  $(".butt_one").click(function() {
-    $('.first_para').addClass('first_para_show');
-    $('.second_para').removeClass('second_para_show');
-    $('.first_para').removeClass('first_para_hide');
-    $('.butt_one').addClass('selectedd');
-    $('.butt_two').removeClass('selectedd');
-    $('.butt_one').removeClass('sact');
-  });
-  $(".butt_two").click(function() {
-    $('.second_para').addClass('second_para_show');
-    $('.first_para').addClass('first_para_hide');
-    $('.first_para').removeClass('first_para_show');
-    $('.butt_two').addClass('selectedd');
-    $('.butt_one').removeClass('selectedd');
-    $('.butt_one').removeClass('sact');
-  });
+
   $(".simplemodal-close").click(function() {
-    //$(".over_lay").css('display', 'none');
     $(".over_lay").css("opacity", 0).css("left", "-3000px");
   });
   var af = new Array();
@@ -86,9 +51,6 @@ $(document).ready(function() {
           marginLeft: 0
         }, "slow");
         af[id - 1] = false;
-        //$(".ddreew").animate({width:30},"slow");
-        //$(".c-text1").animate({width:0, marginLeft:0},"fast");
-        //$('.promocode_accept_worng').fadeIn();
       }, 6000);
     } else {
       $(this).next().animate({

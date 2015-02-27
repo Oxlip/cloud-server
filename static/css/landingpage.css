@@ -1850,14 +1850,6 @@ h1.big_white.border
     text-align:center
 }
 
-.butt_one,.butt_two
-{
-    display:block;
-    cursor:pointer;
-    width:200px;
-    margin:0 auto 25px
-}
-
 .promocode_accept
 {
     background:#5cab00;

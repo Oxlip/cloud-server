@@ -28,6 +28,13 @@ $(document).ready(function() {
 
     $('.tabs').tabslet();
 
+    $('.home-slider').bxSlider({
+    auto: true,
+    pause: 10000,
+    speed: 1000,
+    displaySlideQty: 4
+  });
+
 });
 
 function sendMessage(url) {

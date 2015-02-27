@@ -854,76 +854,8 @@ $('#email5').keydown(function(event) {
   $(".promocode_accept_worng").fadeOut();
 });
 
-function validatedEmail(sEmail, id) {
-  //alert(sEmail);
-  var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-  if (filter.test(sEmail)) {
-    //return true;
-    //alert("hi");
-    $(".over_lay").fadeIn();
-    $(".errow_messate_box").fadeOut();
-  } else {
-    //return false;
-    //alert(id);
-    $("#div" + id).fadeIn();
-    //$(".errow_messate_box").fadeIn();
-  }
-}
 
-function statuschk(alpha) {
-  //alert(alpha);
-  var pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-  if ((alpha == "") || (!pattern.test(alpha))) {
-    $('.email_id1').html("<span class='messager'>Please enter your email id or is invalid</span>");
-    return false;
-  } else {
-    $('#errormessage').hide();
-  }
-}
 
-function statuschk1(alpha) {
-  //alert(alpha);
-  var pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-  if ((alpha == "") || (!pattern.test(alpha))) {
-    $('#email_id').html("<span class='messager'>Please enter your email id or is invalid</span>");
-    return false;
-  } else {
-    $('#errormessage1').hide();
-  }
-}
-
-function statuschk2(alpha) {
-  //alert(alpha);
-  var pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-  if ((alpha == "") || (!pattern.test(alpha))) {
-    $('#errormessage2').html("<span class='messager'>Please enter your email id or is invalid</span>");
-    return false;
-  } else {
-    $('#errormessage2').hide();
-  }
-}
-
-function statuschk3(alpha) {
-  //alert(alpha);
-  var pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-  if ((alpha == "") || (!pattern.test(alpha))) {
-    $('#errormessage3').html("<span class='messager'>Please enter your email id or is invalid</span>");
-    return false;
-  } else {
-    $('#errormessage3').hide();
-  }
-
-  function statuschk4(alpha) {
-    //alert(alpha);
-    var pattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-    if ((alpha == "") || (!pattern.test(alpha))) {
-      $('#errormessage4').html("<span class='messager'>Please enter your email id or is invalid</span>");
-      return false;
-    } else {
-      $('#errormessage4').hide();
-    }
-  }
-}
 var Page = (function() {
   var $grid = $('.bb-custom-grid');
   //var $grid2 = $('#bb-custom-grid2');
