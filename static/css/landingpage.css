@@ -3094,7 +3094,8 @@ ul.ptab > li.active a,ul.ptab > li a:hover,ul.ptab-target > li.active a,ul.ptab-
 {
     margin-left:auto;
     margin-right:auto;
-    width:60%
+    width:60%;
+    height:100%;
 }
 
 .product_spec_title
