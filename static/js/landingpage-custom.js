@@ -757,104 +757,45 @@ if (!Array.prototype.indexOf) {
 })(jQuery);
 
 
-function validateEmail(id) {
-  var str1 = "";
+function validateEmail(url) {
   var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-  if (id == '4') {
-    str1 = document.getElementById('val' + id).value; //$("#val"+id).val();
-    if ((filter.test(str1))) {
-      //alert(str1);
-      $.ajax({
-        url: "subscribe?email=" + str1,
-        cache: false,
-        success: function(res) {
-          //alert(res);
-          $('.popUp_box_inner').html(res);
-          //new_val = res;
-          //$(".twitter-share-button").attr('data-text',"data");
+  var email = $('#signup_email').val();
+
+
+  if (!filter.test(email)) {
+      var qtip_target = $('#signup_email');
+    qtip_target.qtip({
+        id: 'emailTooltip',
+        content: {
+            text: 'Please enter a valid email.'
+        },
+        position: {
+            my: 'top left',
+            at: 'center',
+            target: qtip_target
+        },
+        events: {
+            hide: function(event, api) {
+                api.destroy();
+            }
+        },
+        style: {
+           classes: 'qtip-youtube'
         }
-      });
-      $(".errow_messate_box.c1").fadeOut();
-      $(".errow_messate_box_text.d1").fadeOut();
-    } else if (str1 == "") {
-      $(".errow_messate_box.c1").fadeIn();
-    } else {
-      $(".errow_messate_box_text.d1").fadeIn();
-    }
-  } else {
-    str1 = document.getElementById('email' + id).value; //$("#email"+id).val();
+    });
+    var qtip2_api = qtip_target.qtip('api');
+    qtip2_api.show();
+    return;
   }
-  if (str1) {
-    //var current_id = $("email").val('id');
-    //alert(temp);
-    var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-    if (filter.test(str1)) {
-      //return true;
-      //alert("hi");
-      $.ajax({
-        url: "subscribe?email=" + str1,
-        cache: false,
-        success: function(res) {
-          //alert(res);
-          $('.popUp_box_inner').html(res);
-          //new_val = res;
-          //$(".twitter-share-button").attr('data-text',"data");
-        }
-      });
-      $(".over_lay").css("left", 0);
-      $(".over_lay").animate({
-        opacity: 1
-      }, 1000);
-      $("#dic" + id).fadeOut();
-      $("#did" + id).fadeOut();
-      $("#div" + id).fadeOut();
-      $("#prt" + id).fadeOut();
-    } else {
-      $("#dic" + id).fadeOut();
-      $("#did" + id).fadeOut();
-      $("#div" + id).fadeOut();
-      $("#prt" + id).fadeIn();
+  $.ajax({
+    url: url + "?email=" + email,
+    cache: false,
+    success: function(res) {
+      $('.popUp_box_inner').html(res);
     }
-  } else {
-    $("#dic" + id).fadeIn();
-    $("#did" + id).fadeOut();
-    $("#div" + id).fadeOut();
-    $("#prt" + id).fadeOut();
-  }
+  });
+
 }
-$('#email1').keydown(function(event) {
-  $(".errow_messate_box").fadeOut();
-  $(".errow_messate_box_text").fadeOut();
-  $(".promocode_accept_show").fadeOut();
-  $(".promocode_accept_worng_show").fadeOut();
-  $(".promocode_accept_worng").fadeOut();
-});
-$('#email2').keydown(function(event) {
-  $(".errow_messate_box").fadeOut();
-  $(".promocode_accept_show").fadeOut();
-  $(".promocode_accept_worng_show").fadeOut();
-  $(".promocode_accept_worng").fadeOut();
-});
-$('#email3').keydown(function(event) {
-  $(".errow_messate_box").fadeOut();
-  $(".promocode_accept_show").fadeOut();
-  $(".promocode_accept_worng_show").fadeOut();
-  $(".promocode_accept_worng").fadeOut();
-});
-$('#email4').keydown(function(event) {
-  $(".errow_messate_box").fadeOut();
-  $(".promocode_accept_show").fadeOut();
-  $(".promocode_accept_worng_show").fadeOut();
-  $(".promocode_accept_worng").fadeOut();
-});
-$('#email5').keydown(function(event) {
-  $(".errow_messate_box").fadeOut();
-  $(".promocode_accept_show").fadeOut();
-  $(".promocode_accept_worng_show").fadeOut();
-  $(".promocode_accept_worng").fadeOut();
-});
-
-
 
 var Page = (function() {
   var $grid = $('.bb-custom-grid');

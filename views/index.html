@@ -61,17 +61,7 @@
             </h1>
             <div class="hero-copy">One Home One Control</div>
           {{pass}}
-          <span class="btn-holder"></span>
-          <div class="form_sin_upp container">
-            <div class="errow_messate_box" id="dic{{=i}}">Please enter your email!</div>
-            <div class="errow_messate_box_text" id="prt{{=i}}" >Please enter valid email address</div>
-            <div class="promocode_accept" id="did{{=i}}">Promo code accepted, enter your email and sign up.</div>
-            <div class="promocode_accept_worng" id="div{{=i}}">You can register without promo code as well</div>
-            <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-              <input type="text" name="email" placeholder="you@example.com" id="email{{=i}}">
-              <input type="button"  value="sign up" onClick="validateEmail({{=i}})">
-            </form>
-          </div>
+
         </div>
       </div>
       <div id="social" class="wow fadeInUp" data-wow-offset="0">
@@ -321,18 +311,12 @@
         <img src="{{=URL('static', 'images/nuton-footer-logo.png')}}" alt width="210" height="20"> <br/> Copyright 2015 Nuton. All Rights Reserved.</span>
     </div>
     <div class="form_sin_upp container"> 
-     
-      <div class="errow_messate_box" id="dic5">Everybody has an email!</div>
-      <div class="errow_messate_box_text" id="prt5" >Please Enter Currect Email!</div>
-      <div class="promocode_accept" id="did5">Promo code accepted, put your email and sign up.</div>
-      <div class="promocode_accept_worng" id="div5">You Can Register Without Code As Well</div>
       <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
-        <input type="text" name="email" placeholder="you@example.com" id="email5">
-        <input type="button"  value="sign up" onClick="validateEmail(5)">
+        <input type="text" placeholder="you@example.com" id="signup_email">
+        <input type="button"  value="sign up" onClick=validateEmail("{{=URL('subscribe')}}")>
       </form>
     </div>
     
-    <div id="errormessage4"></div>
     <div id="social" class="wow fadeInUp" data-wow-offset="0">
       <ul>
         <li><a href="//www.facebook.com/NutonInc" target="_blank"><i class="fa fa-facebook"></i></a> </li>
