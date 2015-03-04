@@ -146,7 +146,12 @@ def index():
         {
             'name': 'mira',
             'title': 'Mira the Switch',
-            'desc': 'Mira replaces the conventional switch with style.',
+            'desc': 'Mira replaces the conventional switch with style. '
+                    'Mira can control up to 7 appliances. '
+                    'Mira also allows wireless control appliances. '
+                    'Mira can be used as dimmer to suit your mood. '
+                    'Mira can monitor current consumption of each appliance. '
+                    'Also Mira can automatically shutdown devices in standby mode to save power.',
             'main-img': 'mira-main.png',
             'album': ['mira-1.png', 'mira-2.png', 'mira-3.png', 'mira-4.png'],
             'features': [
@@ -161,13 +166,16 @@ def index():
                     ],
                     'Electrical': [
                         'Current: 12A',
-                        'Voltage: 100v-240v'
+                        'Voltage: 100v-240v',
+                        'Switches: 4',
+                        'Internal Outlets: 2'
+                        'External Outlets: 1'
                     ],
                     'Dimension': [
                         'Height: 9cm',
                         'Width: 6cm',
-                        'Depth: 2cm',
-                        'Weight: 100g'
+                        'Depth: 5cm',
+                        'Weight: 150g'
                     ],
             }
         },
