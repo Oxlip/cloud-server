@@ -89,8 +89,8 @@ def index():
                     'Lyra+ can used along with Aura and Mira to control appliances. '
                     'There is no electrical components involved so it is safe to use by kids. '
                     'Lyra+ also has sensors(motion, temperature, humidity, light) which can automate things based on environmental change.',
-            'main-img': 'lyra-main.png',
-            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
+            'main-img': 'lyraplus-main.png',
+            'album': ['lyraplus-1.png', 'lyraplus-2.png', 'lyraplus-3.png', 'lyraplus-4.png'],
             'features': [
                 'Motion detector',
                 'Temperature sensor',
@@ -148,7 +148,7 @@ def index():
             'title': 'Mira the Switch',
             'desc': 'Mira replaces the conventional switch with style.',
             'main-img': 'mira-main.png',
-            'album': ['mira-1.jpg', 'mira-2.jpg', 'mira-3.jpg', 'mira-4.jpg'],
+            'album': ['mira-1.png', 'mira-2.png', 'mira-3.png', 'mira-4.png'],
             'features': [
                 'Simple installation',
                 'Measure energy consumption',
