@@ -244,6 +244,136 @@ def index():
     return dict(products=products, faqs=faqs, backgrounds=backgrounds)
 
 
+def products():
+    product_details = {
+        'aura': {
+            'title': 'Aura The Plug',
+            'features': [
+                {
+                    'title': 'Plug & Play',
+                    'sub-title': 'No Installation Required',
+                    'image': 'aura-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Timer',
+                    'sub-title': 'Schedule on and off timing',
+                    'image': 'clock-schedule.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Save',
+                    'sub-title': 'Monitor usage and Save energy',
+                    'image': 'earth.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Control with Lyra',
+                    'sub-title': 'Control your appliances with simple Touch',
+                    'image': 'lyra-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Phone App',
+                    'sub-title': 'Turn off your home lights from office',
+                    'image': 'app.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                }
+
+            ],
+            'spec': {
+                'Wireless': [
+                    'Bluetooth Smart 4.1'
+                ],
+                'Electrical': [
+                    'Current: 10A',
+                    'Voltage: 100v-240v',
+                    'Frequency: 50-60Hz',
+                    'Connector: Type D'
+                ],
+                'Color': [
+                    'White'
+                ],
+                'Dimension': [
+                    'Height: 5cm',
+                    'Width: 4.5cm',
+                    'Depth: 3.5cm',
+                    'Weight: 100g'
+                ],
+            },
+            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
+        },
+
+        'lyra': {
+            'title': 'Lyra The Touch',
+            'features': [
+                {
+                    'title': 'Slim',
+                    'sub-title': 'Sleek, small and slim',
+                    'image': 'lyra-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Safe',
+                    'sub-title': 'Kids friendly',
+                    'image': 'kids-safety.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Colorful',
+                    'sub-title': 'Matches your home decor',
+                    'image': 'colorful-pillow.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Configurable',
+                    'sub-title': 'Change switch functionality as you like',
+                    'image': 'lyra-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Stick It',
+                    'sub-title': 'Stick it anywhere - Move it anytime',
+                    'image': 'stick-it.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                }
+
+            ],
+            'spec': {
+                'Wireless': [
+                    'Bluetooth Smart 4.1'
+                ],
+                'Buttons': [
+                    '3'
+                ],
+                'Battery': [
+                    'CR2032'
+                ],
+                'Color': [
+                    'White',
+                    'Blue',
+                    'Red'
+                ],
+                'Dimension': [
+                    'Height: 5cm',
+                    'Width: 3cm',
+                    'Depth: 0.5cm',
+                    'Weight: 25g'
+                ],
+            },
+            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
+        }
+    }
+    try:
+        product_name = request.args[0]
+        product = product_details[product_name]
+    except:
+        raise HTTP(404)
+
+    response.view = 'products.html'
+    return dict(product=product)
+
+
 def feedback():
     email = request.vars['email']
     fullname = request.vars.get('fullname', 'there')

@@ -3092,14 +3092,15 @@ ul.ptab > li.active a,ul.ptab > li a:hover,ul.ptab-target > li.active a,ul.ptab-
 
 .product_spec_title
 {
-    font-size:1em;
+    font-size:1.3em;
     color:#808080;
-    text-align:left
+    text-align:left;
+    font-weight: bold;
 }
 
 .product_spec_value
 {
-    font-size:1em;
+    font-size:1.2em;
     color:#808080;
     text-align:left
 }
@@ -6958,4 +6959,14 @@ ul.bb-custom-grid nav span
 ul.bb-custom-grid nav span.bb-current
 {
     background:#00ccff
+}
+
+.alternative_product_row:nth-child(odd){
+    padding-top: 10vh;
+    vertical-align:middle;
+}
+.alternative_product_row:nth-child(even){
+    background:#f3f3f3;
+    padding-top: 10vh;
+    vertical-align:middle;
 }

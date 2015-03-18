@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Nuton, Mobile app, Home Automation, Smart Plug, Lighting">
+
+  <meta property="og:image" content="{{=URL('static', 'images/nuton-menu-logo.png')}}"/>
+  <meta property="og:title" content="Nuton - The most advanced, attractive and affordable way to make your home smarter."/>
+  <meta property="og:site_name" content="Nuton"/>
+
+  <title>Nuton :: Smart home for everyone</title>
+
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,600,300&amp;subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="{{=URL('static', 'css/pe-icon-7-stroke.css')}}" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/magnific-popup.min.css" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css" media="all">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/jquery.qtip.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.min.css">
+
+  <link rel="stylesheet" href="{{=URL('static', 'css/landingpage.css')}}" media="all">
+  <link rel="stylesheet" href="{{=URL('static', 'css/bookblock.css')}}" />
+
+  <link rel="shortcut icon" href="{{=URL('static', 'images/elements/favicon.ico')}}">
+  <link rel="apple-touch-icon" href={{=URL('static', "images/elements/apple-touch-icon.png")}}>
+  <link rel="apple-touch-icon" sizes="72x72" href={{=URL('static', "images/elements/apple-touch-icon-72x72.png")}}/>
+  <link rel="apple-touch-icon" sizes="114x114" href={{=URL('static', "images/elements/apple-touch-icon-114x114.png")}}/>
+  <link rel="apple-touch-icon" sizes="144x144" href={{=URL('static', "images/elements/apple-touch-icon-144x144.png")}}/>
+  <link rel="apple-touch-icon" sizes="180x180" href={{=URL('static', "images/elements/apple-touch-icon-180x180.png")}}/>
+</head>
+
+<body>
+  {{include 'ga.html'}}
+
+  <!-- Floating header/main Menu -->
+
+  <section id="home-content"  data-animate-up="header-hide" data-animate-down="header-show">
+    <header id="header-section" class="ha-header">
+      <div class="container">
+        <div class="row">
+          <div class="column two">
+            <h1 class="logo"> <a href="index"> <img src="{{=URL('static', 'images/nuton-menu-logo.png')}}" alt="logo"> </a> </h1>
+          </div>
+          <nav id="navigation" class="column eight hide-on-mobile">
+            <ul>
+              <li><a style="color:#428BDD;" href="./aura">Aura</a></li>
+              <li><a href="./lyra">Lyra</a></li>
+              <li><a href="./lyraplus">Lyra+</a></li>
+              <li><a href="./mira">Mira</a></li>
+              <li><a href="./hub">Hub</a></li>
+            </ul>
+          </nav>
+          <a href="#" id="menu-toggle-wrapper">
+            <div id="menu-toggle"></div>
+          </a>
+        </div>
+      </div>
+    </header>
+  </section>
+
+
+  <section id="features">
+    <div id="container">
+      {{for feature in product['features']:}}
+        <div class="row alternative_product_row">
+            <div class="column two">&nbsp;</div>
+            <div class="column eight">
+                <h2>{{=feature['title']}}</h2>
+                <h3>{{=feature['sub-title']}}</h3>
+                <img src="{{=URL('static', 'images/album/' + feature['image'])}}" align="none">
+                <p>{{=feature['description']}}</p>
+            </div>
+            <div class="column two">&nbsp;</div>
+        </div>
+      {{pass}}
+
+      <div class="row alternative_product_row">
+        {{for i, image in enumerate(product['album']):}}
+          <a class="fancybox" href="{{=URL('static', 'images/album/' + image)}}" data-fancybox-group="image-gallery" title="{{=product['title']}}">
+          <img width="10%" src="{{=URL('static', 'images/album/' + image)}}" alt="{{=product['title']}}"/>
+          </a>
+        {{pass}}
+      </div>
+
+
+      <div class="row alternative_product_row">
+          <h2>Specification</h2>
+          <div class="column five">&nbsp;</div>
+          <div class="column three">
+            <table>
+            {{for spec_name, spec_items in product['spec'].iteritems():}}
+              <tr>
+                <td class="product_spec_title">{{=spec_name}}</td>
+
+              {{for i, item in enumerate(spec_items):}}
+                {{if i != 0:}}
+                  <tr>
+                  <td></td>
+                {{pass}}
+                  <td>&nbsp;&nbsp;&nbsp;</td>
+                  <td class="product_spec_value">{{=item}}</td>
+                </tr>
+
+              {{pass}}
+              <tr><td colspan="3"><hr class="line"></td></tr>
+            {{pass}}
+            </table>
+          </div>
+          <div class="column four">&nbsp;</div>
+      </div>
+
+    </div>
+  </section>
+
+<!-- Footer Section -->
+  
+  <footer>
+    <div id="copyright" class="wow fadeInUp" data-wow-offset="50">
+        <img src="{{=URL('static', 'images/nuton-footer-logo.png')}}" alt width="210" height="20"> <br/> Copyright 2015 Nuton. All Rights Reserved.</span>
+    </div>
+    <div class="form_sin_upp container"> 
+      <form action="" id="callout-form" name="my_form" method="post" enctype="multipart/form-data">
+        <input type="text" placeholder="you@example.com" id="signup_email">
+        <input type="button"  value="sign up" onClick=validateEmail("{{=URL('subscribe')}}")>
+      </form>
+    </div>
+    
+    <div id="social" class="wow fadeInUp" data-wow-offset="0">
+      <ul>
+        <li><a href="//www.facebook.com/NutonInc" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+        <li><a href="//www.twitter.com/NutonInc" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+        <li><a href="//www.google.com/+NutonInc" target="_blank"><i class="fa fa-google"></i></a> </li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/jquery.qtip.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/device.js/0.1.61/device.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-parallax/1.1.3/jquery-parallax-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.11/jquery.scrollTo.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.2/waypoints.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/2.7.8/jquery.mb.YTPlayer.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.0.2/wow.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+  <script src="{{=URL('static', 'js/typed.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/SmoothScroll.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.queryloader2.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.bxslider.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquerypp.custom.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.bookblock.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/landingpage-custom.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/jquery.tabslet.min.js')}}"></script>
+  <script src="{{=URL('static', 'js/index.js')}}"></script>
+</body>
+</html>
