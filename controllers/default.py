@@ -270,7 +270,7 @@ def products():
                 {
                     'title': 'Control with Lyra',
                     'sub-title': 'Control your appliances with simple Touch',
-                    'image': 'lyra-main.png',
+                    'image': 'lyra-red.png',
                     'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
                 },
                 {
@@ -308,9 +308,9 @@ def products():
             'title': 'Lyra The Touch',
             'features': [
                 {
-                    'title': 'Slim',
+                    'title': 'Stylish',
                     'sub-title': 'Sleek, small and slim',
-                    'image': 'lyra-main.png',
+                    'image': 'lyra-blue.png',
                     'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
                 },
                 {
