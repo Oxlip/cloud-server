@@ -46,16 +46,21 @@
           <div class="column two">
             <h1 class="logo"> <a href="/"> <img src="{{=URL('static', 'images/nuton-menu-logo.png')}}" alt="logo"> </a> </h1>
           </div>
-          <nav id="navigation" class="column eight hide-on-mobile">
-            <ul>
-              {{for name, url in product_urls.iteritems():}}
-                <li><a class="{{= 'current-product' if product['title'] == name else '' }}" href={{=url}}>{{=name}}</a></li>
-              {{pass}}
-            </ul>
-          </nav>
-          <a href="#" id="menu-toggle-wrapper">
-            <div id="menu-toggle"></div>
-          </a>
+          <div class="column eight hide-on-mobile">
+            <nav id="navigation">
+              <ul>
+                {{for name, url in product_urls.iteritems():}}
+                  <li><a class="{{= 'current-product' if product['title'] == name else '' }}" href={{=url}}>{{=name}}</a></li>
+                {{pass}}
+              </ul>
+            </nav>
+            <a href="#" id="menu-toggle-wrapper">
+              <div id="menu-toggle"></div>
+            </a>
+          </div>
+          <div class="column two">
+            <a class="buy-now" href="http://nuton.kartrocket.co/{{=product['title'].lower()}}" target="_blank">Buy Now</a>
+          </div>
         </div>
       </div>
     </header>

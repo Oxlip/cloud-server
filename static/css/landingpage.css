@@ -616,6 +616,11 @@ h3.product-subtitle
     color: #808080;
 }
 
+.buy-now {
+    border: 1px solid;
+    padding: 5px;
+}
+
 h3.name-gallery
 {
     font-size:14px;
