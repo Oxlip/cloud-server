@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import collections
 import mandrill
 from gluon import current
 from gluon.tools import Mail
@@ -245,6 +246,13 @@ def index():
 
 
 def products():
+    product_urls = collections.OrderedDict()
+    product_urls['Aura'] = 'aura'
+    product_urls['Lyra'] = 'lyra'
+    product_urls['Lyra+'] = 'lyraplus'
+    product_urls['Mira'] = 'mira'
+    product_urls['Hub'] = 'hub'
+
     product_details = {
         'aura': {
             'title': 'Aura',
@@ -373,7 +381,7 @@ def products():
         raise HTTP(404)
 
     response.view = 'products.html'
-    return dict(product=product)
+    return dict(product=product, product_urls=product_urls)
 
 
 def feedback():

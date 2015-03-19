@@ -48,11 +48,9 @@
           </div>
           <nav id="navigation" class="column eight hide-on-mobile">
             <ul>
-              <li><a style="color:#428BDD;" href="./aura">Aura</a></li>
-              <li><a href="./lyra">Lyra</a></li>
-              <li><a href="./lyraplus">Lyra+</a></li>
-              <li><a href="./mira">Mira</a></li>
-              <li><a href="./hub">Hub</a></li>
+              {{for name, url in product_urls.iteritems():}}
+                <li><a class="{{= 'current-product' if product['title'] == name else '' }}" href={{=url}}>{{=name}}</a></li>
+              {{pass}}
             </ul>
           </nav>
           <a href="#" id="menu-toggle-wrapper">

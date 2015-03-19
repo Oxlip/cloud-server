@@ -612,6 +612,10 @@ h3.product-subtitle
     font-weight:500;
 }
 
+.current-product {
+    color: #808080;
+}
+
 h3.name-gallery
 {
     font-size:14px;
