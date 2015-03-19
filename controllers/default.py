@@ -247,7 +247,8 @@ def index():
 def products():
     product_details = {
         'aura': {
-            'title': 'Aura The Plug',
+            'title': 'Aura',
+            'subtitle': 'The Plug',
             'features': [
                 {
                     'title': 'Plug & Play',
@@ -305,7 +306,8 @@ def products():
         },
 
         'lyra': {
-            'title': 'Lyra The Touch',
+            'title': 'Lyra',
+            'subtitle': 'The Touch',
             'features': [
                 {
                     'title': 'Stylish',

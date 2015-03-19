@@ -64,8 +64,22 @@
   </section>
 
 
-  <section id="features">
+
+
+  <section class="product-details">
+
     <div id="container">
+      <div class="product-titlebar">
+        <h2 class="product-title">{{=product['title']}}</h2> <h3 class="product-subtitle">{{=product['subtitle']}}</h3>
+      </div>
+
+      <div id="product-gallery" class="row alternative_product_row p">
+        {{for i, image in enumerate(product['album']):}}
+          <a class="fancybox" href="{{=URL('static', 'images/album/' + image)}}" data-fancybox-group="image-gallery" title="{{=product['title']}}">
+          <img width="20%" src="{{=URL('static', 'images/album/' + image)}}" alt="{{=product['title']}}"/>
+          </a>
+        {{pass}}
+      </div>
       {{for feature in product['features']:}}
         <div class="row alternative_product_row">
             <div class="column two">&nbsp;</div>
@@ -79,13 +93,7 @@
         </div>
       {{pass}}
 
-      <div class="row alternative_product_row">
-        {{for i, image in enumerate(product['album']):}}
-          <a class="fancybox" href="{{=URL('static', 'images/album/' + image)}}" data-fancybox-group="image-gallery" title="{{=product['title']}}">
-          <img width="20%" src="{{=URL('static', 'images/album/' + image)}}" alt="{{=product['title']}}"/>
-          </a>
-        {{pass}}
-      </div>
+
 
 
       <div class="row alternative_product_row">

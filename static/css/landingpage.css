@@ -569,11 +569,47 @@ section section
     text-align:center
 }
 
+.product-details
+{
+    text-align:center;
+    padding-bottom:80px
+}
+
 h2.section-title
 {
     font-size:41px;
     line-height:70px;
     font-weight:700
+}
+
+div.product-titlebar
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#product-gallery
+{
+    margin: 0px;
+    padding: 10px;
+}
+
+
+h2.product-title
+{
+    font-size:41px;
+    font-weight:700;
+    text-transform: uppercase;
+    margin:0px;
+    line-height: normal;
+}
+
+h3.product-subtitle
+{
+    margin:0px;
+    font-size:16px;
+    text-transform:uppercase;
+    font-weight:500;
 }
 
 h3.name-gallery
@@ -592,8 +628,9 @@ h3.name-gallery
     height:2px;
     width:30px;
     margin:10px auto 20px;
-    background:#d3145a
+    background:#00ccff;
 }
+
 
 .section-tagline
 {
@@ -6433,11 +6470,6 @@ div#___plus_1
 .color
 {
     color:#00ccff!important
-}
-
-.section-title:after
-{
-    background:#00ccff
 }
 
 .big_white span
