@@ -7011,3 +7011,11 @@ ul.bb-custom-grid nav span.bb-current
     padding-top: 10vh;
     vertical-align:middle;
 }
+
+.products_gallery{
+    background:#f3f3f3;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    text-align: center;
+    vertical-align:middle;
+}

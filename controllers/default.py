@@ -16,7 +16,7 @@ def index():
                     'Aura can be used as dimmer to suit your mood. '
                     'Aura can monitor current consumption of each appliance. '
                     'Also Aura can automatically shutdown devices in standby mode to save power.',
-            'main-img': 'aura-main.png',
+            'main-img': 'aura-index.png',
             'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
             'features': [
                 'No installation - Plug and Play.',
@@ -54,7 +54,7 @@ def index():
                     'Lyra can moved and placed anywhere within a house. '
                     'Since Lyra is sleek and weightless it easily sticks in wall, sofa and bed. '
                     'There is no electrical components involved so it is safe to use by kids. ',
-            'main-img': 'lyra-main.png',
+            'main-img': 'lyra-index.png',
             'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
             'features': [
                 'Light weight and small.',
@@ -90,7 +90,7 @@ def index():
                     'Lyra+ can used along with Aura and Mira to control appliances. '
                     'There is no electrical components involved so it is safe to use by kids. '
                     'Lyra+ also has sensors(motion, temperature, humidity, light) which can automate things based on environmental change.',
-            'main-img': 'lyraplus-main.png',
+            'main-img': 'lyra-plus-index.png',
             'album': ['lyraplus-1.png', 'lyraplus-2.png', 'lyraplus-3.png', 'lyraplus-4.png'],
             'features': [
                 'Motion detector',
@@ -120,7 +120,7 @@ def index():
             'name': 'hub',
             'title': 'Hub',
             'desc': 'Hub enables controlling your appliances from internet.',
-            'main-img': 'hub-main.png',
+            'main-img': 'hub-index.png',
             'album': ['hub-1.png', 'hub-2.png', 'hub-3.png', 'hub-4.png'],
             'features': [
                 'Sleek and small(smaller than a typical wifi router)',
@@ -153,7 +153,7 @@ def index():
                     'Mira can be used as dimmer to suit your mood. '
                     'Mira can monitor current consumption of each appliance. '
                     'Also Mira can automatically shutdown devices in standby mode to save power.',
-            'main-img': 'mira-main.png',
+            'main-img': 'mira-index.png',
             'album': ['mira-1.png', 'mira-2.png', 'mira-3.png', 'mira-4.png'],
             'features': [
                 'Simple installation',
