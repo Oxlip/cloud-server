@@ -9,47 +9,9 @@ from gluon.tools import Mail
 def index():
     products = [
         {
-            'name': 'aura',
-            'title': 'Aura the Plug',
-            'desc': 'Aura is a smart plug which automatically control your lights and other appliances. '
-                    'Aura also allows wireless control appliances. '
-                    'Aura can be used as dimmer to suit your mood. '
-                    'Aura can monitor current consumption of each appliance. '
-                    'Also Aura can automatically shutdown devices in standby mode to save power.',
-            'main-img': 'aura-index.png',
-            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
-            'features': [
-                'No installation - Plug and Play.',
-                'Automatically turn on/off devices after certain time interval.'
-                'Control through mobile phone',
-                'Control through Lyra',
-                'Monitor and Measure energy consumption.',
-                'Timer on/off',
-                'Control over phone'
-            ],
-            'spec': {
-                    'Electronics': [
-                        'Bluetooth Smart 4.1'
-                    ],
-                    'Electrical': [
-                        'Current: 10A',
-                        'Voltage: 100v-240v'
-                    ],
-                    'Color': [
-                        'White'
-                    ],
-                    'Dimension': [
-                        'Height: 5cm',
-                        'Width: 4.5cm',
-                        'Depth: 3.5cm',
-                        'Weight: 100g'
-                    ],
-            }
-        },
-        {
             'name': 'lyra',
             'title': 'Lyra the Touch',
-            'desc': 'Lyra is a revolutionary slim wireless tocuh switch. '
+            'desc': 'Lyra is a revolutionary slim wireless touch switch. '
                     'Lyra can used along with Aura and Mira to control appliances. '
                     'Lyra can moved and placed anywhere within a house. '
                     'Since Lyra is sleek and weightless it easily sticks in wall, sofa and bed. '
@@ -84,62 +46,39 @@ def index():
             }
         },
         {
-            'name': 'lyrap',
-            'title': 'Lyra+ the Sense',
-            'desc': 'Lyra+ is a revolutionary slim wireless tocuh switch plus motion sensor. '
-                    'Lyra+ can used along with Aura and Mira to control appliances. '
-                    'There is no electrical components involved so it is safe to use by kids. '
-                    'Lyra+ also has sensors(motion, temperature, humidity, light) which can automate things based on environmental change.',
-            'main-img': 'lyra-plus-index.png',
-            'album': ['lyraplus-1.png', 'lyraplus-2.png', 'lyraplus-3.png', 'lyraplus-4.png'],
+            'name': 'aura',
+            'title': 'Aura the Plug',
+            'desc': 'Aura is a smart plug which automatically control your lights and other appliances. '
+                    'Aura also allows wireless control appliances. '
+                    'Aura can be used as dimmer to suit your mood. '
+                    'Aura can monitor current consumption of each appliance. '
+                    'Also Aura can automatically shutdown devices in standby mode to save power.',
+            'main-img': 'aura-index.png',
+            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
             'features': [
-                'Motion detector',
-                'Temperature sensor',
-                'Light sensor',
-                'Humidity sensor',
-                'Turn off multiple devices',
-                'Configurable through phone'
+                'No installation - Plug and Play.',
+                'Automatically turn on/off devices after certain time interval.'
+                'Control through mobile phone',
+                'Control through Lyra',
+                'Monitor and Measure energy consumption.',
+                'Timer on/off',
+                'Control over phone'
             ],
             'spec': {
                     'Electronics': [
-                        'Bluetooth Smart 4.1',
-                        'Battery: 2 x AAA'
-                    ],
-                    'Color': [
-                        'White',
-                    ],
-                    'Dimension': [
-                        'Height: 5cm',
-                        'Width: 3cm',
-                        'Depth: 2cm',
-                        'Weight: 80g'
-                    ],
-            }
-        },
-        {
-            'name': 'hub',
-            'title': 'Hub',
-            'desc': 'Hub enables controlling your appliances from internet.',
-            'main-img': 'hub-index.png',
-            'album': ['hub-1.png', 'hub-2.png', 'hub-3.png', 'hub-4.png'],
-            'features': [
-                'Sleek and small(smaller than a typical wifi router)',
-                'Wifi N',
-                'Enables remote control over internet',
-                'Configurable over phone'
-            ],
-            'spec': {
-                    'Electronics': [
-                        'Wifi N',
                         'Bluetooth Smart 4.1'
                     ],
                     'Electrical': [
-                        'Power Connector: Micro USB'
+                        'Current: 10A',
+                        'Voltage: 100v-240v'
+                    ],
+                    'Color': [
+                        'White'
                     ],
                     'Dimension': [
-                        'Height: 9cm',
-                        'Width: 6cm',
-                        'Depth: 2cm',
+                        'Height: 5cm',
+                        'Width: 4.5cm',
+                        'Depth: 3.5cm',
                         'Weight: 100g'
                     ],
             }
