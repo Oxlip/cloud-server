@@ -112,10 +112,10 @@
       <p class="section-tagline">Meet The Nutons. The most advanced, attractive and affordable way to to get smarter !</p>
     </header>
     <div class="products_gallery">
-      {{for product in products:}}
+      {{for product_name, product in products.iteritems():}}
         <div style="display:table-cell; vertical-align:middle">
-          <a href="/products/{{=product['name']}}"  title="{{=product['title']}}">
-            <img src="{{=URL('static', 'images/album/' + product['main-img'])}}" alt="{{=product['title']}}"/>
+          <a href="/products/{{=product_name}}"  title="{{=product['title']}}">
+            <img src="{{=URL('static', 'images/album/' + product['index-img'])}}" alt="{{=product['title']}}"/>
             {{=product['title']}}
           </a>
         </div>

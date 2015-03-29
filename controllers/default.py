@@ -3,123 +3,213 @@ import random
 import collections
 import mandrill
 from gluon import current
-from gluon.tools import Mail
 
 
-def index():
-    products = [
-        {
-            'name': 'lyra',
-            'title': 'Lyra the Touch',
-            'desc': 'Lyra is a revolutionary slim wireless touch switch. '
-                    'Lyra can used along with Aura and Mira to control appliances. '
-                    'Lyra can moved and placed anywhere within a house. '
-                    'Since Lyra is sleek and weightless it easily sticks in wall, sofa and bed. '
-                    'There is no electrical components involved so it is safe to use by kids. ',
-            'main-img': 'lyra-index.png',
-            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
-            'features': [
-                'Light weight and small.',
-                'Kids friendly.'
-                'Easily sticks in wall/sofa/bed',
-                'Turn on/off multiple devices',
-                'Configurable through phone',
-                'Comes in different colors'
-            ],
-            'spec': {
-                    'Electronics': [
-                        'Bluetooth Smart 4.1'
-                        'Buttons: 3',
-                        'Battery: CR2032'
-                    ],
-                    'Color': [
-                        'White',
-                        'Blue',
-                        'Red'
-                    ],
-                    'Dimension': [
-                        'Height: 5cm',
-                        'Width: 3cm',
-                        'Depth: 1.8cm',
-                        'Weight: 25g'
-                    ],
-            }
-        },
-        {
-            'name': 'aura',
-            'title': 'Aura the Plug',
+def get_product_details():
+    return {
+        'aura': {
+            'title': 'Aura',
+            'subtitle': 'The Plug',
+            'index-img': 'aura-index.png',
             'desc': 'Aura is a smart plug which automatically control your lights and other appliances. '
                     'Aura also allows wireless control appliances. '
                     'Aura can be used as dimmer to suit your mood. '
                     'Aura can monitor current consumption of each appliance. '
                     'Also Aura can automatically shutdown devices in standby mode to save power.',
-            'main-img': 'aura-index.png',
-            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
             'features': [
-                'No installation - Plug and Play.',
-                'Automatically turn on/off devices after certain time interval.'
-                'Control through mobile phone',
-                'Control through Lyra',
-                'Monitor and Measure energy consumption.',
-                'Timer on/off',
-                'Control over phone'
+                {
+                    'title': 'Plug & Play',
+                    'sub-title': 'No Installation Required',
+                    'image': 'aura-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Timer',
+                    'sub-title': 'Schedule on and off timing',
+                    'image': 'clock-schedule.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Save',
+                    'sub-title': 'Monitor usage and Save energy',
+                    'image': 'earth.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Control with Lyra',
+                    'sub-title': 'Control your appliances with simple Touch',
+                    'image': 'lyra-red.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Phone App',
+                    'sub-title': 'Turn off your home lights from office',
+                    'image': 'app.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                }
+
             ],
             'spec': {
-                    'Electronics': [
-                        'Bluetooth Smart 4.1'
-                    ],
-                    'Electrical': [
-                        'Current: 10A',
-                        'Voltage: 100v-240v'
-                    ],
-                    'Color': [
-                        'White'
-                    ],
-                    'Dimension': [
-                        'Height: 5cm',
-                        'Width: 4.5cm',
-                        'Depth: 3.5cm',
-                        'Weight: 100g'
-                    ],
-            }
+                'Wireless': [
+                    'Bluetooth Smart 4.1'
+                ],
+                'Electrical': [
+                    'Current: 10A',
+                    'Voltage: 100v-240v',
+                    'Frequency: 50-60Hz',
+                    'Connector: Type D'
+                ],
+                'Color': [
+                    'White'
+                ],
+                'Dimension': [
+                    'Height: 5cm',
+                    'Width: 4.5cm',
+                    'Depth: 3.5cm',
+                    'Weight: 100g'
+                ],
+            },
+            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
         },
-        {
-            'name': 'mira',
-            'title': 'Mira the Switch',
+
+        'lyra': {
+            'title': 'Lyra',
+            'subtitle': 'The Touch',
+            'index-img': 'lyra-index.png',
+            'desc': 'Lyra is a revolutionary slim wireless touch switch. '
+                    'Lyra can used along with Aura and Mira to control appliances. '
+                    'Lyra can moved and placed anywhere within a house. '
+                    'Since Lyra is sleek and weightless it easily sticks in wall, sofa and bed. '
+                    'There is no electrical components involved so it is safe to use by kids. ',
+            'features': [
+                {
+                    'title': 'Stylish',
+                    'sub-title': 'Sleek, small and slim',
+                    'image': 'lyra-blue.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Safe',
+                    'sub-title': 'Kids friendly',
+                    'image': 'kids-safety.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Colorful',
+                    'sub-title': 'Matches your home decor',
+                    'image': 'colorful-pillow.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Configurable',
+                    'sub-title': 'Change switch functionality as you like',
+                    'image': 'lyra-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Stick It',
+                    'sub-title': 'Stick it anywhere - Move it anytime',
+                    'image': 'stick-it.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                }
+
+            ],
+            'spec': {
+                'Wireless': [
+                    'Bluetooth Smart 4.1'
+                ],
+                'Buttons': [
+                    '3'
+                ],
+                'Battery': [
+                    'CR2032'
+                ],
+                'Color': [
+                    'White',
+                    'Blue',
+                    'Red'
+                ],
+                'Dimension': [
+                    'Height: 5cm',
+                    'Width: 3cm',
+                    'Depth: 0.5cm',
+                    'Weight: 25g'
+                ],
+            },
+            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
+        },
+        'mira': {
+            'title': 'Mira',
+            'subtitle': 'The Switch',
+            'index-img': 'mira-index.png',
             'desc': 'Mira replaces the conventional switch with style. '
                     'Mira can control up to 7 appliances. '
                     'Mira also allows wireless control appliances. '
                     'Mira can be used as dimmer to suit your mood. '
                     'Mira can monitor current consumption of each appliance. '
                     'Also Mira can automatically shutdown devices in standby mode to save power.',
-            'main-img': 'mira-index.png',
-            'album': ['mira-1.png', 'mira-2.png', 'mira-3.png', 'mira-4.png'],
             'features': [
-                'Simple installation',
-                'Measure energy consumption',
-                'Timer on/off',
-                'Control over phone'
+                {
+                    'title': 'Simple Installation',
+                    'sub-title': 'Easy and you can do it.',
+                    'image': 'mira-main.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Timer',
+                    'sub-title': 'Schedule on and off timing',
+                    'image': 'clock-schedule.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Save',
+                    'sub-title': 'Monitor usage and Save energy',
+                    'image': 'earth.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Control with Lyra',
+                    'sub-title': 'Control your appliances with simple Touch',
+                    'image': 'lyra-red.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                },
+                {
+                    'title': 'Phone App',
+                    'sub-title': 'Turn off your home lights from office',
+                    'image': 'app.png',
+                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
+                }
+
             ],
             'spec': {
-                    'Electronics': [
-                        'Bluetooth Smart 4.1'
-                    ],
-                    'Electrical': [
-                        'Current: 12A',
-                        'Voltage: 100v-240v',
-                        'Switches: 4',
-                        'Internal Outlets: 2'
-                        'External Outlets: 1'
-                    ],
-                    'Dimension': [
-                        'Height: 9cm',
-                        'Width: 6cm',
-                        'Depth: 5cm',
-                        'Weight: 150g'
-                    ],
-            }
+                'Wireless': [
+                    'Bluetooth Smart 4.1'
+                ],
+                'Electrical': [
+                    'Current: 10A',
+                    'Voltage: 100v-240v',
+                    'Frequency: 50-60Hz',
+                    'Connector: Type D',
+                    'Switches: 4',
+                    'Internal Outlets: 2',
+                    'External Outlets: 1'
+                ],
+                'Color': [
+                    'White'
+                ],
+                'Dimension': [
+                    'Height: 5cm',
+                    'Width: 4.5cm',
+                    'Depth: 3.5cm',
+                    'Weight: 100g'
+                ],
+            },
+            'album': ['mira-1.png', 'mira-2.png', 'mira-3.png', 'mira-4.png'],
         },
-    ]
+    }
+
+
+def index():
 
     faqs = [
         {
@@ -181,10 +271,11 @@ def index():
     ]
 
     response.view = 'index.html'
-    return dict(products=products, faqs=faqs, backgrounds=backgrounds)
+    return dict(products=get_product_details(), faqs=faqs, backgrounds=backgrounds)
 
 
 def products():
+    product_details = get_product_details()
     product_urls = collections.OrderedDict()
     product_urls['Aura'] = 'aura'
     product_urls['Lyra'] = 'lyra'
@@ -192,127 +283,6 @@ def products():
     product_urls['Mira'] = 'mira'
     product_urls['Hub'] = 'hub'
 
-    product_details = {
-        'aura': {
-            'title': 'Aura',
-            'subtitle': 'The Plug',
-            'features': [
-                {
-                    'title': 'Plug & Play',
-                    'sub-title': 'No Installation Required',
-                    'image': 'aura-main.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Timer',
-                    'sub-title': 'Schedule on and off timing',
-                    'image': 'clock-schedule.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Save',
-                    'sub-title': 'Monitor usage and Save energy',
-                    'image': 'earth.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Control with Lyra',
-                    'sub-title': 'Control your appliances with simple Touch',
-                    'image': 'lyra-red.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Phone App',
-                    'sub-title': 'Turn off your home lights from office',
-                    'image': 'app.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                }
-
-            ],
-            'spec': {
-                'Wireless': [
-                    'Bluetooth Smart 4.1'
-                ],
-                'Electrical': [
-                    'Current: 10A',
-                    'Voltage: 100v-240v',
-                    'Frequency: 50-60Hz',
-                    'Connector: Type D'
-                ],
-                'Color': [
-                    'White'
-                ],
-                'Dimension': [
-                    'Height: 5cm',
-                    'Width: 4.5cm',
-                    'Depth: 3.5cm',
-                    'Weight: 100g'
-                ],
-            },
-            'album': ['aura-1.png', 'aura-2.png', 'aura-3.png', 'aura-4.png'],
-        },
-
-        'lyra': {
-            'title': 'Lyra',
-            'subtitle': 'The Touch',
-            'features': [
-                {
-                    'title': 'Stylish',
-                    'sub-title': 'Sleek, small and slim',
-                    'image': 'lyra-blue.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Safe',
-                    'sub-title': 'Kids friendly',
-                    'image': 'kids-safety.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Colorful',
-                    'sub-title': 'Matches your home decor',
-                    'image': 'colorful-pillow.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Configurable',
-                    'sub-title': 'Change switch functionality as you like',
-                    'image': 'lyra-main.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                },
-                {
-                    'title': 'Stick It',
-                    'sub-title': 'Stick it anywhere - Move it anytime',
-                    'image': 'stick-it.png',
-                    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non eros nunc. Cras a velit hendrerit, feugiat nisl quis, venenatis ipsum. Donec non neque lectus. Morbi non leo et quam posuere ornare eget nec urna. Morbi sodales felis finibus, ultricies augue sit amet, varius nisi. Praesent malesuada varius mattis. Maecenas convallis dolor sit amet consequat congue. Quisque commodo nunc eros. Mauris facilisis massa ac neque interdum, vitae dignissim ipsum tempor. Curabitur et commodo enim. Duis ac bibendum quam, a suscipit velit.'
-                }
-
-            ],
-            'spec': {
-                'Wireless': [
-                    'Bluetooth Smart 4.1'
-                ],
-                'Buttons': [
-                    '3'
-                ],
-                'Battery': [
-                    'CR2032'
-                ],
-                'Color': [
-                    'White',
-                    'Blue',
-                    'Red'
-                ],
-                'Dimension': [
-                    'Height: 5cm',
-                    'Width: 3cm',
-                    'Depth: 0.5cm',
-                    'Weight: 25g'
-                ],
-            },
-            'album': ['lyra-1.png', 'lyra-2.png', 'lyra-3.png', 'lyra-4.png'],
-        }
-    }
     try:
         product_name = request.args[0]
         product = product_details[product_name]
