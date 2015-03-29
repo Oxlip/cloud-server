@@ -113,7 +113,7 @@
     </header>
     <div class="products_gallery">
       {{for product_name, product in products.iteritems():}}
-        <div style="display:table-cell; vertical-align:middle">
+        <div class="product_gallery_product">
           <a href="/products/{{=product_name}}"  title="{{=product['title']}}">
             <img src="{{=URL('static', 'images/album/' + product['index-img'])}}" alt="{{=product['title']}}"/>
             {{=product['title']}}
@@ -195,42 +195,6 @@
     </div>
   </section>
 
-  <section id="contact" class="gray">
-    <div class="container">
-      <div class="row">
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-tagline">For any questions or suggestions, feel free to contact us. We treat every customer as our top priority.</p>
-      </div>
-    </div>
-    <div id="form">
-      <div class="container">
-        <div class="row">
-          <div class="column three">
-            <input type="text" placeholder="Name" id="feedback_fullname">
-          </div>
-          <div class="column three">
-            <input type="text" placeholder="Email" id="feedback_email">
-          </div>
-          <div class="column six">
-            <input type="text" placeholder="Subject" id="feedback_subject">
-          </div>
-          <div class="column twelve">
-            <textarea id="feedback_message" cols="30" rows="10"></textarea>
-            <input type="submit" name="feedback_submit" value="send message" onclick=sendMessage("{{=URL('feedback')}}")>
-          </div>
-          <div class="clearfix"></div>
-          <div class="notification"></div>
-        </div>
-        <div class="row icons">
-          <div class="column four"> <i class="pe-7s-mail-open wow fadeInUp"></i><a href="mailto:info@nuton.in" id="mail" target="blank">info@nuton.in</a> </div>
-          <div class="column four"> <i class="pe-7s-map-marker wow fadeInUp"></i> <span id="address">162, Senathipathi Street, Kamatchi Nagar, <br/>
-            Chennai, India</span> </div>
-          <div class="column four"> <i class="pe-7s-call wow fadeInUp"></i> <a href="tel:00111111111" id="phone">+321 123 456 7</a> </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
   <!-- Footer Section -->
   
   <footer>

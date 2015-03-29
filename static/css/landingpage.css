@@ -7013,9 +7013,18 @@ ul.bb-custom-grid nav span.bb-current
 }
 
 .products_gallery{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     background:#f3f3f3;
     padding-top: 10vh;
     padding-bottom: 10vh;
     text-align: center;
     vertical-align:middle;
+}
+
+.product_gallery_product{
+    display:inline-block;
+    text-align:center;
+    margin: auto;
 }
