@@ -293,39 +293,6 @@ def products():
     return dict(product=product, product_urls=product_urls)
 
 
-def feedback():
-    email = request.vars['email']
-    fullname = request.vars.get('fullname', 'there')
-    subject = request.vars['subject']
-    question = request.vars['message']
-
-    message_content = 'Hi ' + fullname + ', \n\n' \
-                      'Thanks for comment/feedback. We will go through it soon and do the needful.\n\n' \
-                      '' \
-                      'Regards,\n' \
-                      'Nuton.\n' \
-                      '\n\n>' + '\n>'.join(question.split('\n'))
-
-    try:
-        mandrill_client = mandrill.Mandrill('TR4--JFjBMyIgXIn1QMccg')
-        message = {
-         'from_email': 'info@nuton.in',
-         'important': True,
-         'recipient_metadata': [{'rcpt': email}],
-         'subject': 'Nuton Question - ' + subject,
-         'text': message_content,
-         'to': [{'email': email,
-                 'type': 'to'}],
-         }
-
-        mandrill_client.messages.send(message=message)
-
-    except mandrill.Error, e:
-        return 'Failed to send message - please try later.'
-
-    return 'Thanks for sharing your feedback. We will go through your feedback and contact you if needed.'
-
-
 def get_promo_code(num_chars):
     code_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     code = ''
