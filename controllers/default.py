@@ -356,3 +356,9 @@ def subscribe():
     db.email_subscriptions.insert(email=email, source_id='Web', promo_code=promo_code, ref_code='')
 
     return dict(auto_share_code=promo_code)
+
+def handle_error():
+    response.view = '../static/404.html'
+    error_code = request.vars.code
+    request_url = request.vars.request_url
+    return dict(error_code=error_code, request_url=request_url)

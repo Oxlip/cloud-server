@@ -1,0 +1,170 @@
+/* 
+* Theme Name: Wizm 404!
+* Theme URI: http://www.themeforest.com
+* Description: A Responsive Error Theme Page For You
+* Author: Jogres
+* Author URI: http://www.jogres.com
+*/
+
+.bgindex, .bgwithout, .bglightpattern, .bgdarkpattern {
+	z-index: -999;
+	}	
+.bgindex {
+    background: url(../../images/error/pattern/light/19.png) repeat; 	
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	}
+.bgwithout {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	}
+.bglightpattern {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	}
+.bgdarkpattern {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	}
+	
+
+/* ============ panel ================ */
+#switcher_btn {
+	width: 35px;
+	height: 33px;
+	position: fixed;
+	left: 0px;
+	top: 100px;
+	background: #efefef;
+	border: 1px solid #c9c9c9;
+	border-radius: 0px 20px 20px 0px;
+	-webkit-box-shadow: inset 0 1px 0 #fff;
+	-moz-box-shadow: inset 0 1px 0 #fff;
+	box-shadow: inset 0 1px 0 #fff;
+	display: block;
+	z-index:10000;
+	cursor: pointer;
+}
+#switcher_btn img{
+	padding: 3px 0 0 3px;
+}
+#switcher_btn a{
+	outline:none;
+}
+#styleSwitcher {
+	font-family: arial;
+	position: fixed;
+	left: 0px;
+	top: 100px;
+	padding: 10px;
+	width: 200px;
+	font-size: 11px;
+	z-index:10000;
+	background-color: #efefef ;
+	border: 1px solid #c9c9c9;
+	-webkit-box-shadow: inset 0 1px 0 #fff;
+	-moz-box-shadow: inset 0 1px 0 #fff;
+	box-shadow: inset 0 1px 0 #fff;
+	-moz-border-radius-topright:3px;
+	-webkit-border-top-right-radius:3px;
+	-moz-border-radius-bottomright:3px;
+	-webkit-border-bottom-right-radius:3px;
+	display: none;
+}
+
+#styleSwitcher span {
+	font-size: 13px;
+}
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px dashed #ccc;
+	margin: 3px 0;
+	padding: 0;}
+.pattern {
+	display: block;
+	float:left;
+	margin-right:2px;
+	margin-left:2px;
+	margin-bottom:5px;
+	border:1px solid #ccc;
+	list-style:none;
+	width: 40px;
+	height: 25px;
+}
+.close_btn{
+	position: absolute;
+	cursor: pointer;
+	display: block;
+	right: -11px;
+	top: -11px;
+}
+.bg-pattern a, .bg-style a{
+	text-decoration: none;
+	color: #000;
+}
+.bgs{line-height: 25px;}
+.bgs h6 {
+	margin-left: 5px;
+	display: inline;
+}
+
+.d01{background: url(../../images/error/pattern/dark/01.png) repeat;}
+.d02{background: url(../../images/error/pattern/dark/02.png) repeat;}
+.d03{background: url(../../images/error/pattern/dark/03.png) repeat;}
+.d04{background: url(../../images/error/pattern/dark/04.png) repeat;}
+.d05{background: url(../../images/error/pattern/dark/05.png) repeat;}
+.d06{background: url(../../images/error/pattern/dark/06.png) repeat;}
+.d07{background: url(../../images/error/pattern/dark/07.png) repeat;}
+.d08{background: url(../../images/error/pattern/dark/08.png) repeat;}
+.d09{background: url(../../images/error/pattern/dark/09.png) repeat;}
+.d10{background: url(../../images/error/pattern/dark/10.png) repeat;}
+.d11{background: url(../../images/error/pattern/dark/11.png) repeat;}
+.d12{background: url(../../images/error/pattern/dark/12.png) repeat;}
+.d13{background: url(../../images/error/pattern/dark/13.png) repeat;}
+.d14{background: url(../../images/error/pattern/dark/14.png) repeat;}
+.d15{background: url(../../images/error/pattern/dark/15.png) repeat;}
+.d16{background: url(../../images/error/pattern/dark/16.png) repeat;}
+.d17{background: url(../../images/error/pattern/dark/17.png) repeat;}
+.d18{background: url(../../images/error/pattern/dark/18.png) repeat;}
+.d19{background: url(../../images/error/pattern/dark/19.png) repeat;}
+.d20{background: url(../../images/error/pattern/dark/20.png) repeat;}
+
+
+.wo01{background: url(../../images/error/01.png) no-repeat center center;}
+.wo02{background: url(../../images/error/02.png) no-repeat center center;}
+.wo03{background: url(../../images/error/03.png) no-repeat center center;}
+.wo04{background: url(../../images/error/04.png) no-repeat center center;}
+.wo05{background: url(../../images/error/05.png) no-repeat center center;}
+.wo06{background: url(../../images/error/06.png) no-repeat center center;}
+.wo07{background: url(../../images/error/07.png) no-repeat center center;}
+.wo08{background: url(../../images/error/08.png) no-repeat center center;}
+.wo09{background: url(../../images/error/09.png) no-repeat center center;}
+.wo10{background: url(../../images/error/10.png) no-repeat center center;}
+.wo11{background: url(../../images/error/11.png) no-repeat center center;}
+.wo12{background: url(../../images/error/12.png) no-repeat center center;}
+.wo13{background: url(../../images/error/13.png) no-repeat center center;}
+.wo14{background: url(../../images/error/14.png) no-repeat center center;}
+.wo15{background: url(../../images/error/15.png) no-repeat center center;}
+.wo16{background: url(../../images/error/16.png) no-repeat center center;}
+.wo17{background: url(../../images/error/17.png) no-repeat center center;}
+.wo18{background: url(../../images/error/18.png) no-repeat center center;}
+.wo19{background: url(../../images/error/19.png) no-repeat center center;}
+.wo20{background: url(../../images/error/20.png) no-repeat center center;}
+
+.bgs01{background: url(../../images/error/04.png) no-repeat center center; background-size: 75px;}
+.bgs02{background: url(../../images/error/pattern/light/01.png) no-repeat center center; background-size: 75px;}
+.bgs03{background: url(../../images/error/pattern/dark/01.png) no-repeat center center; background-size: 75px;}
