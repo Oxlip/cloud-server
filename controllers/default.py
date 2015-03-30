@@ -279,9 +279,7 @@ def products():
     product_urls = collections.OrderedDict()
     product_urls['Aura'] = 'aura'
     product_urls['Lyra'] = 'lyra'
-    product_urls['Lyra+'] = 'lyraplus'
     product_urls['Mira'] = 'mira'
-    product_urls['Hub'] = 'hub'
 
     try:
         product_name = request.args[0]
