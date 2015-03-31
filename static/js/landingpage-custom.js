@@ -121,27 +121,7 @@ if (!Array.prototype.indexOf) {
       offset: 200, // distance to the element when triggering the animation (default is 0)
       mobile: false // trigger animations on mobile devices (true is default)
     });
-    /* Tabs
-    ================================================== */
-    $('.tabs').each(function() {
-      var $tabLis = $(this).find('li');
-      var $tabContent = $(this).next('.tab-content-wrap').find('.tab-content');
-      $tabContent.hide();
-      $tabLis.first().addClass('active').show();
-      $tabContent.first().show();
-    });
-    $('.tabs').on('click', 'li', function(e) {
-      var $this = $(this);
-      var parentUL = $this.parent();
-      var scrollparentURL = $this.parent();
-      var tabContent = scrollparentURL.next('.tab-content-wrap');
-      parentUL.children().removeClass('active');
-      $this.addClass('active');
-      tabContent.find('.tab-content').hide();
-      var showById = $($this.find('a').attr('href'));
-      tabContent.find(showById).fadeIn();
-      e.preventDefault();
-    });
+
     /* Accordion
     ================================================== */
     $('.accordion').on('click', '.title', function(event) {
@@ -184,29 +164,7 @@ if (!Array.prototype.indexOf) {
         offset: '100%'
       });
     });
-    /* Scroll to Main Menu
-    ================================================== */
-    $('#home_page_ref').click(function(event) {
-      location.reload();
-      $(document).scrollTo('#top');
-    });
-    $('#home_page_logo').click(function(event) {
-      location.reload();
-      $(document).scrollTo('#top');
-    });
-    $('#header-section a[href*=#]').click(function(event) {
-      var $this = $(this);
-      var offset = -80;
-      if ($this.parent().is(':nth-child(2)')) {
-        offset = 2; // for second child dont do offset
-      };
-      $.scrollTo($this.attr('href'), 650, {
-        easing: 'swing',
-        offset: offset,
-        'axis': 'y'
-      });
-      event.preventDefault();
-    });
+
     /* Scroll to Element on Page
     ================================================== */
     $('a#to-blog').click(function(event) {
@@ -298,39 +256,9 @@ if (!Array.prototype.indexOf) {
       $('.bannercontainer').addClass('hero-fixed');
       $('#home-content').addClass('hero-fixed');
     }
-    /* OWL Carousel
-    ================================================== */
-    /*      $(".home-slider").owlCarousel({
-              transitionStyle: "backSlide",
-              slideSpeed: 350,
-              singleItem: true,
-              autoHeight: true,
-              navigation: true,
-              navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
-          });*/
-    $(".mfp-iframe").magnificPopup({
-      mainClass: 'mfp-carousel',
-      gallery: {
-        enabled: false
-      }
-    });
 
-    function twitterCarousel() {
-      $("#twitter-container").owlCarousel({
-        slideSpeed: 300,
-        paginationSpeed: 400,
-        singleItem: true,
-        autoPlay: 5000,
-        autoHeight: true
-      });
-    }
-    $("#testimonial-container").owlCarousel({
-      slideSpeed: 300,
-      paginationSpeed: 400,
-      singleItem: true,
-      autoPlay: 5000,
-      autoHeight: true
-    });
+
+
     $(".slider").owlCarousel({
       slideSpeed: 300,
       paginationSpeed: 400,
@@ -602,74 +530,7 @@ if (!Array.prototype.indexOf) {
         filterLis.filter('.active').removeClass('active').find('a').trigger('click');
       }, 100);
     });
-    /* Portfolio Ajax
-    ================================================== */
-    $('#portfolio-wrapper').magnificPopup({
-      delegate: '.block:not(.isotope-hidden) .portfolio-hover',
-      closeMarkup: '',
-      closeBtnInside: false,
-      closeOnBgClick: false,
-      type: 'ajax',
-      fixedContentPos: false,
-      mainClass: 'mfp-fade',
-      midClick: true,
-      gallery: {
-        enabled: true,
-        preload: [0, 2],
-        arrowMarkup: '',
-        navigateByImgClick: true,
-        tCounter: '<span class="mfp-counter">%curr% of %total%</span>' // markup of counter
-      },
-      callbacks: {
-        parseAjax: function(mfpResponse) {
-          mfpResponse.data = $(mfpResponse.data).siblings('#portfolio-single');
-        },
-        change: function() {
-          if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // $.magnificPopup.instance.next = function () {return false}; 
-            //$.magnificPopup.instance.prev = function () {return false}; 
-          }
-        },
-        open: function() {
-          var main = $('#home-content, .home-slider, .hero, footer, #header-section, .mbYTP_wrapper');
-          main.addClass('hide');
-          var that = this;
-          //listen for click events
-          that.contentContainer.on('click', '.close, .prev, .next', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            if ($this.hasClass('close')) {
-              that.close();
-            } else if ($this.hasClass('prev')) {
-              that.prev();
-            } else if ($this.hasClass('next')) {
-              that.next();
-            }
-            return false;
-          });
-        },
-        close: function() {
-          var main = $('#home-content, .home-slider, .hero, footer, #header-section, .mbYTP_wrapper');
-          main.removeClass('hide');
-        },
-        afterClose: function() {
-          $(window).scrollTop(this.st.mainEl.offset().top - 150);
-        }
-      }
-    });
-    /* Isotope Portfolio
-    ================================================== */
-    var $container = $('#portfolio-wrapper');
-    $container.isotope({
-      itemSelector: '.block',
-      layoutMode: 'sloppyMasonry',
-      filter: '*',
-      animationOptions: {
-        duration: 750,
-        easing: 'linear',
-        queue: false
-      }
-    });
+
     $('#port-filter a').click(function() {
       $('#port-filter li.active').removeClass('active');
       $(this).parent().addClass('active');
@@ -756,46 +617,6 @@ if (!Array.prototype.indexOf) {
   }
 })(jQuery);
 
-
-function validateEmail(url) {
-  var filter = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-  var email = $('#signup_email').val();
-
-
-  if (!filter.test(email)) {
-      var qtip_target = $('#signup_email');
-    qtip_target.qtip({
-        id: 'emailTooltip',
-        content: {
-            text: 'Please enter a valid email.'
-        },
-        position: {
-            my: 'top left',
-            at: 'center',
-            target: qtip_target
-        },
-        events: {
-            hide: function(event, api) {
-                api.destroy();
-            }
-        },
-        style: {
-           classes: 'qtip-youtube'
-        }
-    });
-    var qtip2_api = qtip_target.qtip('api');
-    qtip2_api.show();
-    return;
-  }
-  $.ajax({
-    url: url + "?email=" + email,
-    cache: false,
-    success: function(res) {
-      $('.popUp_box_inner').html(res);
-    }
-  });
-
-}
 
 var Page = (function() {
   var $grid = $('.bb-custom-grid');
