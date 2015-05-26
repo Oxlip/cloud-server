@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Oxlip: One Home One Control
+        </title>
+        <meta content="Oxlip is new gereration smart home solutions which are light weight on your wall and also on you wallet. Easy to install(no electrician required) and easy to use." name="description">
+        <meta content="" name="author">
+        <meta content="Smart Home Solutions Home Automation Smart Plug Wireless Switch" name="keywords">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+        <!-- Sky v1.2 || ex nihilo || November 2014 - February 2015 -->
+        <!-- style start -->
+        <link href="{{=URL('static', 'soon/css/style.css')}}" media="all" rel="stylesheet" type="text/css">
+        <link href="{{=URL('static', 'soon/css/blue.css')}}" media="screen" rel="stylesheet" title="blue" type="text/css">
+        <link href="{{=URL('static', 'soon/css/skeleton-wide.css')}}" media="all" rel="stylesheet" type="text/css">
+        <link href="{{=URL('static', 'soon/css/media.css')}}" media="all" rel="stylesheet" type="text/css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" media="all" rel="stylesheet" type="text/css">
+        <!-- style end -->
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+    <div class="overlay" onClick="$(this).fadeOut(); $('.vimeo-video').fadeOut()" id="pause-button"></div>
+    <div class="vimeo-video">
+    	<div class="close" onClick="$('.overlay').fadeOut(); $('.vimeo-video').fadeOut()">x</div>
+        <iframe src="//player.vimeo.com/video/124354494?api=1" width="100%" height="481" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="video-player"></iframe></div>
+        
+        <!-- screen loader start -->
+        <div class="screen-loader"></div><!-- screen loader end -->
+        <!-- preload start -->
+        <div id="preload">
+            <!-- preload status start -->
+            <div id="preload-status"></div><!-- preload status end -->
+        </div><!-- preload end -->
+        <!-- curtains start -->
+        <div id="curtains"></div><!-- curtains end -->
+        <!-- top shade start -->
+        <div id="top-shade"></div><!-- top shade end -->
+        <!-- google maps start -->
+        <div id="map-wrapper">
+            <div id="map"></div>
+        </div><!-- google maps end -->
+        <!-- preload content start -->
+        <div class="preload-content">
+            <!-- home start -->
+            <div id="home"></div><!-- home end -->
+        </div><!-- preload content end -->
+        <!-- menu start -->
+        <nav class="menu">
+            <ul class="mainNav">
+                <li class="curr">
+                    <a class="menu-state active" href="#" id="fire-home"><span class="navNumber">00</span> <span class="navTitle">Home</span><br>
+                    Get started</a>
+                </li>
+                <li>
+                    <a class="menu-state" href="#" id="fire-about"><span class="navNumber">01</span> <span class="navTitle">About</span><br>
+                    Who we are</a>
+                </li>
+                <li>
+                    <a class="menu-state" href="#" id="fire-services"><span class="navNumber">02</span> <span class="navTitle">Features</span><br>
+                    What we do</a>
+                </li>
+                <li>
+                    <a class="menu-state" href="#" id="fire-contact"><span class="navNumber">03</span> <span class="navTitle">Contact</span><br>
+                    Get in touch</a>
+                </li>
+            </ul>
+        </nav><!-- menu end -->
+        <!-- menu mobile start -->
+        <nav class="menu-mobile">
+            <ul>
+                <li>
+                    <ul>
+                        <li class="lifting-first">
+                            <a class="menu-state active" href="#" id="fire-home-mobile">Home</a>
+                        </li>
+                        <li class="lifting">
+                            <a class="menu-state" href="#" id="fire-about-mobile">About</a>
+                        </li>
+                        <li class="lifting">
+                            <a class="menu-state" href="#" id="fire-services-mobile">Features</a>
+                        </li>
+                        <li class="lifting">
+                            <a class="menu-state" href="#" id="fire-contact-mobile">Contact</a>
+                        </li>
+                    </ul><a class="menu-mobile-trigger" href="#">Menu</a>
+                </li>
+            </ul>
+        </nav><!-- menu mobile end -->
+        <!-- upper page start -->
+        <div class="upper-page current" id="read-home">
+            <!-- center container start -->
+            <div class="center-container-home">
+                <!-- center block start -->
+                <div class="center-block">
+                    <!-- borders start -->
+                    <div class="borders"></div><!-- borders end -->
+                    <!-- social icons start -->
+                    <div class="social-icons-wrapper">
+                        <ul class="social-icons">
+                            <li>
+                                <a class="fa fa-twitter-square fa-2x" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-facebook-square fa-2x" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-google-plus-square fa-2x" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-youtube-square fa-2x" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="fa fa-linkedin-square fa-2x" href="#"></a>
+                            </li>
+                        </ul>
+                    </div><!-- social icons end -->
+                    <!-- upper content start -->
+                    <div class="upper-content">
+                        <!-- container start -->
+                        <div class="container center">
+                            <!-- intro wrapper start -->
+                            <div id="intro-wrapper">
+                                <!--<div class="eight columns column top">
+                                    <div id="intro-top-line"></div>
+                                </div>-->
+                                <div class="eight columns column">
+                                    <div id="intro-top">
+                                        <img src="{{=URL('static', 'soon/images/logo.png')}}" alt="" class="logooo">
+                                    </div>
+                                </div>
+                                <div class="sixteen columns">
+                                    <!--<div id="intro-title" style="visibility:hidden;">
+                                       CTA
+                                    </div>-->
+                                    <div class="fan-play"><img src="{{=URL('static', 'soon/images/play38.png')}}" width="128" height="128" alt="play" class="pl" onClick="$('.overlay').fadeIn(); $('.vimeo-video').fadeIn()" id="play-button"></div>
+                              </div>
+                                <div class="sixteen columns">
+                                	<!--<div class="video-container"><img src="images/vdo.jpg" width="300" height="200" alt="vodeo"></div>
+                                    <a href="https://vimeo.com/124354494" target="_blank"><div id="intro-subtitle">
+                                        WATCH US
+                                    </div>
+                                    </a>-->
+                                </div>
+                                <div class="eight columns column">
+                                    <!-- teaser start -->
+                                    <div id="teaser">
+                                        <div id="teaser-text">
+                                            <!-- teaser line 1 start -->
+                                            <div class="teaser-text-animation active first">
+                                                <h3>
+                                                	<span class="teaser-normal orange">Because</span> <span class="teaser-normal">India</span> <span class="teaser-normal green">deserves</span> <span class="teaser-highlight">more ...</span>
+                                                    <!--<span class="teaser-normal">Full Screen</span> <span class="teaser-highlight">Background</span>-->
+                                                </h3>
+                                            </div><!-- teaser line 1 end -->
+                                            <!-- teaser line 2 start -->
+                                            <div class="teaser-text-animation">
+                                                <h3>
+                                                    <span class="teaser-normal orange">Because</span> <span class="teaser-normal">India</span> <span class="teaser-normal green">deserves</span> <span class="teaser-highlight">more ...</span>
+                                                </h3>
+                                            </div>
+                                            <div class="teaser-text-animation">
+                                                <h3>
+                                                    <span class="teaser-normal orange">Because</span> <span class="teaser-normal">India</span> <span class="teaser-normal green">deserves</span> <span class="teaser-highlight">more ...</span>
+                                                </h3>
+                                            </div>
+                                            <div class="teaser-text-animation">
+                                                <h3>
+                                                    <span class="teaser-normal orange">Because</span> <span class="teaser-normal">India</span> <span class="teaser-normal green">deserves</span> <span class="teaser-highlight">more ...</span>
+                                                </h3>
+                                            </div><!-- teaser line 4 end -->
+                                        </div>
+                                    </div><!-- teaser end -->
+                                </div>
+                                <!--<div class="eight columns column">
+                                    <div id="intro-bottom-line"></div>
+                                </div>-->
+                            </div><!-- intro wrapper end -->
+                        </div><!-- container end -->
+                    </div><!-- upper content end -->
+                    <!-- launch countdown start -->
+                    <div id="countdown-wrapper">
+                        <div id="countdown-wrap">
+                            <ul id="countdown">
+                                <li>
+                                    <span id="days-sub">days</span> <input class="knob" data-fgcolor="#fff" data-height="140" data-max="366" data-min="0" data-readonly="true" data-skin="tron"
+                                    data-thickness="0.1" data-width="140" id="days">
+                                </li>
+                                <li>
+                                    <span id="hours-sub">hours</span> <input class="knob" data-fgcolor="#fff" data-height="140" data-max="24" data-min="0" data-readonly="true" data-skin="tron"
+                                    data-thickness="0.1" data-width="140" id="hours">
+                                </li>
+                                <li>
+                                    <span id="mins-sub">minutes</span> <input class="knob" data-fgcolor="#fff" data-height="140" data-max="60" data-min="0" data-readonly="true" data-skin="tron"
+                                    data-thickness="0.1" data-width="140" id="mins">
+                                </li>
+                                <li>
+                                    <span id="secs-sub">seconds</span> <input class="knob" data-fgcolor="#fff" data-height="140" data-max="60" data-min="0" data-readonly="true" data-skin="tron"
+                                    data-thickness="0.1" data-width="140" id="secs">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- launch countdown end -->
+                    <!-- newsletter form start -->
+                    <div id="subscribe-form">
+                        <h4>
+                            Subscribe today to<br>
+                            receive the latest news
+                        </h4>
+                        <div id="subscribe-wrapper">
+                            <div id="newsletter">
+                                <div class="newsletter">
+                                    <form action="subscribe.php" id="subscribe" method="post" name="subscribe">
+                                        <label class="mail"> E-mail</label> <input class="subscriberequiredField subscribeemail" id="subscribeemail" name="subscribeemail" type="text"> <input id=
+                                        "submit" type="submit" value="SUBSCRIBE">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- newsletter form end -->
+                </div><!-- center container end -->
+            </div><!-- center block end -->
+        </div><!-- upper page end -->
+        <!-- about start -->
+        <div class="lower-page" id="about">
+            <!-- center container start -->
+            <div class="center-container">
+                <!-- center block start -->
+                <div class="center-block">
+                    <!-- lower content start -->
+                    <div class="lower-content">
+                        <!-- about intro start -->
+                        <div class="about-intro">
+                            <h1>
+                                ABOUT
+                            </h1>
+                        </div><!-- about intro end -->
+                        <!-- container start -->
+                        <div class="container center">
+                            <!-- divider left top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-top"></div>
+                            </div><!-- divider left top end -->
+                            <!-- divider right top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-top"></div>
+                            </div><!-- divider right top end -->
+                            <!-- about full start -->
+                            <div class="sixteen columns about-column-full">
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Donec placerat congue leo, nec vehicula elit vehicula vel. Duis odio nibh, malesuada sed
+                                    luctus ut, consectetur vel dui. Mauris vel imperdiet nulla. Sed eu ligula augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                    himenaeos. Sed a justo nec elit feugiat facilisis quis quis elit.
+                                </p>
+                            </div><!-- about full end -->
+                            <!-- about column 1 start -->
+                            <div class="one-third column about-column">
+                                <span class="awesome"><span class="fa fa-desktop"></span></span>
+                                <p class="info">
+                                  
+                                    Designers
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- about column 1 end -->
+                            <!-- about column 2 start -->
+                            <div class="one-third column about-column">
+                                <span class="awesome"><span class="fa fa-file-code-o"></span></span>
+                                <p class="info">
+                                    Programmers
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- about column 2 end -->
+                            <!-- about column 3 start -->
+                            <div class="one-third column about-column">
+                                <span class="awesome"><span class="fa fa-gears"></span></span>
+                                <p class="info">
+                                    Engineers
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- about column 3 end -->
+                            <!-- divider left bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-bottom"></div>
+                            </div><!-- divider left bottom end -->
+                            <!-- divider right bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-bottom"></div>
+                            </div><!-- divider right bottom end -->
+                        </div><!-- container end -->
+                        <!-- closer start -->
+                        <div class="fire-closer">
+                            <a class="menu-state" href="#" id="fire-about-closer"><img alt="Closer" src="{{=URL('static', 'soon/images/closer.png')}}"></a>
+                        </div><!-- closer end -->
+                    </div><!-- lower content end -->
+                </div><!-- center container end -->
+            </div><!-- center block end -->
+        </div><!-- about end -->
+        <!-- services start -->
+        <div class="lower-page" id="services">
+            <!-- center container start -->
+            <div class="center-container">
+                <!-- center block start -->
+                <div class="center-block">
+                    <!-- lower content start -->
+                    <div class="lower-content">
+                        <!-- services intro start -->
+                        <div class="services-intro">
+                            <h1>
+                                FEATURES
+                            </h1>
+                        </div><!-- services intro end -->
+                        <!-- container start -->
+                        <div class="container center">
+                            <!-- divider left top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-top"></div>
+                            </div><!-- divider left top end -->
+                            <!-- divider right top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-top"></div>
+                            </div><!-- divider right top end -->
+                            <!-- services full start -->
+                            <div class="sixteen columns services-column-full">
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Donec placerat congue leo, nec vehicula elit vehicula vel. Duis odio nibh, malesuada sed
+                                    luctus ut, consectetur vel dui. Mauris vel imperdiet nulla. Sed eu ligula augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                    himenaeos. Sed a justo nec elit feugiat facilisis quis quis elit.
+                                </p>
+                            </div><!-- services full end -->
+                            <!-- services column 1 start -->
+                            <div class="one-third column services-column">
+                                <span class="awesome"><span class="fa fa-check-square-o"></span></span>
+                                <p class="info">
+                                    Easy
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- services column 1 end -->
+                            <!-- services column 2 start -->
+                            <div class="one-third column services-column">
+                                <span class="awesome"><span class="fa fa-sort-amount-desc"></span></span>
+                                <p class="info">
+                                    Effective
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- services column 2 end -->
+                            <!-- services column 3 start -->
+                            <div class="one-third column services-column">
+                                <span class="awesome"><span class="fa fa-money"></span></span>
+                                <p class="info">
+                                    Effordable
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed risus purus, pellentesque a consequat a, accumsan vel libero.
+                                </p>
+                            </div><!-- services column 3 end -->
+                            <!-- divider left bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-bottom"></div>
+                            </div><!-- divider left bottom end -->
+                            <!-- divider right bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-bottom"></div>
+                            </div><!-- divider right bottom end -->
+                        </div><!-- container end -->
+                        <!-- closer start -->
+                        <div class="fire-closer">
+                            <a class="menu-state" href="#" id="fire-services-closer"><img alt="Closer" src="{{=URL('static', 'soon/images/closer.png')}}"></a>
+                        </div><!-- closer end -->
+                    </div><!-- lower content end -->
+                </div><!-- center container end -->
+            </div><!-- center block end -->
+        </div><!-- services end -->
+        <!-- contact start -->
+        <div class="lower-page" id="contact">
+            <!-- center container start -->
+            <div class="center-container">
+                <!-- center block start -->
+                <div class="center-block">
+                    <!-- lower content start -->
+                    <div class="lower-content">
+                        <!-- contact intro start -->
+                        <div class="contact-intro">
+                            <h1>
+                                CONTACT
+                            </h1>
+                        </div><!-- contact intro end -->
+                        <!-- container start -->
+                        <div class="container center">
+                            <!-- divider left top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-top"></div>
+                            </div><!-- divider left top end -->
+                            <!-- divider right top start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-top"></div>
+                            </div><!-- divider right top end -->
+                            <!-- services full start --><!-- services full end -->
+                            <!-- contact column 1 start -->
+                            <div class="one-third column contact-column">
+                                <div class="info-address">
+                                    <span class="awesome"><span class="fa fa-map-marker"></span></span>
+                                    <p class="info">
+                                        Address
+                                    </p>
+                                    <p>
+                                        Oxlip Pvt Ltd.<br>
+                                        Bangalore<br>
+                                        India
+                                    </p>
+                                </div>
+                            </div><!-- contact column 1 end -->
+                            <!-- contact column 2 start -->
+                            <div class="one-third column contact-column">
+                                <div class="info-phone">
+                                    <span class="awesome"><span class="fa fa-phone"></span></span>
+                                    <p class="info">
+                                        Telephone
+                                    </p>
+                                    <p>
+                                        [91]<br>
+                                    </p>
+                                </div>
+                            </div><!-- contact column 2 end -->
+                            <!-- contact column 3 start -->
+                            <div class="one-third column contact-column">
+                                <div class="info-email">
+                                    <span class="awesome"><span class="fa fa-envelope"></span></span>
+                                    <p class="info">
+                                        E-mail
+                                    </p>
+                                    <p>
+                                        <a href="mailto:info@oxlip.in">info@oxlip.in</a>
+                                    </p>
+                                </div>
+                            </div><!-- contact column 3 end -->
+                            <!-- contact form start -->
+                            <div class="sixteen columns">
+                                <div id="contact-form">
+                                    <form action="contact.php" id="form" method="post" name="send">
+                                        <div class="holder">
+                                            <div>
+                                                <input class="requiredField name" id="name" name="name" placeholder="Name" type="text">
+                                            </div>
+                                            <div>
+                                                <input class="requiredField email" id="email" name="email" placeholder="Email" type="text">
+                                            </div>
+                                            <div>
+                                                <input class="requiredField subject" id="subject" name="subject" placeholder="Subject" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="holder">
+                                            <div>
+                                                <textarea class="requiredField message" id="message" name="message" placeholder="Message">
+</textarea>
+                                            </div>
+                                            <div>
+                                                <button class="submit white-border" data-hover="Submit" type="submit" value="Submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- contact form end -->
+                            <!-- divider left bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-left-bottom"></div>
+                            </div><!-- divider left bottom end -->
+                            <!-- divider right bottom start -->
+                            <div class="sixteen columns">
+                                <div class="divider-right-bottom"></div>
+                            </div><!-- divider right bottom end -->
+                        </div><!-- container end -->
+                        <!-- closer start -->
+                        <div class="fire-closer">
+                            <a class="menu-state" href="#" id="fire-contact-closer"><img alt="Closer" src="{{=URL('static', 'soon/images/closer.png')}}"></a>
+                        </div><!-- closer end -->
+                    </div><!-- lower content end -->
+                </div><!-- center container end -->
+            </div><!-- center block end -->
+        </div><!-- contact end -->
+        <!-- scripts start -->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.4/jquery.nicescroll.min.js"></script>
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/sky.js')}}"></script>
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/form-subscribe.js')}}"></script>
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/form-contact.js')}}"></script>
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/knob/countdown.js')}}"></script>
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/knob/jquery.knob.js')}}"></script>
+        <!-- countdown setup start -->
+        <script type="text/javascript">
+        //<![CDATA[
+            $(document).ready(function() {
+                "use strict";
+                $("#countdown").countdown({
+                    date: "15 August 2015 12:00:00", // countdown target date settings
+                    format: "on"
+                }, function() {
+                    // callback function
+                });
+            });
+        //]]>
+        </script><!-- countdown setup end -->
+        <script type="text/javascript" src="{{=URL('static', 'soon/js/knob/knob.js')}}"></script>
+        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="{{=URL('static', 'soon/js/google-maps.js')}}"></script>
+        <script language="javascript" src="{{=URL('static', 'soon/js/froogaloop.js')}}"></script>
+        <!-- scripts end -->
+		<script>
+            // Froogaloop
+            // https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/froogaloop.js
+            // https://github.com/vimeo/player-api/blob/master/javascript/froogaloop.js
+            // http://a.vimeocdn.com/js/froogaloop2.min.js
+
+            /*var iframe = document.getElementById('video');
+
+            // $f == Froogaloop
+            var player = $f(iframe);
+
+            // bind events
+            var playButton = document.getElementById("play-button");
+            playButton.addEventListener("click", function() {
+              player.api("play");
+            });
+
+            var pauseButton = document.getElementById("pause-button");
+            pauseButton.addEventListener("click", function() {
+              player.api("pause");
+            });*/
+
+
+            var iframe = $('#video-player')[0];
+            var player = $f(iframe);
+
+            $('#pause-button').click(function() {
+                player.api('pause');
+            });
+
+
+            $('#play-button').click(function(){
+                player.api('play');
+            })
+
+	   </script>
+    </body>
+</html>
