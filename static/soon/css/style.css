@@ -335,6 +335,10 @@ padding: 15px 0 15px 0;
 line-height: 1;
 }
 
+.about-person {
+font-size: 10px;
+}
+
 .awesome {
 font-size: 30px;
 }
