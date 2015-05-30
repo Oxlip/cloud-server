@@ -23,28 +23,28 @@ $(window).load(preLoader);
 
 function preLoader() {
     setTimeout(function() {
-        $('#preload').delay(250).fadeOut(1500);
-        $('.borders').delay(2000).css({
+        $('#preload').delay(250).fadeOut(250);
+        $('.borders').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('#intro-wrapper').delay(2000).css({
+        }).fadeIn(250);
+        $('#intro-wrapper').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('.menu').delay(2000).css({
+        }).fadeIn(250);
+        $('.menu').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('.menu-mobile').delay(2000).css({
+        }).fadeIn(250);
+        $('.menu-mobile').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('#countdown-wrapper').delay(2000).css({
+        }).fadeIn(250);
+        $('#countdown-wrapper').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('#subscribe-form').delay(2000).css({
+        }).fadeIn(250);
+        $('#subscribe-form').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
-        $('.social-icons-wrapper').delay(2000).css({
+        }).fadeIn(250);
+        $('.social-icons-wrapper').delay(250).css({
             display: 'none'
-        }).fadeIn(3000);
+        }).fadeIn(250);
     });
 };
 
@@ -59,89 +59,54 @@ jQuery(function($) {
 });
 
 
+function fire_delayed_load(e, name) {
+    $(name).removeClass("current");
+    e.preventDefault();
+    $(".current").fadeOut(250, function() {
+        $(name).fadeIn(250);
+        $(".current").removeClass("current");
+        $(name).addClass("current");
+    });
+}
+
 // fire
 $(document).ready(function() {
     "use strict";
     // fire home
     $("#fire-home").click(function(e) {
-        e.preventDefault();
-		$(".current").fadeOut( 900, function() {
-			$( ".upper-page" ).fadeIn( 900 );
-            $(".current").removeClass("current");
-            $(".upper-page").addClass("current");
-        });
+        fire_delayed_load(e, ".upper-page");
     });
     // fire about
     $("#fire-about").click(function(e) {
-        e.preventDefault();
-		$(".current").fadeOut( 900, function() {
-			$( "#about" ).fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#about").addClass("current");
-        });
+        fire_delayed_load(e, "#about");
     });
     // fire services
     $("#fire-services").click(function(e) {
-        e.preventDefault();
-		$(".current").fadeOut( 900, function() {
-			$( "#services" ).fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#services").addClass("current");
-        });
+        fire_delayed_load(e, "#services");
     });
     // fire contact
     $("#fire-contact").click(function(e) {
-        e.preventDefault();
-		$(".current").fadeOut( 900, function() {
-			$( "#contact" ).fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#contact").addClass("current");
-        });
+        fire_delayed_load(e, "#contact");
     });
     // fire home mobile
     $("#fire-home-mobile").click(function(e) {
-        e.preventDefault();
-        $(".current").fadeOut( 900, function() {
-            $(".upper-page").fadeIn( 900 );
-            $(".current").removeClass("current");
-            $(".upper-page").addClass("current");
-        });
+        fire_delayed_load(e, ".upper-page");
     });
     // fire about mobile
     $("#fire-about-mobile").click(function(e) {
-        e.preventDefault();
-        $(".current").fadeOut( 900, function() {
-            $("#about").fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#about").addClass("current");
-        });
+        fire_delayed_load(e, "#about");
     });
     // fire services mobile
     $("#fire-services-mobile").click(function(e) {
-        e.preventDefault();
-        $(".current").fadeOut( 900, function() {
-            $("#services").fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#services").addClass("current");
-        });
+        fire_delayed_load(e, "#services");
     });
     // fire contact mobile
     $("#fire-contact-mobile").click(function(e) {
-        e.preventDefault();
-        $(".current").fadeOut( 900, function() {
-            $("#contact").fadeIn( 900 );
-            $(".current").removeClass("current");
-            $("#contact").addClass("current");
-        });
+        fire_delayed_load(e, "#contact");
     });
     // fire closer
     $("#fire-about-closer, #fire-services-closer, #fire-contact-closer").click(function(e) {
-        e.preventDefault();
-		$(".current").fadeOut( 900, function() {
-			$( ".upper-page" ).fadeIn( 900 );
-            $(".current").removeClass("current");
-            $(".upper-page").addClass("current");
-        });
+        fire_delayed_load(e, ".upper-page");
     });
 });
 
