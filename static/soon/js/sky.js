@@ -14,6 +14,11 @@ $(document).ready(function() {
     $('#preload').css({
         display: 'table'
     });
+
+  $("a[href*=#]").click(function(e) {
+   ga('send', 'event', 'hashtag', 'click', $(this).text());
+  });
+
 });
 
 
