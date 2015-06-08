@@ -28,7 +28,7 @@ $(document).ready(function() {
     var formInput = $(this).serialize();
     $.post($(this).attr('action'),formInput, function(data){
     $('form#subscribe').slideUp("fast", function() {
-    $(this).before('<div class="subscribesuccess">Thank you for subscribing.</div>');
+    $(this).before('<div class="subscribesuccess">Thanks for subscribing.</div>');
     });
     });
     }

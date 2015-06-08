@@ -306,10 +306,10 @@ def get_promo_code(num_chars):
 def _send_mail(email_to, promo_code):
 
     try:
-        mandrill_client = mandrill.Mandrill('TR4--JFjBMyIgXIn1QMccg')
+        mandrill_client = mandrill.Mandrill('gzljWTXRZKF5LWs7NA4AHQ')
         template_content = [{'content': 'example content', 'name': 'example name'}]
         message = {
-         'from_email': 'info@nuton.in',
+         'from_email': 'info@oxlip.in',
          'global_merge_vars': [{'content': 'merge1 content', 'name': 'merge1'}],
          'important': False,
          'inline_css': True,
@@ -322,7 +322,7 @@ def _send_mail(email_to, promo_code):
             }
           ],
          'recipient_metadata': [{'rcpt': email_to}],
-         'subject': 'Welcome to Nuton family',
+         'subject': 'Welcome to Oxlip family',
          'text': 'Your Promo Code : ' + promo_code,
          'to': [{'email': email_to,
                  'type': 'to'}],
@@ -344,7 +344,7 @@ def _send_mail(email_to, promo_code):
 def subscribe():
     response.view = 'ajax_resp_subscribe.html'
     db = current.db
-    email = request.vars['email']
+    email = request.vars['subscribeemail']
     subscribed = db.email_subscriptions(db.email_subscriptions.email == email)
 
     promo_code = get_promo_code(6)
