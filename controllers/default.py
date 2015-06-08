@@ -209,7 +209,7 @@ def get_product_details():
     }
 
 
-def index():
+def later():
 
     faqs = [
         {
@@ -290,9 +290,11 @@ def products():
     response.view = 'products.html'
     return dict(product=product, product_urls=product_urls)
 
-def soon():
+
+def index():
     response.view = 'soon.html'
     return dict()
+
 
 def get_promo_code(num_chars):
     code_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
