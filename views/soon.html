@@ -35,12 +35,28 @@
 
     </head>
     <body>
-    {{include 'ga.html'}}
-    <div class="overlay" onClick="$(this).fadeOut(); $('.vimeo-video').fadeOut()" id="pause-button"></div>
+        {{include 'ga.html'}}
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="overlay" onClick="$(this).fadeOut(); $('.vimeo-video').fadeOut()" id="pause-button"></div>
         <div class="vimeo-video">
             <div class="close" onClick="stopVideo();$('.overlay').fadeOut(); $('.vimeo-video').fadeOut()">x</div>
             <div id="video-player"></div>
+            <div id="fb-page-container" style="display: none;position: absolute;margin-top: -50px;margin-left: -50px;top: 40%;left: 40%;">
+                <div class="close" id="fb-page-close"  onClick="$('#fb-page-container').fadeOut()">x</div>
+                <br>
+                <div id="fb-page" class="fb-page" data-href="https://www.facebook.com/OxlipHome" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/OxlipHome"><a href="https://www.facebook.com/OxlipHome">Oxlip</a></blockquote></div></div>
+            </div>
         </div>
+
 
         <!-- screen loader start -->
         <div class="screen-loader"></div><!-- screen loader end -->
@@ -465,6 +481,9 @@
               //setTimeout(stopVideo, 6000);
               done = true;
             }
+              if (event.data == YT.PlayerState.ENDED) {
+                  $('#fb-page-container').fadeIn(1500);
+              }
           }
           function stopVideo() {
             player.stopVideo();
