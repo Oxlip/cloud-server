@@ -37,14 +37,26 @@
     <body>
         {{include 'ga.html'}}
 
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
         <div class="overlay" onClick="$(this).fadeOut(); $('.vimeo-video').fadeOut()" id="pause-button"></div>
         <div class="vimeo-video">
-            <div class="close" onClick="$('.overlay').fadeOut(); $('.vimeo-video').fadeOut()">x</div>
-            <div id="video-player">
-                <div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/OxlipHome/videos/vb.1447808512201434/1463603663955252/?type=1"><div class="fb-xfbml-parse-ignore"><blockquote cite="/OxlipHome/videos/1463603663955252/"><a href="/OxlipHome/videos/1463603663955252/">Smart Home for Everyone</a><p>Oxlip redefines Smart Home products. It is reliable, easy to install and available to everyone.</p>Posted by <a href="https://www.facebook.com/OxlipHome">Oxlip</a> on Friday, June 26, 2015</blockquote></div></div>
+            <div class="close" onClick="stopVideo();$('.overlay').fadeOut(); $('.vimeo-video').fadeOut()">x</div>
+            <div id="video-player"></div>
+            <div id="fb-page-container" style="display: none;position: absolute;margin-top: -50px;margin-left: -50px;top: 40%;left: 40%;">
+                <div class="close" id="fb-page-close"  onClick="$('#fb-page-container').fadeOut()">x</div>
+                <br>
+                <div id="fb-page" class="fb-page" data-href="https://www.facebook.com/OxlipHome" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/OxlipHome"><a href="https://www.facebook.com/OxlipHome">Oxlip</a></blockquote></div></div>
             </div>
         </div>
+
 
         <!-- screen loader start -->
         <div class="screen-loader"></div><!-- screen loader end -->
@@ -432,5 +444,50 @@
         <script type="text/javascript" src="{{=URL('static', 'soon/js/knob/knob.js')}}"></script>
         <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="{{=URL('static', 'soon/js/google-maps.js')}}"></script>
+        <script>
+          // 2. This code loads the IFrame Player API code asynchronously.
+          var tag = document.createElement('script');
+
+          tag.src = "https://www.youtube.com/iframe_api";
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+          // 3. This function creates an <iframe> (and YouTube player)
+          //    after the API code downloads.
+          var player;
+          function onYouTubeIframeAPIReady() {
+            player = new YT.Player('video-player', {
+              height: '100%',
+              width: '100%',
+              videoId: 'Ri0iPSCeqaw',
+              playerVars: {rel: 0},
+              events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+              }
+            });
+          }
+          // 4. The API will call this function when the video player is ready.
+          function onPlayerReady(event) {
+            //event.target.playVideo();
+          }
+
+          // 5. The API calls this function when the player's state changes.
+          //    The function indicates that when playing a video (state=1),
+          //    the player should play for six seconds and then stop.
+          var done = false;
+          function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+              //setTimeout(stopVideo, 6000);
+              done = true;
+            }
+              if (event.data == YT.PlayerState.ENDED) {
+                  $('#fb-page-container').fadeIn(1500);
+              }
+          }
+          function stopVideo() {
+            player.stopVideo();
+          }
+        </script>
     </body>
 </html>
