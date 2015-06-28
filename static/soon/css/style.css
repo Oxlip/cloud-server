@@ -36,7 +36,7 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic);
 @import url(//fonts.googleapis.com/css?family=Oswald:300,400,700);
 @import url(//fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic);
-
+@import url(http://fonts.googleapis.com/css?family=Squada+One);
 
 /* reset */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -387,6 +387,7 @@ line-height: 1;
 
 h4 {
 font-family: 'Oswald', sans-serif;
+/*font-family: 'Squada One', cursive;*/
 font-size: 13px;
 font-weight: 400;
 font-style: normal;
@@ -407,7 +408,7 @@ height: 100%;
 overflow: hidden;
 left: 0;
 top: 0;
-border: 15px solid rgba(0,0,0,0.5);
+/*border: 15px solid rgba(0,0,0,0.5);*/
 z-index: 0;
 }
 
@@ -1084,7 +1085,6 @@ width: 10px;
 height: 10px;
 margin: 0;
 padding: 0;
-background: url(../images/left-top.png) no-repeat;
 }
 
 .divider-right-top {
@@ -1095,7 +1095,6 @@ width: 10px;
 height: 10px;
 margin: 0;
 padding: 0;
-background: url(../images/right-top.png) no-repeat;
 }
 
 .divider-left-bottom {
@@ -1106,7 +1105,6 @@ width: 10px;
 height: 10px;
 margin: 0;
 padding: 0;
-background: url(../images/left-bottom.png) no-repeat;
 }
 
 .divider-right-bottom {
@@ -1117,7 +1115,6 @@ width: 10px;
 height: 10px;
 margin: 0;
 padding: 0;
-background: url(../images/right-bottom.png) no-repeat;
 }
 
 
@@ -1385,3 +1382,27 @@ overflow: hidden;
 	border-radius:50%;
 	cursor:pointer;
 }
+
+/* Styling for placeholder text */
+::-webkit-input-placeholder {
+   color: white;
+   font-style: italic;
+   font-weight: 200;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white; 
+    font-weight: 200; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;  
+   font-style: italic;
+    font-weight: 200;
+}
+
+:-ms-input-placeholder {  
+   color: white;
+   font-style: italic; 
+   font-weight: 200; 
+ }

@@ -31,7 +31,7 @@ color: #00bfff;
 }
 
 a:link, a:visited, a:active {
-color: #00bfff;
+color: #3FE632;
 }
 
 .curr {
@@ -129,12 +129,12 @@ color: #00bfff;
 
 
 #subscribe input#submit {
-background: #00bfff;
-border: 1px solid #00bfff;
+background: #3FE632;
+border: 1px solid #3FE632;
 }
 
 .subscribesuccess {
-color: #00bfff;
+color: #3FE632;
 }
 
 .options-head {
